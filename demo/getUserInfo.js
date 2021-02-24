@@ -1,14 +1,16 @@
 const { genshinKit } = require('../')
-const genshin = new genshinKit()
+const App = new genshinKit()
+const cookie = require('./secret.cookie') || ''
+const uid = require('./secret.uid') || 100000001
 
 /** 可以这样写 */
 // 登录
-genshin.loginWithCookie(require('./secret.cookie'))
+App.loginWithCookie(cookie)
 // 获取用户信息
-genshin.getUserInfo(100000001).then(console.log)
+App.getUserInfo(uid).then(console.log)
 
 /** 也可以这样写，偷懒.jpg */
-genshin
-  .loginWithCookie(require('./secret.cookie'))
-  .getUserInfo(100000001)
+App
+  .loginWithCookie(cookie)
+  .getUserInfo(uid)
   .then(console.log)

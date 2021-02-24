@@ -5,6 +5,7 @@ function genshinKit() {
   // Variables
   this.cookie = ''
   this.mhyVersion = '2.2.1'
+  this.userInfo = {}
 
   /**
    * @method loginWithCookie
@@ -63,16 +64,19 @@ function genshinKit() {
   }
 
   /**
-   * @method getInfo
+   * @function getUserInfo
    * @param {Number} uid
    */
-  this.getUserInfo = async function(uid) {
+  this.getUserInfo = async function(uid, force = false) {
+    // 是否有缓存信息
+    if (this.userInfo[uid] && !force) return this.userInfo[uid]
+
     // 处理 UID
-    if (!uid) return 'Invalid uid'
+    if (!uid) return new Error('Invalid uid', uid)
 
     let DS = this.getDS()
     let server = this.getServer(uid)
-    if (!server) return 'Invalid uid'
+    if (!server) return new Error('Invalid uid', uid)
 
     try {
       const { data } = await axios({
@@ -95,10 +99,130 @@ function genshinKit() {
         },
       })
       // console.log(data)
+      this.userInfo[uid] = data
       return data
     } catch (err) {
       return err
     }
+  }
+
+  /**
+   * @method getAllCharacters 获取玩家全部角色信息
+   * @param {Number} uid
+   * @return {Promise}
+   */
+  this.getAllCharacters = this.getCharacters = async function(uid) {
+    // 尝试读缓存
+    let userInfo = this.userInfo[uid]
+
+    // 无缓存，尝试获取
+    if (!userInfo && uid) {
+      userInfo = await this.getUserInfo(uid)
+    }
+
+    // 处理信息
+    if (userInfo.data && userInfo.data.avatars) {
+      return new Characters(userInfo.data.avatars)
+    } else {
+      return null
+    }
+  }
+}
+
+/**
+ * @method characters
+ * @param {Object} data
+ */
+function Characters(data) {
+  this.allCharacters = data
+
+  /**
+   * @function id/name 通过名称或id获取玩家指定角色的信息
+   * @param {Number} uid
+   * @param {String|Number} filter 角色名称或 id
+   * @return {Object|null} 角色信息或null
+   */
+  this.id = this.name = function(filter) {
+    // 解析查询的方式
+    let type = ''
+    if (typeof filter === 'number' || /^[0-9]$/g.test(filter)) {
+      type = 'byId'
+      filter = Number(filter)
+    } else if (typeof filter === 'string') {
+      type = 'byName'
+    } else {
+      return {}
+    }
+
+    switch (type) {
+      case 'byId':
+        for (item of this.allCharacters) {
+          if (item.id === filter) return item
+        }
+        break
+      case 'byName':
+        for (item of this.allCharacters) {
+          if (item.name === filter) return item
+        }
+        break
+    }
+
+    return null
+  }
+
+  /**
+   * @function element 通过指定元素筛选玩家的角色
+   */
+  this.element = function(element) {
+    if (!element || typeof element !== 'string') return []
+    element = element.toLocaleLowerCase()
+
+    // 中文名转换
+    let zhName = {
+      火: 'pyro',
+      水: 'hydro',
+      风: 'anemo',
+      雷: 'electro',
+      冰: 'cryo',
+      岩: 'geo',
+      草: '',
+    }
+    element = zhName[element] || element
+
+    let list = []
+    for (item of this.allCharacters) {
+      if (item.element.toLocaleLowerCase() === element) list.push(item)
+    }
+    return list
+  }
+
+  /**
+   * @function rarity
+   * @param {Array|Number} 4 或 5 或 [4, 5]
+   */
+  this.rarity = function(rarity) {
+    // 缓存
+    let queryRarity = []
+    let list = []
+
+    if (typeof rarity === 'number') {
+      queryRarity = [rarity]
+    } else if (rarity.constructor !== Array) {
+      return []
+    }
+
+    this.allCharacters.forEach(item => {
+      if (queryRarity.includes(item.rarity)) list.push(item)
+    })
+
+    return list
+  }
+
+  /**
+   * @function all
+   */
+  this.all = function() {
+    return this.allCharacters
   }
 }
 

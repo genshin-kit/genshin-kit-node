@@ -19,40 +19,55 @@ npm install genshin-kit
 
 一些完整的示例可以在`./demo`文件夹里找到
 
-### genshinKit `{Function}`
+### `genshinKit` {Function}
 
 **genshinKit** 实例。
 
 返回：**genshinKit**的应用实例。
+
+<details>
+<summary>构造示例</summary>
 
 ```js
 const { genshinKit } = require('genshin-kit')
 const App = new genshinKit()
 ```
 
-### App.loginWithToken(<cookie:string>) `{Function}`
+</details>
+
+### `App.loginWithToken(<cookie:string>)` {Function}
 
 使用米游社网站的 cookie 登录实例。
 
-> 使用网页版米游社登录 <https://bbs.mihoyo.com/ys/>，然后在控制台输入 `document.cookies`，返回的结果就是 cookies，一般来说一个 cookie 可以使用一段时间，如果失效了就再次获取一遍。
+> 使用网页版米游社登录 <https://bbs.mihoyo.com/ys/>，然后在控制台输入 `document.cookie`，返回的结果就是 cookie，一般来说一个 cookie 可以使用一段时间，如果失效了就再次获取一遍。
 
 > **⚠️ 注意 ⚠️**：请妥善保存您的 cookies。绝对不要把你的 cookies 交给任何人！绝对绝对不要把你的 cookies 交给任何人！！绝对绝对绝对不要把你的 cookies 交给任何人！！！
 
 返回：`this`
 
-### App.getUserInfo(<uid:number>) `{Function}`
+<details>
+<summary>使用示例</summary>
+
+```js
+App.loginWithToken(process.env.MHY_COOKIE)
+```
+
+</details>
+
+### `App.getUserInfo(<uid:number>)` {Function}
 
 使用 UID 查询玩家的游戏信息。
 
 返回：`Promise`
 
+<details>
+<summary>请求示例</summary>
+
 ```js
-// 请求示例
-genshin
-  .getUserInfo(100000001)
-  .then(console.log)
-  .catch(console.warn)
+App.getUserInfo(100000001).then(console.log)
 ```
+
+</details>
 
 <details>
 <summary>返回示例</summary>
@@ -66,13 +81,13 @@ genshin
     // 玩家拥有的角色
     avatars: [
       {
-        "id": 10000007,
-        "image": "https://upload-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_PlayerGirl.png",
-        "name": "旅行者",
-        "element": "Geo",
-        "fetter": 0,
-        "level": 1,
-        "rarity": 5
+        "id": 10000007, // 角色 id
+        "image": "https://upload-bbs.mihoyo.com/game_record/genshin/character_icon/UI_AvatarIcon_PlayerGirl.png", // 头图
+        "name": "旅行者", // 角色名称
+        "element": "Geo", // 元素
+        "fetter": 0, // 亲密度
+        "level": 1, // 等级
+        "rarity": 5 // 星级
       },
       // ...
     ],
@@ -111,11 +126,11 @@ genshin
     // 世界探索
     world_explorations: [
       {
-        "level": 1, // 声望等级
+        "level": 1, // 声望等级/供奉等级
         "exploration_percentage": 1000, // 探索度
         "icon": "https://upload-bbs.mihoyo.com/game_record/genshin/city_icon/UI_ChapterIcon_Dragonspine.png",
         "name": "龙脊雪山",
-        "type": "Offering"
+        "type": "Offering" // Reputation 声望 / Offering 供奉
       },
       {
         "level": 1,
@@ -137,3 +152,45 @@ genshin
 ```
 
 </details>
+
+### `App.getAllCharacters(<uid:number>)` {Function}
+
+通过 uid 获取角色信息。
+
+返回：`Characters<Promise>|null`
+
+#### `Characters.all()` {Function}
+
+获取特定玩家的全部角色列表。
+
+返回：`Object|null`
+
+#### `Characters.id(<id:number>)` {Function}
+
+获取特定玩家的指定 id 的角色信息。
+
+返回：`Object|null`
+
+#### `Characters.name(<name:string>)` {Function}
+
+获取特定玩家的指定名称的角色信息。
+
+返回：`Object|null`
+
+`name`：角色名称，必须是“简体中文”语言中的标准名称。
+
+#### `Characters.element(<element:string>)` {Function}
+
+获取特定玩家的指定元素的角色信息。
+
+返回：`Array`
+
+`element`：可以是中文或者英文，例如`火`和`pyro`都是可以接受的名称。
+
+#### `Characters.rarity(<rarity:number|number[]>)` {Function}
+
+获取特定玩家的指定稀有度的角色信息。
+
+返回：`Array`
+
+`rarity`：必须是数字或者数字组成的数组，例如`4`、`5`以及`[4, 5]`。
