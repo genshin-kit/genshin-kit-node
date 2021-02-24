@@ -1,7 +1,7 @@
 const { genshinKit } = require('../')
-
 const genshin = new genshinKit()
 
+// Login
 genshin.loginWithCookie(require('./secret.cookie'))
-
-genshin.getUserInfo(101257635).then(console.log)
+// Get user info
+genshin.getUserInfo(100000001).then(console.log)

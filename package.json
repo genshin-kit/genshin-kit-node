@@ -1,7 +1,7 @@
 {
   "name": "genshin-kit",
-  "version": "0.0.1",
-  "description": "Encapsulate the player information of Genshin China server",
+  "version": "0.0.2",
+  "description": "An API wrapper for fetching player data of Genshin-Impact CN server",
   "main": "index.js",
   "repository": "https://github.com/Dragon-Fish/genshin-kit.git",
   "author": "Dragon-Fish <824399619@qq.com>",
@@ -9,5 +9,9 @@
   "dependencies": {
     "axios": "^0.21.1",
     "crypto": "^1.0.1"
-  }
+  },
+  "keywords": [
+    "api",
+    "genshin-impact"
+  ]
 }
