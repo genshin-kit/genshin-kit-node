@@ -1,17 +1,21 @@
 # Genshin Kit
 
-An API wrapper for fetching player data of Genshin-Impact CN server
+一个用于获取《原神》国服玩家数据的 API 封装库。
+
+An API wrapper for fetching player data of Genshin-Impact CN server.
 
 ## 安装/Installation
 
 ```bash
+# Via yarn
 yarn add genshin-kit
-# Or npm install genshin-kit
+# Or via npm
+npm install genshin-kit
 ```
 
 ## 使用/Usage
 
-> Because it can only fetch data from CN servers at present, so I've written the docs in Chinese.
+> Because `genshin-kit` can only fetch data from CN servers at present, so I've written the docs in Chinese.
 
 一些完整的示例可以在`./demo`文件夹里找到
 
@@ -34,7 +38,7 @@ const App = new genshinKit()
 
 > **⚠️ 注意 ⚠️**：请妥善保存您的 cookies。绝对不要把你的 cookies 交给任何人！绝对绝对不要把你的 cookies 交给任何人！！绝对绝对绝对不要把你的 cookies 交给任何人！！！
 
-返回：`null`
+返回：`this`
 
 ### App.getUserInfo(<uid:number>) `{Function}`
 
@@ -44,14 +48,16 @@ const App = new genshinKit()
 
 ```js
 // 请求示例
-genshin.getUserInfo(100000001).then(console.log)
+genshin
+  .getUserInfo(100000001)
+  .then(console.log)
+  .catch(console.warn)
 ```
 
 <details>
 <summary>返回示例</summary>
 
 ```js
-// Return data
 {
   retcode: 0,
   message: 'OK',

@@ -12,6 +12,7 @@ function genshinKit() {
    */
   this.loginWithCookie = function(cookie) {
     if (cookie && typeof cookie === 'string') this.cookie = cookie
+    return this
   }
 
   /**
@@ -72,8 +73,6 @@ function genshinKit() {
     let DS = this.getDS()
     let server = this.getServer(uid)
     if (!server) return 'Invalid uid'
-
-    console.log({ uid, server, DS, cookie: this.cookie })
 
     try {
       const { data } = await axios({
