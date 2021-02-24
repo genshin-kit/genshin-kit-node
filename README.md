@@ -17,7 +17,7 @@ npm install genshin-kit
 
 > Because `genshin-kit` can only fetch data from CN servers at present, so I've written the docs in Chinese.
 
-一些完整的示例可以在`./demo`文件夹里找到
+一些完整的示例代码可以[点击这里](./demo)查看。
 
 ### `genshinKit` {Function}
 
@@ -155,9 +155,9 @@ App.getUserInfo(100000001).then(console.log)
 
 ### `App.getAllCharacters(<uid:number>)` {Function}
 
-通过 uid 获取角色信息。
+通过 uid 获取玩家的角色信息。
 
-返回：`Characters<Promise>|null`
+返回：`Characters<Promise>|null` 通过 Promi 返回一个 Characters 实例（我知道这样的写法很阴间，但是我想不到更优的方式……）
 
 #### `Characters.all()` {Function}
 
