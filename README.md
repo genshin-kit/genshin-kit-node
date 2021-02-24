@@ -13,6 +13,8 @@ yarn add genshin-kit
 
 > Because it can only fetch data from CN servers at present, so I've written the docs in Chinese.
 
+一些完整的示例可以在`./demo`文件夹里找到
+
 ### genshinKit `{Function}`
 
 **genshinKit** 实例。
@@ -29,14 +31,10 @@ const App = new genshinKit()
 使用米游社网站的 cookie 登录实例。
 
 > 使用网页版米游社登录 <https://bbs.mihoyo.com/ys/>，然后在控制台输入 `document.cookies`，返回的结果就是 cookies，一般来说一个 cookie 可以使用一段时间，如果失效了就再次获取一遍。
-> 注意：请妥善保存您的 cookies。绝对不要把你的 cookies 交给任何人！绝对绝对不要把你的 cookies 交给任何人！！绝对绝对绝对不要把你的 cookies 交给任何人！！！
+
+> **⚠️ 注意 ⚠️**：请妥善保存您的 cookies。绝对不要把你的 cookies 交给任何人！绝对绝对不要把你的 cookies 交给任何人！！绝对绝对绝对不要把你的 cookies 交给任何人！！！
 
 返回：`null`
-
-```js
-// 登录示例
-App.loginWithToken('')
-```
 
 ### App.getUserInfo(<uid:number>) `{Function}`
 
