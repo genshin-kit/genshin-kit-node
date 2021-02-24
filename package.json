@@ -1,0 +1,13 @@
+{
+  "name": "genshin-kit",
+  "version": "1.0.0-alpha.0",
+  "description": "Encapsulate the player information of Genshin China server",
+  "main": "index.js",
+  "repository": "https://github.com/Dragon-Fish/genshin-kit.git",
+  "author": "Dragon-Fish <824399619@qq.com>",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "crypto": "^1.0.1"
+  }
+}
