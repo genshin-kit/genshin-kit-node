@@ -254,3 +254,19 @@ App.getAllCharacters(100000001).then(
 ```
 
 </details>
+
+---
+
+_For communication and learning only._
+
+**All game data & pictures from query:** &copy;miHoYo
+
+**API endpoint:** Refer [Azure99/GenshinPlayerQuery](https://github.com/Azure99/GenshinPlayerQuery) (Apache-2.0 License)
+
+> Copyright 2021 机智的小鱼君
+>
+> Licensed under the Apache License, Version 2.0 (the "License");<br>
+> you may not use this file except in compliance with the License.<br>
+> You may obtain a copy of the License at
+>
+> http://www.apache.org/licenses/LICENSE-2.0
