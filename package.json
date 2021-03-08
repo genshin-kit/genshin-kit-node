@@ -12,5 +12,6 @@
   "keywords": [
     "api",
     "genshin-impact"
-  ]
+  ],
+  "devDependencies": {}
 }
