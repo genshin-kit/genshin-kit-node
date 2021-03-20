@@ -11,12 +11,12 @@ App.getAllCharacters(uid).then(
     // 用角色名称查询详情
     const diluke1 = Filter.name('迪卢克')
     if (diluke1) {
-      console.log('byId', `玩家 ${uid} 的迪卢克`, diluke1)
+      console.log('byName', `玩家 ${uid} 的迪卢克`, diluke1)
     } else {
       console.log(`玩家 ${uid} 没有迪卢克`)
     }
 
-    // 也可以用角色 id 查询
+    // // 也可以用角色 id 查询
     const diluke2 = Filter.id(10000016)
     if (diluke2) {
       console.log('byId', `玩家 ${uid} 的 ${diluke2.name}`, diluke2)

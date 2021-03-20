@@ -6,21 +6,20 @@ const crypto = require('crypto')
 module.exports = function() {
   // 生成随机字符串
   function randomString(e) {
-    let t = '0123456789abcdefghijklmnopqrstuvwxyz',
-      a = t.length,
-      n = ''
-    for (let i = 0; i < e; i++) n += t.charAt(Math.floor(Math.random() * a))
-    return n
+    let str = '0123456789abcdefghijklmnopqrstuvwxyz',
+      len = str.length,
+      final = ''
+    for (let i = 0; i < e; i++) final += str.charAt(Math.floor(Math.random() * len))
+    return final
   }
 
-  let n = 'pbcfcvnfsm5s2w4x3lsq8caor7v8nlqm'
+  let salt = 'h8w582wxwgqvahcdkpvdhbh2w9casgfl'
+  let time = Math.round(new Date().getTime() / 1000).toString()
+  let random = randomString(6)
 
-  let i = Math.round(new Date().getTime() / 1000).toString()
-
-  let r = randomString(6)
   let c = crypto
     .createHash('md5')
-    .update('salt=' + n + '&t=' + i + '&r=' + r)
+    .update('salt=' + salt + '&t=' + time + '&r=' + random)
     .digest('hex')
-  return i + ',' + r + ',' + c
+  return time + ',' + random + ',' + c
 }
