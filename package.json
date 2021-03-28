@@ -1,6 +1,6 @@
 {
   "name": "genshin-kit",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "An API wrapper for fetching player data of Genshin-Impact CN server",
   "main": "index.js",
   "repository": "https://github.com/Dragon-Fish/genshin-kit.git",

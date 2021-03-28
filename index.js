@@ -66,7 +66,7 @@ function GenshinKit() {
     const userInfo = await this.getUserInfo(uid)
     let character_ids = userInfo?.avatars || []
     // if (character_ids.length < 1) return []
-    character_ids = character_ids.map(item => {
+    character_ids = character_ids.map((item) => {
       return item.id
     })
     const { data } = await axios({
@@ -134,5 +134,6 @@ module.exports = {
   GenshinKit,
   util: {
     CharactersFilter: require('./util/CharactersFilter'),
+    isValidCnUid: require('./util/isValidCnUid'),
   },
 }

@@ -1,7 +1,6 @@
 const { GenshinKit } = require('../')
 const App = new GenshinKit()
-const cookie = require('./secret.cookie') || ''
-const uid = require('./secret.uid') || 100000001
+const { cookie, uid } = require('./secret')
 
 // 登录
 App.loginWithCookie(cookie)
