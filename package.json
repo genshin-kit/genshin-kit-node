@@ -2,16 +2,26 @@
   "name": "genshin-kit",
   "version": "0.4.2",
   "description": "An API wrapper for fetching player data of Genshin-Impact CN server",
-  "main": "index.js",
+  "main": "src/index.ts",
   "repository": "https://github.com/Dragon-Fish/genshin-kit.git",
   "author": "Dragon-Fish <824399619@qq.com>",
   "license": "Apache-2.0",
+  "scripts": {
+    "build": "ts-node -r ts-node/register src/index.ts",
+    "dev": "nodemon --exec ts-node -r tsconfig-paths/register src/index.ts",
+    "clear": "rm -rf ./lib ./dist ./**/dist ./src/*.js ./src/**/*.js ./src/**/*.js.map"
+  },
   "dependencies": {
-    "axios": "^0.21.1"
+    "axios": "^0.21.1",
+    "tslib": "^2.2.0",
+    "typescript": "^4.2.4"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.37",
+    "ts-node": "^9.1.1"
   },
   "keywords": [
     "api",
     "genshin-impact"
-  ],
-  "devDependencies": {}
+  ]
 }

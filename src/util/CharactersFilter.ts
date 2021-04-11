@@ -2,8 +2,16 @@
  * @method CharactersFilter
  * @param {Object} avatars UserRoles.data.avatars
  */
-module.exports = function(avatars) {
-  this.allCharacters = avatars
+import { Character } from '../types/Character'
+
+export default class {
+  allCharacters: Character[] = []
+  id: ((filter: number | string) => any) | undefined
+
+  constractor(avatars: Character[]) {
+    this.allCharacters = avatars
+    this.id = this.name
+  }
 
   /**
    * @function id/name 通过名称或id获取玩家指定角色的信息
@@ -11,7 +19,7 @@ module.exports = function(avatars) {
    * @param {String|Number} filter 角色名称或 id
    * @return {Object|null} 角色信息或null
    */
-  this.id = this.name = function(filter) {
+  name(filter: number | string): Character | null {
     // 解析查询的方式
     let type = ''
     if (typeof filter === 'number' || /^[0-9]$/g.test(filter)) {
@@ -20,17 +28,17 @@ module.exports = function(avatars) {
     } else if (typeof filter === 'string') {
       type = 'byName'
     } else {
-      return {}
+      return null
     }
 
     switch (type) {
       case 'byId':
-        for (item of this.allCharacters) {
+        for (const item of this.allCharacters) {
           if (item.id === filter) return item
         }
         break
       case 'byName':
-        for (item of this.allCharacters) {
+        for (const item of this.allCharacters) {
           if (item.name === filter) return item
         }
         break
@@ -42,12 +50,11 @@ module.exports = function(avatars) {
   /**
    * @function element 通过指定元素筛选玩家的角色
    */
-  this.element = function(element) {
-    if (!element || typeof element !== 'string') return []
-    element = element.toLocaleLowerCase()
+  element(el: string): Character[] {
+    el = el.toLocaleLowerCase()
 
     // 中文名转换
-    let elAlias = {
+    let elAlias: any = {
       火: 'pyro',
       fire: 'pyro',
       水: 'hydro',
@@ -63,11 +70,11 @@ module.exports = function(avatars) {
       草: '',
       grass: '',
     }
-    element = elAlias[element] || element
+    el = elAlias[el] || el
 
     let list = []
-    for (item of this.allCharacters) {
-      if (item.element.toLocaleLowerCase() === element) list.push(item)
+    for (const item of this.allCharacters) {
+      if (item.element.toLocaleLowerCase() === el) list.push(item)
     }
     return list
   }
@@ -76,10 +83,10 @@ module.exports = function(avatars) {
    * @function rarity
    * @param {Array|Number} 4 或 5 或 [4, 5]
    */
-  this.rarity = function(rarity) {
+  rarity(rarity: number | number[]): Character[] {
     // 缓存
-    let queryRarity = []
-    let list = []
+    let queryRarity: number[] = []
+    let list: Character[] = []
 
     if (typeof rarity === 'number') {
       queryRarity = [rarity]
@@ -87,7 +94,7 @@ module.exports = function(avatars) {
       return []
     }
 
-    this.allCharacters.forEach(item => {
+    this.allCharacters.forEach((item) => {
       if (queryRarity.includes(item.rarity)) list.push(item)
     })
 
@@ -97,7 +104,7 @@ module.exports = function(avatars) {
   /**
    * @function all
    */
-  this.all = function() {
+  all() {
     return this.allCharacters
   }
 }

@@ -1,4 +1,4 @@
-const { GenshinKit } = require('../')
+const { GenshinKit } = require('../lib/index')
 const App = new GenshinKit()
 const { cookie, uid } = require('./secret')
 

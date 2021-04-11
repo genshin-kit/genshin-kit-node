@@ -1,15 +1,16 @@
-const crypto = require('crypto')
+import crypto from 'crypto'
 
 /**
  * @function _getDS
  */
-module.exports = function() {
+export default function() {
   // 生成随机字符串
-  function randomString(e) {
+  function randomString(e: number) {
     let str = '0123456789abcdefghijklmnopqrstuvwxyz',
       len = str.length,
       final = ''
-    for (let i = 0; i < e; i++) final += str.charAt(Math.floor(Math.random() * len))
+    for (let i = 0; i < e; i++)
+      final += str.charAt(Math.floor(Math.random() * len))
     return final
   }
 
