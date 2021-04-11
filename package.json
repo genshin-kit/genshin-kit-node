@@ -1,12 +1,12 @@
 {
   "name": "genshin-kit",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0-alpha.1",
   "description": "An API wrapper for fetching player data of Genshin-Impact CN server",
   "main": "lib/index.ts",
   "files": [
     "lib"
   ],
-  "typings": "src/index.d.ts",
+  "typings": "lib/index.d.ts",
   "repository": "https://github.com/Dragon-Fish/genshin-kit.git",
   "author": "Dragon-Fish <824399619@qq.com>",
   "license": "Apache-2.0",
