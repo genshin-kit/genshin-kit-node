@@ -24,7 +24,7 @@ function formater({
 Promise.all([App.getCurrentAbyss(uid), App.getPreviousAbyss(uid)]).then(
   (data) => {
     const [cur, prev] = data
-    console.log(JSON.stringify(data))
+    // console.log(JSON.stringify(data))
     console.log('当期：', formater(cur))
     console.log('往期：', formater(prev))
   },
