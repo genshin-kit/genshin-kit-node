@@ -25,6 +25,7 @@ export class GenshinKit {
   cookie!: string
   getAbyss!: (uid: number, type?: number) => Promise<Abyss>
   getCharacters!: (uid: number) => Promise<Character[]>
+  getUserRoles: (uid: number) => Promise<Character[]>
   getCurAbyss!: (uid: number) => Promise<Abyss>
   getPrevAbyss!: (uid: number) => Promise<Abyss>
   gerUserRoles!: (uid: number) => Promise<Character[]>
@@ -46,6 +47,7 @@ export class GenshinKit {
     // Alias
     this.getAbyss = this.getSpiralAbyss
     this.getCharacters = this.getAllCharacters
+    this.getUserRoles = this.getAllCharacters
     this.getCurAbyss = this.getCurrentAbyss
     this.getPrevAbyss = this.getPreviousAbyss
     this.gerUserRoles = this.getAllCharacters

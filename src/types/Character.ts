@@ -10,6 +10,7 @@ export interface Character {
   rarity: number
   weapon?: Weapon
   reliquaries?: Reliquaries[]
+  constellations?: Constellations[]
 }
 
 // 武器
@@ -43,4 +44,13 @@ export interface Reliquaries {
       effect: string
     }[]
   }
+}
+
+export interface Constellations {
+  id: number
+  name: string
+  icon: string
+  effect: string
+  is_actived: boolean
+  pos: number
 }
