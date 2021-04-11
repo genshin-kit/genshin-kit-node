@@ -14,7 +14,8 @@ import _getServer from './module/_getServer'
 import request from './module/request'
 import CharactersFilter from './util/CharactersFilter'
 import isValidCnUid from './util/isValidCnUid'
-import { Method } from 'axios'
+import axios, { Method } from 'axios'
+import { stringify } from 'querystring'
 
 // Types
 import { Abyss } from './types/Abyss'
@@ -88,8 +89,6 @@ export class GenshinKit {
     return data.data
   }
 
-  async getCharacterDetails(id: number) {}
-
   /**
    * @function getAllCharacters
    * @param {Number} uid
@@ -118,6 +117,26 @@ export class GenshinKit {
       }
     } else {
       return data?.data?.avatars || []
+    }
+  }
+
+  getCharacterDetailsUrl(uid: number, id: number): string {
+    const server = this._getServer(uid)
+    return `https://webstatic.mihoyo.com/app/community-game-records/index.html?${stringify(
+      { bbs_presentation_style: 'fullscreen' }
+    )}#/ys/role?${stringify({
+      role_id: uid,
+      server: server,
+      id: id,
+    })}`
+  }
+
+  async getCharactersDetailsHtml(uid: number, id: number): Promise<string> {
+    const url = this.getCharacterDetailsUrl(uid, id)
+    try {
+      return (await axios.get(url)).data
+    } catch (err) {
+      throw { code: -1, message: err.message }
     }
   }
 

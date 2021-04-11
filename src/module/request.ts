@@ -4,7 +4,7 @@ export default async function(
   this: any,
   method: Method,
   url: string,
-  data: any
+  data?: any
 ) {
   return (
     await axios({
