@@ -14,7 +14,6 @@ import _getServer from './module/_getServer'
 import request from './module/request'
 import CharactersFilter from './util/CharactersFilter'
 import isValidCnUid from './util/isValidCnUid'
-import axios, { Method } from 'axios'
 import { stringify } from 'querystring'
 
 // Types
@@ -29,7 +28,6 @@ export class GenshinKit {
   getUserRoles: (uid: number) => Promise<Character[]>
   getCurAbyss!: (uid: number) => Promise<Abyss>
   getPrevAbyss!: (uid: number) => Promise<Abyss>
-  gerUserRoles!: (uid: number) => Promise<Character[]>
   _mhyVersion!: string
   _getHttpHeaders!: (this: any) => any
   _getDS!: () => string
@@ -46,12 +44,11 @@ export class GenshinKit {
     this.request = request
 
     // Alias
-    this.getAbyss = this.getSpiralAbyss
     this.getCharacters = this.getAllCharacters
     this.getUserRoles = this.getAllCharacters
+    this.getAbyss = this.getSpiralAbyss
     this.getCurAbyss = this.getCurrentAbyss
     this.getPrevAbyss = this.getPreviousAbyss
-    this.gerUserRoles = this.getAllCharacters
   }
 
   /**
@@ -66,7 +63,7 @@ export class GenshinKit {
   /**
    * @function getUserInfo
    * @param {Number} uid
-   * @returns {Promise<object>}
+   * @returns {Promise<UserInfo>}
    */
   async getUserInfo(uid: number): Promise<UserInfo> {
     let server = this._getServer(uid)
@@ -79,7 +76,6 @@ export class GenshinKit {
         role_id: uid,
       }
     )
-    // console.log(data.data)
     if (data.retcode !== 0 || !data.data) {
       throw {
         code: data.retcode,
@@ -92,7 +88,7 @@ export class GenshinKit {
   /**
    * @function getAllCharacters
    * @param {Number} uid
-   * @returns {Promise<object>}
+   * @returns {Promise<Character[]>}
    */
   async getAllCharacters(uid: number): Promise<Character[]> {
     const server = this._getServer(uid)
@@ -131,20 +127,11 @@ export class GenshinKit {
     })}`
   }
 
-  async getCharactersDetailsHtml(uid: number, id: number): Promise<string> {
-    const url = this.getCharacterDetailsUrl(uid, id)
-    try {
-      return (await axios.get(url)).data
-    } catch (err) {
-      throw { code: -1, message: err.message }
-    }
-  }
-
   /**
    * @function getSpiralAbyss
-   * @param {Numver} uid
-   * @param {Number<1|2>} type 1 cur, 2 prev
-   * @returns {Promise<object>}
+   * @param {Number} uid
+   * @param {1|2} type 1 cur, 2 prev
+   * @returns {Promise<Abyss>}
    */
   async getSpiralAbyss(uid: number, type: number = 1): Promise<Abyss> {
     if (type !== 1 && type !== 2) {
