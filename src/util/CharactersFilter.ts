@@ -8,7 +8,7 @@ export default class {
   allCharacters: Character[] = []
   id: ((filter: number | string) => any) | undefined
 
-  constractor(avatars: Character[]) {
+  constructor(avatars: Character[]) {
     this.allCharacters = avatars
     this.id = this.name
   }
