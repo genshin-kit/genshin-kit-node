@@ -1,4 +1,4 @@
-const { App, uid } = require('./')
+const { App, uid } = require('.')
 
 // 获取深渊信息
 function formater({

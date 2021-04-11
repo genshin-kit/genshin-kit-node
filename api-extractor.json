@@ -1,0 +1,10 @@
+/* api-extractor.json */
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/api-extractor/v7/api-extractor.schema.json",
+  "mainEntryPointFilePath": "./lib/index.d.ts",
+  "bundledPackages": [],
+  "dtsRollup": {
+    "enabled": true,
+    "untrimmedFilePath": "./lib/index.d.ts"
+  }
+}

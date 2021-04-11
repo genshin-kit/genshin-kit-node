@@ -16,10 +16,11 @@
     "outDir": "lib",
     "lib": ["es2020"],
     "typeRoots": ["./node_modules/@types", "./src/types"],
+    "declaration": true
     // "noImplicitThis": false
   },
   "include": [
-    "src/**/*.ts"
+    "src"
     // "tests/**/*.ts"
   ],
   "exclude": ["node_modules", "dist", "**/dist"]

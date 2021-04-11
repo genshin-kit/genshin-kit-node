@@ -28,10 +28,20 @@ export class GenshinKit {
   getCurAbyss!: (uid: number) => Promise<Abyss>
   getPrevAbyss!: (uid: number) => Promise<Abyss>
   gerUserRoles!: (uid: number) => Promise<Character[]>
+  _mhyVersion!: string
+  _getHttpHeaders!: (this: any) => any
+  _getDS!: () => string
+  _getServer!: (uid: number) => string
+  request!: (this: any, method: Method, url: string, data: any) => Promise<any>
 
-  constractor() {
+  constructor() {
     // Variables
     this.cookie = ''
+    this._mhyVersion = _mhyVersion
+    this._getHttpHeaders = _getHttpHeaders
+    this._getDS = _getDS
+    this._getServer = _getServer
+    this.request = request
 
     // Alias
     this.getAbyss = this.getSpiralAbyss
@@ -40,9 +50,6 @@ export class GenshinKit {
     this.getPrevAbyss = this.getPreviousAbyss
     this.gerUserRoles = this.getAllCharacters
   }
-
-  // Internal methods
-  // _mhyVersion = _mhyVersion
 
   /**
    * @method loginWithCookie
@@ -59,9 +66,9 @@ export class GenshinKit {
    * @returns {Promise<object>}
    */
   async getUserInfo(uid: number): Promise<UserInfo> {
-    let server = _getServer(uid)
+    let server = this._getServer(uid)
 
-    const data = await request(
+    const data = await this.request(
       'get',
       'https://api-takumi.mihoyo.com/game_record/genshin/api/index',
       {
@@ -87,13 +94,13 @@ export class GenshinKit {
    * @returns {Promise<object>}
    */
   async getAllCharacters(uid: number): Promise<Character[]> {
-    const server = _getServer(uid)
+    const server = this._getServer(uid)
     const userInfo = await this.getUserInfo(uid)
     const character_ids = userInfo.avatars.map((item) => {
       return item.id
     })
 
-    const data = await request(
+    const data = await this.request(
       'post',
       'https://api-takumi.mihoyo.com/game_record/genshin/api/character',
       {
@@ -122,9 +129,9 @@ export class GenshinKit {
     if (type !== 1 && type !== 2) {
       throw { code: -1, message: 'Invalid abyss type' }
     }
-    const server = _getServer(uid)
+    const server = this._getServer(uid)
 
-    const data = await request(
+    const data = await this.request(
       'get',
       'https://api-takumi.mihoyo.com/game_record/genshin/api/spiralAbyss',
       {
