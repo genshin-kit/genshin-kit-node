@@ -15,7 +15,8 @@
     "paths": {},
     "outDir": "lib",
     "lib": ["es2020"],
-    "typeRoots": ["./node_modules/@types", "./src/types"]
+    "typeRoots": ["./node_modules/@types", "./src/types"],
+    // "noImplicitThis": false
   },
   "include": [
     "src/**/*.ts"

@@ -12,6 +12,9 @@ import _getHttpHeaders from './module/_getHttpHeaders'
 import _getDS from './module/_getDS'
 import _getServer from './module/_getServer'
 import request from './module/request'
+import CharactersFilter from './util/CharactersFilter'
+import isValidCnUid from './util/isValidCnUid'
+import { Method } from 'axios'
 
 // Types
 import { Abyss } from './types/Abyss'
@@ -19,27 +22,16 @@ import { Character } from './types/Character'
 import { UserInfo } from './types/UserInfo'
 
 export class GenshinKit {
-  // 声明一下变量
-  cookie: string
-  _mhyVersion: string
-  _getHttpHeaders: () => any
-  _getDS: () => string
-  _getServer: (uid: number) => string
-  request: (method: 'get' | 'post', url: string, data: any) => Promise<any>
-  getAbyss: (uid: any, type?: number) => Promise<Abyss>
-  getCharacters: (uid: any) => Promise<Character[]>
-  getCurAbyss: (uid: any) => Promise<Abyss>
-  getPrevAbyss: (uid: any) => Promise<Abyss>
-  gerUserRoles: (uid: any) => Promise<Character[]>
+  cookie!: string
+  getAbyss!: (uid: number, type?: number) => Promise<Abyss>
+  getCharacters!: (uid: number) => Promise<Character[]>
+  getCurAbyss!: (uid: number) => Promise<Abyss>
+  getPrevAbyss!: (uid: number) => Promise<Abyss>
+  gerUserRoles!: (uid: number) => Promise<Character[]>
 
   constractor() {
     // Variables
     this.cookie = ''
-    this._mhyVersion = _mhyVersion
-    this._getHttpHeaders = _getHttpHeaders
-    this._getDS = _getDS
-    this._getServer = _getServer
-    this.request = request
 
     // Alias
     this.getAbyss = this.getSpiralAbyss
@@ -67,9 +59,9 @@ export class GenshinKit {
    * @returns {Promise<object>}
    */
   async getUserInfo(uid: number): Promise<UserInfo> {
-    let server = this._getServer(uid)
+    let server = _getServer(uid)
 
-    const data = await this.request(
+    const data = await request(
       'get',
       'https://api-takumi.mihoyo.com/game_record/genshin/api/index',
       {
@@ -87,21 +79,21 @@ export class GenshinKit {
     return data.data
   }
 
-  async getCharacterDetails(id) {}
+  async getCharacterDetails(id: number) {}
 
   /**
    * @function getAllCharacters
    * @param {Number} uid
    * @returns {Promise<object>}
    */
-  async getAllCharacters(uid): Promise<Character[]> {
-    const server = this._getServer(uid)
+  async getAllCharacters(uid: number): Promise<Character[]> {
+    const server = _getServer(uid)
     const userInfo = await this.getUserInfo(uid)
     const character_ids = userInfo.avatars.map((item) => {
       return item.id
     })
 
-    const data = await this.request(
+    const data = await request(
       'post',
       'https://api-takumi.mihoyo.com/game_record/genshin/api/character',
       {
@@ -126,13 +118,13 @@ export class GenshinKit {
    * @param {Number<1|2>} type 1 cur, 2 prev
    * @returns {Promise<object>}
    */
-  async getSpiralAbyss(uid, type = 1): Promise<Abyss> {
+  async getSpiralAbyss(uid: number, type: number = 1): Promise<Abyss> {
     if (type !== 1 && type !== 2) {
       throw { code: -1, message: 'Invalid abyss type' }
     }
-    const server = this._getServer(uid)
+    const server = _getServer(uid)
 
-    const data = await this.request(
+    const data = await request(
       'get',
       'https://api-takumi.mihoyo.com/game_record/genshin/api/spiralAbyss',
       {
@@ -151,20 +143,17 @@ export class GenshinKit {
   /**
    * @function getCurrentAbyss
    */
-  async getCurrentAbyss(uid) {
+  async getCurrentAbyss(uid: number) {
     return this.getSpiralAbyss(uid, 1)
   }
 
   /**
    * @function getPreviousAbyss
    */
-  async getPreviousAbyss(uid) {
+  async getPreviousAbyss(uid: number) {
     return this.getSpiralAbyss(uid, 2)
   }
 }
-
-import CharactersFilter from './util/CharactersFilter'
-import isValidCnUid from './util/isValidCnUid'
 
 export const name = 'genshin-kit'
 export const util = {

@@ -2,7 +2,7 @@
  * @function _getHttpHeaders
  * @returns
  */
-export default function(): any {
+export default function(this: any): any {
   return {
     DS: require('./_getDS')(),
     Origin: 'https://webstatic.mihoyo.com',
