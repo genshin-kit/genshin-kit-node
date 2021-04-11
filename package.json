@@ -1,8 +1,8 @@
 {
   "name": "genshin-kit",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-alpha.3",
   "description": "An API wrapper for fetching player data of Genshin-Impact CN server",
-  "main": "lib/index.ts",
+  "main": "lib/index.js",
   "files": [
     "lib"
   ],
