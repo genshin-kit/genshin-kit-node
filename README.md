@@ -1,4 +1,8 @@
-# Genshin Kit
+# GenshinKit 原神工具包
+
+![](https://badgen.net/npm/v/genshin-kit) ![](https://badgen.net/npm/v/genshin-kit/next) ![](https://badgen.net/npm/types/genshin-kit) ![](https://badgen.net/npm/license/genshin-kit)
+
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/Dragon-Fish/genshin-kit.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Dragon-Fish/genshin-kit/alerts/) [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/Dragon-Fish/genshin-kit.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Dragon-Fish/genshin-kit/context:javascript)
 
 一个用于获取《原神》国服玩家数据的 API 封装库。An API wrapper for fetching player data of Genshin-Impact CN server.
 
