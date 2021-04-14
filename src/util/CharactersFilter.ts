@@ -4,7 +4,7 @@
  */
 import { Character } from '../types/Character'
 
-class CharactersFilter {
+export class CharactersFilter {
   allCharacters: Character[] = []
   id: (filter: number | string) => Character | null
 
@@ -94,7 +94,7 @@ class CharactersFilter {
       return []
     }
 
-    this.allCharacters.forEach(item => {
+    this.allCharacters.forEach((item) => {
       if (queryRarity.includes(item.rarity)) list.push(item)
     })
 
@@ -108,5 +108,3 @@ class CharactersFilter {
     return this.allCharacters
   }
 }
-
-export { CharactersFilter }
