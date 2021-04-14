@@ -6,35 +6,47 @@
  * @license Apache-2.0
  */
 
+// Name
+export const name = 'genshin-kit'
+
 // Modules
 import _mhyVersion from './module/_mhyVersion'
 import _getHttpHeaders from './module/_getHttpHeaders'
 import _getDS from './module/_getDS'
 import _getServer from './module/_getServer'
 import request from './module/request'
-import CharactersFilter from './util/CharactersFilter'
-import isValidCnUid from './util/isValidCnUid'
+export * as util from './util'
 import { stringify } from 'querystring'
 
 // Types
-import { Abyss } from './types/Abyss'
-import { Character } from './types/Character'
-import { UserInfo } from './types/UserInfo'
+import { Abyss, Character, UserInfo } from './types'
+export type AppCache = {
+  [K in number]: {
+    abyss?: { 1?: Abyss; 2?: Abyss }
+    avatars?: Character[]
+    info?: UserInfo
+    roles?: Character[]
+  }
+}
 
 export class GenshinKit {
+  _cache!: AppCache
   cookie!: string
-  getAbyss!: (uid: number, type?: number) => Promise<Abyss>
-  getCharacters!: (uid: number) => Promise<Character[]>
-  getUserRoles: (uid: number) => Promise<Character[]>
-  getCurAbyss!: (uid: number) => Promise<Abyss>
-  getPrevAbyss!: (uid: number) => Promise<Abyss>
-  _mhyVersion!: string
-  _getHttpHeaders!: (this: any) => any
-  _getDS!: () => string
-  _getServer!: (uid: number) => string
-  request!: (this: any, method: Method, url: string, data: any) => Promise<any>
+  getCharacters: (uid: number, noCache?: boolean) => Promise<Character[]>
+  getUserRoles: (uid: number, noCache?: boolean) => Promise<Character[]>
+  getAbyss: (uid: number, type?: 1 | 2, noCache?: boolean) => Promise<Abyss>
+  getCurAbyss: (uid: number, noCache?: boolean) => Promise<Abyss>
+  getPrevAbyss: (uid: number, noCache?: boolean) => Promise<Abyss>
+  _mhyVersion!: typeof _mhyVersion
+  _getHttpHeaders!: typeof _getHttpHeaders
+  _getDS!: typeof _getDS
+  _getServer!: typeof _getServer
+  request!: typeof request
 
   constructor() {
+    // Cache
+    this._cache = {}
+
     // Variables
     this.cookie = ''
     this._mhyVersion = _mhyVersion
@@ -65,8 +77,13 @@ export class GenshinKit {
    * @param {Number} uid
    * @returns {Promise<UserInfo>}
    */
-  async getUserInfo(uid: number): Promise<UserInfo> {
-    let server = this._getServer(uid)
+  async getUserInfo(uid: number, noCache = false): Promise<UserInfo> {
+    const temp = this._cache?.[uid]?.info
+    if (temp && !noCache) {
+      return temp
+    }
+
+    const server = this._getServer(uid)
 
     const data = await this.request(
       'get',
@@ -82,6 +99,10 @@ export class GenshinKit {
         message: data.message,
       }
     }
+    this._cache[uid] = {
+      ...this._cache[uid],
+      info: data.data,
+    }
     return data.data
   }
 
@@ -90,7 +111,12 @@ export class GenshinKit {
    * @param {Number} uid
    * @returns {Promise<Character[]>}
    */
-  async getAllCharacters(uid: number): Promise<Character[]> {
+  async getAllCharacters(uid: number, noCache = false): Promise<Character[]> {
+    const temp = this._cache?.[uid]?.roles
+    if (temp && !noCache) {
+      return temp
+    }
+
     const server = this._getServer(uid)
     const userInfo = await this.getUserInfo(uid)
     const character_ids = userInfo.avatars.map((item) => {
@@ -112,6 +138,10 @@ export class GenshinKit {
         message: data.message,
       }
     } else {
+      this._cache[uid] = {
+        ...this._cache[uid],
+        roles: data?.data?.avatars,
+      }
       return data?.data?.avatars || []
     }
   }
@@ -133,10 +163,20 @@ export class GenshinKit {
    * @param {1|2} type 1 cur, 2 prev
    * @returns {Promise<Abyss>}
    */
-  async getSpiralAbyss(uid: number, type: number = 1): Promise<Abyss> {
+  async getSpiralAbyss(
+    uid: number,
+    type: 1 | 2 = 1,
+    noCache = false
+  ): Promise<Abyss> {
     if (type !== 1 && type !== 2) {
       throw { code: -1, message: 'Invalid abyss type' }
     }
+
+    const temp = this._cache?.[uid]?.abyss?.[type]
+    if (temp && !noCache) {
+      return temp
+    }
+
     const server = this._getServer(uid)
 
     const data = await this.request(
@@ -151,6 +191,11 @@ export class GenshinKit {
     if (data.retcode !== 0 || !data.data) {
       throw { code: data.retcode, message: data.message }
     } else {
+      this._cache[uid] = this._cache[uid] || {}
+      this._cache[uid].abyss = {
+        ...this._cache[uid].abyss,
+        [type]: data.data,
+      }
       return data.data
     }
   }
@@ -158,20 +203,14 @@ export class GenshinKit {
   /**
    * @function getCurrentAbyss
    */
-  async getCurrentAbyss(uid: number) {
-    return this.getSpiralAbyss(uid, 1)
+  async getCurrentAbyss(uid: number, noCache?: boolean): Promise<Abyss> {
+    return this.getSpiralAbyss(uid, 1, noCache)
   }
 
   /**
    * @function getPreviousAbyss
    */
-  async getPreviousAbyss(uid: number) {
-    return this.getSpiralAbyss(uid, 2)
+  async getPreviousAbyss(uid: number, noCache?: boolean): Promise<Abyss> {
+    return this.getSpiralAbyss(uid, 2, noCache)
   }
-}
-
-export const name = 'genshin-kit'
-export const util = {
-  CharactersFilter,
-  isValidCnUid,
 }

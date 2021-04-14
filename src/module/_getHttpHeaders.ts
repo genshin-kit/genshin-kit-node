@@ -5,7 +5,7 @@ import _mhyVersion from './_mhyVersion'
  * @function _getHttpHeaders
  * @returns
  */
-export default function(this: any): any {
+export default function (this: any): any {
   return {
     DS: _getDS(),
     Origin: 'https://webstatic.mihoyo.com',
