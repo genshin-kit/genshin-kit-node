@@ -1,11 +1,11 @@
 const { GenshinKit } = require('../lib/index')
 const App = new GenshinKit()
-const { cookie, uid } = require('./secret')
+const secret = require('./secret')
 
 // 登录
-App.loginWithCookie(cookie)
+App.loginWithCookie(secret.cookie)
 
 module.exports = {
   App,
-  uid,
+  ...secret,
 }

@@ -81,7 +81,7 @@ App.getUserInfo(100000001).then(console.log)
 
 通过 UID 获取玩家详细的角色信息。包括角色的装备情况。
 
-返回：[Character](./src/types/Character.ts)
+返回：[Character[]](./src/types/Character.ts)
 
 ## `App.getSpiralAbyss(uid: number, type?: 1 | 2, noCache?: boolean): Promise<Abyss>`
 
