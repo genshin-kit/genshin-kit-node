@@ -4,9 +4,9 @@
  */
 import { Character } from '../types/Character'
 
-export default class {
+export class CharactersFilter {
   allCharacters: Character[] = []
-  id: ((filter: number | string) => any) | undefined
+  id: (filter: number | string) => Character | null
 
   constructor(avatars: Character[]) {
     this.allCharacters = avatars
@@ -54,7 +54,7 @@ export default class {
     el = el.toLocaleLowerCase()
 
     // 中文名转换
-    let elAlias: any = {
+    const elAlias: Record<string, string> = {
       火: 'pyro',
       fire: 'pyro',
       水: 'hydro',
@@ -72,7 +72,7 @@ export default class {
     }
     el = elAlias[el] || el
 
-    let list = []
+    const list = []
     for (const item of this.allCharacters) {
       if (item.element.toLocaleLowerCase() === el) list.push(item)
     }
@@ -86,7 +86,7 @@ export default class {
   rarity(rarity: number | number[]): Character[] {
     // 缓存
     let queryRarity: number[] = []
-    let list: Character[] = []
+    const list: Character[] = []
 
     if (typeof rarity === 'number') {
       queryRarity = [rarity]
@@ -104,7 +104,7 @@ export default class {
   /**
    * @function all
    */
-  all() {
+  all(): Character[] {
     return this.allCharacters
   }
 }

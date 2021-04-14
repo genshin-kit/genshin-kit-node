@@ -1,4 +1,4 @@
-export default (uid: any): boolean => {
+export function isValidCnUid(uid: any): boolean {
   const uidNum: number = parseInt(uid)
   if (
     !isNaN(uidNum) &&

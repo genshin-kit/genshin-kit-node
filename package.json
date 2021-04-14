@@ -1,6 +1,6 @@
 {
   "name": "genshin-kit",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "An API wrapper for fetching player data of Genshin-Impact CN server",
   "main": "lib/index.js",
   "files": [
@@ -11,10 +11,12 @@
   "author": "Dragon-Fish <824399619@qq.com>",
   "license": "Apache-2.0",
   "scripts": {
-    "start": "yarn clear && yarn build && yarn bump",
-    "build": "tsc",
+    "build": "yarn clear && tsc",
     "dev": "tsc --watch",
-    "clear": "wsl rm -rf ./lib ./dist ./**/dist"
+    "clear": "wsl rm -rf ./lib ./dist ./**/dist",
+    "bump": "yarn lint && yarn build && bump",
+    "lint": "eslint src/*.ts src/**/*.ts",
+    "pretty": "eslint --fix src/*.ts src/**/*.ts"
   },
   "dependencies": {
     "axios": "^0.21.1",
@@ -22,10 +24,12 @@
     "tslib": "^2.2.0"
   },
   "devDependencies": {
-    "@dragon-fish/bump": "^0.0.13",
+    "@dragon-fish/bump": "^0.0.14",
     "@microsoft/api-extractor": "^7.13.4",
     "@types/node": "^14.14.37",
-    "nodemon": "^2.0.7",
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
+    "eslint": "^7.24.0",
     "typescript": "^4.2.4"
   },
   "keywords": [

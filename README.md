@@ -45,7 +45,7 @@ const App = new GenshinKit()
 
 </details>
 
-## `App.loginWithToken(<cookie:string>): this`
+## `App.loginWithToken(cookie: string): this`
 
 使用米游社网站的 cookie 登录实例。
 
@@ -62,7 +62,7 @@ App.loginWithToken(process.env.MHY_COOKIE)
 
 </details>
 
-## `App.getUserInfo(<uid:number>): Promise<UserInfo>`
+## `App.getUserInfo(uid: number, noCache?: boolean): Promise<UserInfo>`
 
 使用 UID 查询玩家的游戏基础信息。
 
@@ -77,14 +77,13 @@ App.getUserInfo(100000001).then(console.log)
 
 </details>
 
-## `App.getAllCharacters(<uid:number>): Promise<Character[]>`
+## `App.getAllCharacters(uid: number, noCache?: boolean): Promise<Character[]>`
 
 通过 UID 获取玩家详细的角色信息。包括角色的装备情况。
 
 返回：[Character](./src/types/Character.ts)
 
-
-## `App.getSpiralAbyss(<uid:number>[, type:number<1|2>]): Promise<Abyss>`
+## `App.getSpiralAbyss(uid: number, type?: 1 | 2, noCache?: boolean): Promise<Abyss>`
 
 根据 UID 获取“深境螺旋”信息。
 
@@ -102,15 +101,15 @@ App.getUserInfo(100000001).then(console.log)
 const { util } = require('genshin-kit')
 ```
 
-## `util.isValidCnUid(<uid:any>): boolean` uid 验证工具
+## `util.getTheActivedConstellationsNumberOfSpecifiedGenshinImpactCharacter(character: Character): number` 获取角色的命座数
 
-判断输入值是否为合法的国服 uid。
+好吧，其实用`util.activedConstellations`就行了，~~这里巨 TM 长的方法名是作者和朋友探讨这个方法该如何命名时的恶趣味。~~
 
-## `util.CharactersFilter(<data:object>)` {class} 角色筛选工具
+返回指定角色的命座数量。
+
+## `util.CharactersFilter(characters: Character[])` {class} 角色筛选工具
 
 一个角色筛选工具类。封装了一系列过滤角色信息的方法。
-
-- `data` _getAllCharacters_ 返回的角色数据
 
 返回：`Filter`类
 
@@ -119,13 +118,10 @@ const { util } = require('genshin-kit')
 
 ```js
 const { CharactersFilter } = require('genshin-kit').util
-App.getAllCharacters(100000001).then(
-  data => {
-    const Filter = new CharactersFilter(data)
-    // ...
-  },
-  console.error
-)
+App.getAllCharacters(100000001).then((data) => {
+  const Filter = new CharactersFilter(data)
+  // ...
+}, console.error)
 ```
 
 </details>
@@ -134,27 +130,31 @@ App.getAllCharacters(100000001).then(
 
 获取特定玩家的全部角色列表。
 
-### `Filter.id(<id:number>): Character | null`
+### `Filter.id(id: number): Character | null`
 
 获取特定玩家的指定 id 的角色信息。
 
-### `Filter.name(<name:string>): Character | null`
+### `Filter.name(name: string): Character | null`
 
 获取特定玩家的指定名称的角色信息。
 
 `name`：角色名称，必须是“简体中文”语言中的标准名称。
 
-### `Filter.element(<element:string>): Character[]`
+### `Filter.element(element: string): Character[]`
 
 获取特定玩家的指定元素的角色信息。
 
 `element`：可以是中文或者英文，例如`火`和`pyro`都是可以接受的名称。
 
-### `Filter.rarity(<rarity:number | number[]>): Character[]`
+### `Filter.rarity(rarity: number | number[]): Character[]`
 
 获取特定玩家的指定稀有度的角色信息。
 
 `rarity`：必须是数字或者数字组成的数组，例如`4`、`5`以及`[4, 5]`。
+
+## `util.isValidCnUid(uid: any): boolean` 国服 uid 验证工具
+
+判断输入值是否为合法的国服 uid。
 
 ---
 
