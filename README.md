@@ -107,11 +107,9 @@ const { util } = require('genshin-kit')
 
 返回指定角色的命座数量。
 
-## `util.CharactersFilter(<data:object>)` {class} 角色筛选工具
+## `util.CharactersFilter(characters: Character[])` {class} 角色筛选工具
 
 一个角色筛选工具类。封装了一系列过滤角色信息的方法。
-
-- `data` _getAllCharacters_ 返回的角色数据
 
 返回：`Filter`类
 
@@ -132,29 +130,29 @@ App.getAllCharacters(100000001).then((data) => {
 
 获取特定玩家的全部角色列表。
 
-### `Filter.id(<id:number>): Character | null`
+### `Filter.id(id: number): Character | null`
 
 获取特定玩家的指定 id 的角色信息。
 
-### `Filter.name(<name:string>): Character | null`
+### `Filter.name(name: string): Character | null`
 
 获取特定玩家的指定名称的角色信息。
 
 `name`：角色名称，必须是“简体中文”语言中的标准名称。
 
-### `Filter.element(<element:string>): Character[]`
+### `Filter.element(element: string): Character[]`
 
 获取特定玩家的指定元素的角色信息。
 
 `element`：可以是中文或者英文，例如`火`和`pyro`都是可以接受的名称。
 
-### `Filter.rarity(<rarity:number | number[]>): Character[]`
+### `Filter.rarity(rarity: number | number[]): Character[]`
 
 获取特定玩家的指定稀有度的角色信息。
 
 `rarity`：必须是数字或者数字组成的数组，例如`4`、`5`以及`[4, 5]`。
 
-## `util.isValidCnUid(<uid:any>): boolean` 国服 uid 验证工具
+## `util.isValidCnUid(uid: any): boolean` 国服 uid 验证工具
 
 判断输入值是否为合法的国服 uid。
 
