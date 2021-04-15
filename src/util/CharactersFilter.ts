@@ -67,8 +67,8 @@ export class CharactersFilter {
       ice: 'cryo',
       岩: 'geo',
       rock: 'geo',
-      草: '',
-      grass: '',
+      草: 'dendro',
+      grass: 'dendro',
     }
     el = elAlias[el] || el
 
