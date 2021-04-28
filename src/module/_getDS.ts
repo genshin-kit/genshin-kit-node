@@ -14,7 +14,7 @@ export default function (): string {
     return final
   }
 
-  const salt = 'h8w582wxwgqvahcdkpvdhbh2w9casgfl'
+  const salt = '14bmu1mz0yuljprsfgpvjh3ju2ni468r'
   const time = Math.round(new Date().getTime() / 1000).toString()
   const random = randomString(6)
 
