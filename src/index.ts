@@ -156,7 +156,6 @@ export class GenshinKit {
       id: id,
     })}`
   }
-
   /**
    * @function getSpiralAbyss
    * @param {Number} uid

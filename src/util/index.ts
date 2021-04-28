@@ -1,5 +1,5 @@
 export * from './CharactersFilter'
-export * from './characterIdList'
+export * from './getItemIds'
 export * from './characterNickname'
 export * from './activedConstellations'
 export * from './isValidCnUid'
