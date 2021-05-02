@@ -47,6 +47,7 @@ export interface Reliquaries {
   }
 }
 
+// 命座
 export interface Constellations {
   id: number
   name: string
