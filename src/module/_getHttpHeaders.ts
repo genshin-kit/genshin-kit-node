@@ -1,5 +1,3 @@
-import { _getDS } from './_getDS'
-
 /**
  * @function _getHttpHeaders
  * @returns
@@ -11,7 +9,7 @@ export function _getHttpHeaders(this: any): any {
     case 'cn':
     default:
       return {
-        DS: _getDS(),
+        DS: this._getDS(),
         Origin: 'https://webstatic.mihoyo.com',
         'x-rpc-app_version': this._hoyolabVersion(),
         'User-Agent':
