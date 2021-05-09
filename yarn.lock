@@ -23,10 +23,10 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@dragon-fish/bump@^0.0.14":
-  version "0.0.14"
-  resolved "https://registry.npmjs.org/@dragon-fish/bump/-/bump-0.0.14.tgz#5b7e7ed1a35d48bf975b49502987f5f7a8776f3d"
-  integrity sha512-hcjZfcfuMSBoN/VGnf9n1ZWNBURJIX2vn1aBfWUwsk8JhsBylwYReNQKAls6BOpnKmofW6zdj8HqjXdLGuk73Q==
+"@dragon-fish/bump@^0.0.15":
+  version "0.0.15"
+  resolved "https://registry.npmjs.org/@dragon-fish/bump/-/bump-0.0.15.tgz#b04e9e3e3be11b8166228fc14da427c18386dfb8"
+  integrity sha512-ObYvwi0vNhKZ1eerSpOK6ThfIF4bruzLxuc74joC4ag9uc3VocKHzVqdzIlWKh43dTwmdEisawOOJ/iobI/70A==
   dependencies:
     axios "^0.21.1"
     commander "^7.1.0"
