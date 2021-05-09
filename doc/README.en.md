@@ -1,6 +1,6 @@
 # GenshinKit
 
-[简体中文](./README.md) | [English](./doc/README.en.md)
+[简体中文](./../README.md) | [English](./README.en.md)
 
 ![](https://badgen.net/npm/v/genshin-kit) ![](https://badgen.net/npm/v/genshin-kit/next) ![](https://badgen.net/npm/types/genshin-kit) ![](https://badgen.net/npm/license/genshin-kit)
 
