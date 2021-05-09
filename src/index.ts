@@ -14,7 +14,7 @@ import { _getApiEndpoint } from './module/_getApiEndpoint'
 import { _getDS } from './module/_getDS'
 import { _getHttpHeaders } from './module/_getHttpHeaders'
 import { _getServer } from './module/_getServer'
-import { _mhyVersion } from './module/_mhyVersion'
+import { _hoyolabVersion } from './module/_hoyolabVersion'
 import request from './module/request'
 export * as util from './util'
 import { stringify } from 'querystring'
@@ -35,7 +35,7 @@ export class GenshinKit {
   cookie!: string
   serverType!: 'cn' | 'sea'
   _getApiEndpoint: typeof _getApiEndpoint
-  _mhyVersion!: typeof _mhyVersion
+  _hoyolabVersion!: typeof _hoyolabVersion
   _getHttpHeaders!: typeof _getHttpHeaders
   _getDS!: typeof _getDS
   _getServer!: typeof _getServer
@@ -56,7 +56,7 @@ export class GenshinKit {
     this._getDS = _getDS
     this._getHttpHeaders = _getHttpHeaders
     this._getServer = _getServer
-    this._mhyVersion = _mhyVersion
+    this._hoyolabVersion = _hoyolabVersion
     this.request = request
     this.serverType = 'cn'
 
