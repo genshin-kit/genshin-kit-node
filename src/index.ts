@@ -1,6 +1,6 @@
 /**
  * @name GenshinKit
- * @desc An API wrapper for fetching player data of Genshin-Impact CN server
+ * @desc An API wrapper for fetching player data of Genshin Impact
  *
  * @author 机智的小鱼君 <dragon-fish@qq.com>
  * @license Apache-2.0
@@ -10,10 +10,11 @@
 export const name = 'genshin-kit'
 
 // Modules
-import _mhyVersion from './module/_mhyVersion'
-import _getHttpHeaders from './module/_getHttpHeaders'
-import _getDS from './module/_getDS'
-import _getServer from './module/_getServer'
+import { _getApiEndpoint } from './module/_getApiEndpoint'
+import { _getDS } from './module/_getDS'
+import { _getHttpHeaders } from './module/_getHttpHeaders'
+import { _getServer } from './module/_getServer'
+import { _mhyVersion } from './module/_mhyVersion'
 import request from './module/request'
 export * as util from './util'
 import { stringify } from 'querystring'
@@ -32,16 +33,18 @@ export type AppCache = {
 export class GenshinKit {
   _cache!: AppCache
   cookie!: string
-  getCharacters: (uid: number, noCache?: boolean) => Promise<Character[]>
-  getUserRoles: (uid: number, noCache?: boolean) => Promise<Character[]>
-  getAbyss: (uid: number, type?: 1 | 2, noCache?: boolean) => Promise<Abyss>
-  getCurAbyss: (uid: number, noCache?: boolean) => Promise<Abyss>
-  getPrevAbyss: (uid: number, noCache?: boolean) => Promise<Abyss>
+  serverType!: 'cn' | 'sea'
+  _getApiEndpoint: typeof _getApiEndpoint
   _mhyVersion!: typeof _mhyVersion
   _getHttpHeaders!: typeof _getHttpHeaders
   _getDS!: typeof _getDS
   _getServer!: typeof _getServer
   request!: typeof request
+  getCharacters: (uid: number, noCache?: boolean) => Promise<Character[]>
+  getUserRoles: (uid: number, noCache?: boolean) => Promise<Character[]>
+  getAbyss: (uid: number, type?: 1 | 2, noCache?: boolean) => Promise<Abyss>
+  getCurAbyss: (uid: number, noCache?: boolean) => Promise<Abyss>
+  getPrevAbyss: (uid: number, noCache?: boolean) => Promise<Abyss>
 
   constructor() {
     // Cache
@@ -49,11 +52,13 @@ export class GenshinKit {
 
     // Variables
     this.cookie = ''
-    this._mhyVersion = _mhyVersion
-    this._getHttpHeaders = _getHttpHeaders
+    this._getApiEndpoint = _getApiEndpoint
     this._getDS = _getDS
+    this._getHttpHeaders = _getHttpHeaders
     this._getServer = _getServer
+    this._mhyVersion = _mhyVersion
     this.request = request
+    this.serverType = 'cn'
 
     // Alias
     this.getCharacters = this.getAllCharacters
@@ -73,6 +78,16 @@ export class GenshinKit {
   }
 
   /**
+   * 
+   * @param type Server type: cn => China server, sea => International server
+   */
+  setServerType(type: 'cn' | 'sea') {
+    if (!['cn', 'sea'].includes(type))
+      throw { code: -1, message: 'No Such Server Type' }
+    this.serverType = type
+  }
+
+  /**
    * @function getUserInfo
    * @param {Number} uid
    * @returns {Promise<UserInfo>}
@@ -85,23 +100,19 @@ export class GenshinKit {
 
     const server = this._getServer(uid)
 
-    const data = await this.request(
-      'get',
-      'https://api-takumi.mihoyo.com/game_record/genshin/api/index',
-      {
-        server,
-        role_id: uid,
-      }
-    )
+    const data = await this.request('get', 'index', {
+      server,
+      role_id: uid
+    })
     if (data.retcode !== 0 || !data.data) {
       throw {
         code: data.retcode,
-        message: data.message,
+        message: data.message
       }
     }
     this._cache[uid] = {
       ...this._cache[uid],
-      info: data.data,
+      info: data.data
     }
     return data.data
   }
@@ -123,24 +134,20 @@ export class GenshinKit {
       return item.id
     })
 
-    const data = await this.request(
-      'post',
-      'https://api-takumi.mihoyo.com/game_record/genshin/api/character',
-      {
-        server,
-        role_id: uid,
-        character_ids,
-      }
-    )
+    const data = await this.request('post', 'character', {
+      server,
+      role_id: uid,
+      character_ids
+    })
     if (data.retcode !== 0 || !data.data) {
       throw {
         code: data.retcode,
-        message: data.message,
+        message: data.message
       }
     } else {
       this._cache[uid] = {
         ...this._cache[uid],
-        roles: data?.data?.avatars,
+        roles: data?.data?.avatars
       }
       return data?.data?.avatars || []
     }
@@ -153,9 +160,10 @@ export class GenshinKit {
     )}#/ys/role?${stringify({
       role_id: uid,
       server: server,
-      id: id,
+      id: id
     })}`
   }
+
   /**
    * @function getSpiralAbyss
    * @param {Number} uid
@@ -178,22 +186,18 @@ export class GenshinKit {
 
     const server = this._getServer(uid)
 
-    const data = await this.request(
-      'get',
-      'https://api-takumi.mihoyo.com/game_record/genshin/api/spiralAbyss',
-      {
-        server,
-        role_id: uid,
-        schedule_type: type,
-      }
-    )
+    const data = await this.request('get', 'spiralAbyss', {
+      server,
+      role_id: uid,
+      schedule_type: type
+    })
     if (data.retcode !== 0 || !data.data) {
       throw { code: data.retcode, message: data.message }
     } else {
       this._cache[uid] = this._cache[uid] || {}
       this._cache[uid].abyss = {
         ...this._cache[uid].abyss,
-        [type]: data.data,
+        [type]: data.data
       }
       return data.data
     }
