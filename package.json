@@ -1,13 +1,13 @@
 {
   "name": "genshin-kit",
   "version": "1.2.0",
-  "description": "An API wrapper for fetching player data of Genshin Impact CN server",
+  "description": "An API wrapper for fetching player data of Genshin Impact",
   "main": "lib/index.js",
   "files": [
     "lib"
   ],
   "typings": "lib/index.d.ts",
-  "repository": "https://github.com/Dragon-Fish/genshin-kit.git",
+  "repository": "https://github.com/genshin-kit/genshin-kit.git",
   "author": "Dragon-Fish <824399619@qq.com>",
   "license": "Apache-2.0",
   "scripts": {
@@ -35,6 +35,7 @@
   "keywords": [
     "api",
     "genshin-impact",
-    "hoyolab"
+    "hoyolab",
+    "player-data"
   ]
 }
