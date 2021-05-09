@@ -1,9 +1,9 @@
 export const characterNicknameList: Record<string, string[]> = {
   琴: ['jean', 'qin', '琴团长', '团长', '蒲公英骑士'],
   丽莎: ['lisa', 'lisha', '丽莎姐姐'],
-  旅行者: ['traveller', 'lvxingzhe', 'lxz', 'kong', 'ying', '空', '荧', '爷', '老娘', '主角', '主人翁', '冒险者'],
+  旅行者: ['traveller', 'lvxingzhe', 'lxz', 'kong', 'ying', '空', '荧', '爷', '老娘', '主角', '主人翁', '冒险者', '龙哥'],
   芭芭拉: ['barbara', 'babala', 'bbl'],
-  凯亚: ['keaya', 'kaiya', '冻结吧', '凝冰渡海真君', '骑兵队长'],
+  凯亚: ['kaeya', 'kaiya', '冻结吧', '凝冰渡海真君', '骑兵队长'],
   迪卢克: ['diluc', '卢姥爷', '在此宣判', '卢锅巴', '正义人'],
   雷泽: ['razor', '卢皮卡'],
   安柏: ['amber', 'anbo', '侦察骑士', '爱酱'],
@@ -30,6 +30,7 @@ export const characterNicknameList: Record<string, string[]> = {
   辛焱: ['xinyan'],
   罗莎莉亚: ['rosaria', 'luoshaliya', '修女'],
   胡桃: ['hutao', '往生堂堂主'],
+  烟绯: ['yanfei', '罗翔', '璃月罗翔']
 }
 
 export function getCharacterByNickname(keyword: string): string | null {
