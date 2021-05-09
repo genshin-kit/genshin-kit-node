@@ -15,7 +15,7 @@ import { _getDS } from './module/_getDS'
 import { _getHttpHeaders } from './module/_getHttpHeaders'
 import { _getServer } from './module/_getServer'
 import { _hoyolabVersion } from './module/_hoyolabVersion'
-import request from './module/request'
+import { request } from './module/request'
 export * as util from './util'
 import { stringify } from 'querystring'
 
@@ -33,7 +33,7 @@ export type AppCache = {
 export class GenshinKit {
   _cache!: AppCache
   cookie!: string
-  serverType!: 'cn' | 'sea'
+  serverType!: 'cn' | 'os'
   _getApiEndpoint: typeof _getApiEndpoint
   _hoyolabVersion!: typeof _hoyolabVersion
   _getHttpHeaders!: typeof _getHttpHeaders
@@ -89,11 +89,11 @@ export class GenshinKit {
   }
 
   /**
-   * 
-   * @param type Server type: cn => China server, sea => International server
+   *
+   * @param type Server type: cn => China server, os => International server
    */
-  setServerType(type: 'cn' | 'sea') {
-    if (!['cn', 'sea'].includes(type))
+  setServerType(type: 'cn' | 'os') {
+    if (!['cn', 'os'].includes(type))
       throw { code: -1, message: 'No Such Server Type' }
     this.serverType = type
   }

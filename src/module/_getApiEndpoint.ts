@@ -1,6 +1,6 @@
 export function _getApiEndpoint(this: any): string {
   switch (this.serverType) {
-    case 'sea':
+    case 'os':
       return 'https://api-os-takumi.mihoyo.com/game_record/genshin/api/'
     case 'cn':
     default:

@@ -5,7 +5,7 @@ import crypto from 'crypto'
  */
 export function _getDS(this: any): string {
   switch (this.serverType) {
-    case 'sea':
+    case 'os':
       return generateDS('6cqshh5dhw73bzxn20oexa9k516chk7s')
     case 'cn':
     default:

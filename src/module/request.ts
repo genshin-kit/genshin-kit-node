@@ -1,6 +1,6 @@
 import axios, { Method } from 'axios'
 
-export default async function (
+export async function request(
   this: any,
   method: Method,
   path: string,
