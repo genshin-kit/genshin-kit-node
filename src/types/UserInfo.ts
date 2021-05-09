@@ -6,6 +6,7 @@ export interface UserInfo {
   stats: UserStats
   city_explorations: City[]
   world_explorations: City[]
+  homes: Home[]
 }
 
 // 信息总览
@@ -33,4 +34,16 @@ export interface City {
   exploration_percentage: number
   icon: string
   name: string
+}
+
+// 尘歌壶
+export interface Home {
+  level: number
+  visit_num: number
+  comfort_num: number
+  item_num: number
+  name: string
+  icon: string
+  comfort_level_name: string
+  comfort_level_icon: string
 }
