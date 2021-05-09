@@ -21,29 +21,19 @@ export class CharactersFilter {
    */
   name(filter: number | string): Character | null {
     // 解析查询的方式
-    let type = ''
+    let type: 'id' | 'name'
     if (typeof filter === 'number' || /^[0-9]$/g.test(filter)) {
-      type = 'byId'
+      type = 'id'
       filter = Number(filter)
     } else if (typeof filter === 'string') {
-      type = 'byName'
+      type = 'name'
     } else {
       return null
     }
 
-    switch (type) {
-      case 'byId':
-        for (const item of this.allCharacters) {
-          if (item.id === filter) return item
-        }
-        break
-      case 'byName':
-        for (const item of this.allCharacters) {
-          if (item.name === filter) return item
-        }
-        break
-    }
+    const res = this.allCharacters.filter((i) => i[type] === filter)
 
+    if (res.length > 0) return res[0]
     return null
   }
 
@@ -68,7 +58,7 @@ export class CharactersFilter {
       岩: 'geo',
       rock: 'geo',
       草: 'dendro',
-      grass: 'dendro',
+      grass: 'dendro'
     }
     el = elAlias[el] || el
 
