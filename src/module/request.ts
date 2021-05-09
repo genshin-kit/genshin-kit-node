@@ -9,7 +9,7 @@ export default async function (
   return (
     await axios({
       method,
-      url: this._getApiEndpoint() + path,
+      url: `${this._getApiEndpoint()}${path}`,
       headers: this._getHttpHeaders(),
       data
     })

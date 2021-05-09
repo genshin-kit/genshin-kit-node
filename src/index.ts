@@ -45,6 +45,7 @@ export class GenshinKit {
   getAbyss: (uid: number, type?: 1 | 2, noCache?: boolean) => Promise<Abyss>
   getCurAbyss: (uid: number, noCache?: boolean) => Promise<Abyss>
   getPrevAbyss: (uid: number, noCache?: boolean) => Promise<Abyss>
+  setCookie: (cookie: string) => this
 
   constructor() {
     // Cache
@@ -66,6 +67,7 @@ export class GenshinKit {
     this.getAbyss = this.getSpiralAbyss
     this.getCurAbyss = this.getCurrentAbyss
     this.getPrevAbyss = this.getPreviousAbyss
+    this.setCookie = this.loginWithCookie
   }
 
   /**
@@ -73,7 +75,16 @@ export class GenshinKit {
    * @param {String} cookie
    */
   loginWithCookie(cookie: string): this {
+    this.clearCache()
     this.cookie = cookie
+    return this
+  }
+
+  /**
+   * @method clearCache
+   */
+  clearCache(): this {
+    this._cache = {}
     return this
   }
 
