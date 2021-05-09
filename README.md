@@ -6,11 +6,11 @@
 
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/Dragon-Fish/genshin-kit.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Dragon-Fish/genshin-kit/alerts/) [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/Dragon-Fish/genshin-kit.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Dragon-Fish/genshin-kit/context:javascript)
 
-一个用于获取《原神》任意服务器玩家数据的 API 封装库。An API wrapper for fetching player data of Genshin Impact from any servers.
+一个用于获取《原神》任意服务器玩家数据的 API 封装库。
 
 完全使用 TypeScript 编写，API 返回值的全部 [typings](./src/types) 均已由作者手动扣出来，现代 IDE 自动显示代码提示，轻松调用无压力！
 
-## 安装/Installation
+## 安装
 
 ```bash
 # Via yarn
@@ -19,7 +19,7 @@ yarn add genshin-kit
 npm install genshin-kit
 ```
 
-## 使用/Usage
+## 使用
 
 **一些完整的示例代码可以[点击这里](./sample)查看。**
 
@@ -64,7 +64,7 @@ App.loginWithToken(process.env.MHY_COOKIE)
 
 ## `App.setServerType(type: 'cn' | 'os'): this`
 
-设置查询的服务器类型。
+设置查询的服务器类型。若不设置，预设查询`cn`（国服）数据。
 
 - `cn` 中国服（官服、B 服）
 - `os` 国际服
