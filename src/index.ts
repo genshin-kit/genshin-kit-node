@@ -33,7 +33,7 @@ export type AppCache = {
 export class GenshinKit {
   _cache!: AppCache
   cookie!: string
-  serverType!: 'cn' | 'sea'
+  serverType!: 'cn' | 'os'
   _getApiEndpoint: typeof _getApiEndpoint
   _hoyolabVersion!: typeof _hoyolabVersion
   _getHttpHeaders!: typeof _getHttpHeaders
@@ -90,11 +90,11 @@ export class GenshinKit {
 
   /**
    * 
-   * @param type Server type: cn => China server, sea => International server
+   * @param type Server type: cn => China server, os => Oversea server
    */
-  setServerType(type: 'cn' | 'sea') {
-    if (!['cn', 'sea'].includes(type))
-      throw { code: -1, message: 'No Such Server Type' }
+  setServerType(type: 'cn' | 'os') {
+    if (!['cn', 'os'].includes(type))
+      throw { code: -1, message: 'No such server type' }
     this.serverType = type
   }
 

@@ -4,7 +4,7 @@
  */
 export function _getHttpHeaders(this: any): any {
   switch (this.serverType) {
-    case 'sea':
+    case 'os':
       return {
         DS: this._getDS(),
         Origin: 'https://webstatic-sea.hoyolab.com',
