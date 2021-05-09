@@ -1,14 +1,16 @@
 # GenshinKit 原神工具包
 
+[简体中文](./README.md) | [English](./doc/README.en.md)
+
 ![](https://badgen.net/npm/v/genshin-kit) ![](https://badgen.net/npm/v/genshin-kit/next) ![](https://badgen.net/npm/types/genshin-kit) ![](https://badgen.net/npm/license/genshin-kit)
 
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/Dragon-Fish/genshin-kit.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Dragon-Fish/genshin-kit/alerts/) [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/Dragon-Fish/genshin-kit.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Dragon-Fish/genshin-kit/context:javascript)
 
-一个用于获取《原神》国服玩家数据的 API 封装库。An API wrapper for fetching player data of Genshin-Impact CN server.
+一个用于获取《原神》任意服务器玩家数据的 API 封装库。
 
 完全使用 TypeScript 编写，API 返回值的全部 [typings](./src/types) 均已由作者手动扣出来，现代 IDE 自动显示代码提示，轻松调用无压力！
 
-## 安装/Installation
+## 安装
 
 ```bash
 # Via yarn
@@ -17,11 +19,9 @@ yarn add genshin-kit
 npm install genshin-kit
 ```
 
-## 使用/Usage
+## 使用
 
-> Because `genshin-kit` can only fetch data from CN servers at present, so I've written the docs in Chinese.
-
-**一些完整的示例代码可以[点击这里](./demo)查看。**
+**一些完整的示例代码可以[点击这里](./sample)查看。**
 
 下面是 GenshinKit 的文档。
 
@@ -49,9 +49,9 @@ const App = new GenshinKit()
 
 使用米游社网站的 cookie 登录实例。
 
-> 使用网页版米游社登录 <https://bbs.mihoyo.com/ys/>，然后在控制台输入 `document.cookie`，返回的结果就是 cookie，一般来说一个 cookie 可以使用一段时间，如果失效了就再次获取一遍。
-
 > **⚠️ 注意 ⚠️**：请妥善保存您的 cookies。<br>绝对不要把你的 cookies 交给任何人！<br>绝对绝对不要把你的 cookies 交给任何人！！<br>绝对绝对绝对不要把你的 cookies 交给任何人！！！
+
+**国服获取方法**：使用网页版米游社登录 <https://bbs.mihoyo.com/ys/>，然后前往 <https://bbs.mihoyo.com/>，在控制台输入 `document.cookie`，返回的结果就是 cookie，一般来说一个 cookie 可以使用一段时间，如果失效了就再次获取一遍。
 
 <details>
 <summary>使用示例</summary>
@@ -61,6 +61,13 @@ App.loginWithToken(process.env.MHY_COOKIE)
 ```
 
 </details>
+
+## `App.setServerType(type: 'cn' | 'os'): this`
+
+设置查询的服务器类型。若不设置，预设查询`cn`（国服）数据。
+
+- `cn` 中国服（官服、B 服）
+- `os` 国际服
 
 ## `App.getUserInfo(uid: number, noCache?: boolean): Promise<UserInfo>`
 

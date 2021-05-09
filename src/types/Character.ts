@@ -8,6 +8,7 @@ export interface Character {
   fetter: number
   level: number
   rarity: number
+  actived_constellation_num: number
   weapon?: Weapon
   reliquaries?: Reliquaries[]
   constellations?: Constellations[]
@@ -46,6 +47,7 @@ export interface Reliquaries {
   }
 }
 
+// 命座
 export interface Constellations {
   id: number
   name: string

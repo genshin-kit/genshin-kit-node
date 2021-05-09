@@ -1,17 +1,17 @@
 import axios, { Method } from 'axios'
 
-export default async function (
+export async function request(
   this: any,
   method: Method,
-  url: string,
+  path: string,
   data?: any
 ) {
   return (
     await axios({
       method,
-      url,
+      url: `${this._getApiEndpoint()}${path}`,
       headers: this._getHttpHeaders(),
-      data,
+      data
     })
   ).data
 }
