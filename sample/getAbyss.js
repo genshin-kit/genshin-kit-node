@@ -1,7 +1,7 @@
 const { App, uid } = require('.')
 
 // 获取深渊信息
-function formater({
+function formatter({
   start_time,
   end_time,
   total_battle_times,
@@ -24,8 +24,8 @@ function formater({
 Promise.all([App.getCurrentAbyss(uid), App.getPreviousAbyss(uid)]).then(
   ([cur, prev]) => {
     // console.log(JSON.stringify(data))
-    console.log('当期：', formater(cur))
-    console.log('往期：', formater(prev))
+    console.log('当期：', formatter(cur))
+    console.log('往期：', formatter(prev))
   },
   console.error
 )
