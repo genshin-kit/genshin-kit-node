@@ -94,7 +94,7 @@ Use UID to query Spiral Abyss information.
 
 `type`: 1 means current Lunar Phase, 2 means previous Lunar Phase.
 
-返回：[Abyss](./../src/types/Abyss.ts)
+Returns: [Abyss](./../src/types/Abyss.ts)
 
 Quick query: `App.getCurrentAbyss(<uid:number>): Promise<Abyss>` `App.getPreviousAbyss(<uid:number>): Promise<Abyss>`
 
