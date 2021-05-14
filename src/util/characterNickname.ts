@@ -39,8 +39,5 @@ export function getCharacterByNickname(keyword: string): string | null {
   if (characters.includes(keyword)) {
     return keyword
   }
-  characters.forEach((item) => {
-    if (characterNicknameList[item].includes(keyword)) return item
-  })
-  return null
+  return characters.find((item) => item.includes(keyword) ) || null
 }
