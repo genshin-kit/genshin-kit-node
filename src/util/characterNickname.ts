@@ -35,9 +35,10 @@ export const characterNicknameList: Record<string, string[]> = {
 
 export function getCharacterByNickname(keyword: string): string | null {
   keyword = keyword.toLowerCase().replace(/\s+/g, '')
-  const characters = Object.keys(characterNicknameList)
-  if (characters.includes(keyword)) {
+  if (
+    Object.keys(characterNicknameList).includes(keyword)
+  ) {
     return keyword
   }
-  return characters.find((item) => item.includes(keyword) ) || null
+  return characterNicknameList.find((item) => item.includes(keyword) ) || null
 }
