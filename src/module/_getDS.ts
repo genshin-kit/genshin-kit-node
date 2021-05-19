@@ -15,12 +15,11 @@ export function _getDS(this: any): string {
 
 // 生成随机字符串
 function randomString(e: number) {
-  const str = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-  const len = str.length
-  let final = ''
-  for (let i = 0; i < e; i++)
-    final += str.charAt(Math.floor(Math.random() * len))
-  return final
+  return crypto
+    .randomBytes(16)
+    .toString('base64')
+    .replace(/[/+=]/g, '')
+    .slice(0, e)
 }
 
 function generateDS(salt: string) {
