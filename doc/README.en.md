@@ -43,7 +43,7 @@ const App = new GenshinKit()
 
 </details>
 
-## `App.loginWithToken(cookie: string): this`
+## `App.loginWithCookie(cookie: string): this`
 
 Use cookies of hoyolab site to login to the instance.
 
@@ -55,7 +55,7 @@ Use cookies of hoyolab site to login to the instance.
 <summary>Usage Example</summary>
 
 ```js
-App.loginWithToken(process.env.MHY_COOKIE)
+App.loginWithCookie(process.env.MHY_COOKIE)
 ```
 
 </details>

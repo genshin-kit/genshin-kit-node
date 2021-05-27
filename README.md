@@ -45,7 +45,7 @@ const App = new GenshinKit()
 
 </details>
 
-## `App.loginWithToken(cookie: string): this`
+## `App.loginWithCookie(cookie: string): this`
 
 使用米游社网站的 cookie 登录实例。
 
@@ -57,7 +57,7 @@ const App = new GenshinKit()
 <summary>使用示例</summary>
 
 ```js
-App.loginWithToken(process.env.MHY_COOKIE)
+App.loginWithCookie(process.env.MHY_COOKIE)
 ```
 
 </details>
