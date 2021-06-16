@@ -13,7 +13,7 @@ export function _getHttpHeaders(this: any): any {
         'Accept-Encoding': 'gzip, deflate',
         'Accept-Language': 'zh-CN,en-US;q=0.8',
         'x-rpc-app_version': this._hoyolabVersion(),
-        'x-rpc-client_type': '4',
+        'x-rpc-client_type': '5',
         'User-Agent':
           'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36',
         Cookie: this.cookie

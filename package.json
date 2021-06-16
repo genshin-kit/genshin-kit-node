@@ -1,6 +1,6 @@
 {
   "name": "genshin-kit",
-  "version": "2.0.2",
+  "version": "2.1.0",
   "description": "An API wrapper for fetching player data of Genshin Impact from any servers.",
   "main": "lib/index.js",
   "files": [
