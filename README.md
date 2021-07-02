@@ -64,7 +64,7 @@ App.loginWithCookie(process.env.MHY_COOKIE)
 
 ## `App.setServerType(type: 'cn' | 'os'): this`
 
-设置查询的服务器类型。若不设置，预设查询`cn`（国服）数据。
+设置要查询的 UID 所在的服务器分区。若不设置，预设查询`cn`（国服）数据。
 
 - `cn` 中国服（官服、B 服）
 - `os` 国际服
@@ -171,7 +171,7 @@ _For communication and learning only._
 
 **API endpoint:** Refer [Azure99/GenshinPlayerQuery](https://github.com/Azure99/GenshinPlayerQuery) (Apache-2.0 License)
 
-> Copyright 2021 机智的小鱼君
+> Copyright 2021 Genshin-Kit
 >
 > Licensed under the Apache License, Version 2.0 (the "License");<br>
 > you may not use this file except in compliance with the License.<br>
