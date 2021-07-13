@@ -62,7 +62,7 @@ App.loginWithCookie(process.env.MHY_COOKIE)
 
 ## `App.setServerType(type: 'cn' | 'os'): this`
 
-Set the server type will be queried. Default is `cn`, if you need to query Asia, Europe, US or HK-MC-TW server data, set this to `os`.
+Set the server location of UID to be queried. Default is `cn`; if you need to query Asia, Europe, US or HK-MC-TW server data, set this to `os`.
 
 - `cn` Chinese servers (Official, Bilibili)
 - `os` Oversea servers (Asia, Europe, US, HK-MC-TW)
@@ -169,7 +169,7 @@ _For communication and learning only._
 
 **API endpoint:** Refer [Azure99/GenshinPlayerQuery](https://github.com/Azure99/GenshinPlayerQuery) (Apache-2.0 License)
 
-> Copyright 2021 机智的小鱼君
+> Copyright 2021 Genshin-Kit
 >
 > Licensed under the Apache License, Version 2.0 (the "License");<br>
 > you may not use this file except in compliance with the License.<br>
