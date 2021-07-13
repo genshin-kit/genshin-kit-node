@@ -3,7 +3,7 @@ export interface Character {
   id: number
   icon?: string
   image?: string
-  name: number
+  name: string
   element: string
   fetter: number
   level: number
