@@ -34,6 +34,7 @@ export class GenshinKit {
   _cache!: AppCache
   cookie!: string
   serverType!: 'cn' | 'os'
+  language!: 'zh-cn' | 'en-us'
   _getApiEndpoint: typeof _getApiEndpoint
   _hoyolabVersion!: typeof _hoyolabVersion
   _getHttpHeaders!: typeof _getHttpHeaders
@@ -60,6 +61,7 @@ export class GenshinKit {
     this._hoyolabVersion = _hoyolabVersion
     this.request = request
     this.serverType = 'cn'
+    this.language = 'zh-cn'
 
     // Alias
     this.getCharacters = this.getAllCharacters
@@ -96,6 +98,17 @@ export class GenshinKit {
     if (!['cn', 'os'].includes(type))
       throw { code: -1, message: 'No such server type' }
     this.serverType = type
+    return this
+  }
+
+  /**
+   * @method setLanguage
+   * @param language 设置得到数据的语言 (zh-cn)简体中文 (en-us)英文
+   */
+  setLanguage(language: 'zh-cn' | 'en-us'): this {
+    if (!['zh-cn', 'en-us'].includes(language))
+      throw { code: -1, message: 'Language not supported' }
+    this.language = language
     return this
   }
 
