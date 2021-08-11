@@ -17,7 +17,7 @@ import { _getServer } from './module/_getServer'
 import { _hoyolabVersion } from './module/_hoyolabVersion'
 import { request } from './module/request'
 export * as util from './util'
-import { stringify } from 'querystring'
+import { URLSearchParams } from 'url'
 
 // Types
 import { Abyss, Character, UserInfo } from './types'
@@ -167,12 +167,12 @@ export class GenshinKit {
 
   getCharacterDetailsUrl(uid: number, id: number): string {
     const server = this._getServer(uid)
-    return `https://webstatic.mihoyo.com/app/community-game-records/index.html?${stringify(
+    return `https://webstatic.mihoyo.com/app/community-game-records/index.html?${new URLSearchParams(
       { bbs_presentation_style: 'fullscreen' }
-    )}#/ys/role?${stringify({
-      role_id: uid,
+    )}#/ys/role?${new URLSearchParams({
+      role_id: uid.toString(),
       server: server,
-      id: id
+      id: id.toString()
     })}`
   }
 
