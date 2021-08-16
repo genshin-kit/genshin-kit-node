@@ -89,13 +89,14 @@ export class GenshinKit {
   }
 
   /**
-   * 
+   * @method setServerType
    * @param type Server type: cn => China server, os => Oversea server
    */
-  setServerType(type: 'cn' | 'os') {
+  setServerType(type: 'cn' | 'os'): this {
     if (!['cn', 'os'].includes(type))
       throw { code: -1, message: 'No such server type' }
     this.serverType = type
+    return this
   }
 
   /**
