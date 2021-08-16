@@ -9,7 +9,7 @@ export function _getDS(this: any): string {
       return generateDS('6cqshh5dhw73bzxn20oexa9k516chk7s')
     case 'cn':
     default:
-      return generateDS('w5k9n3aqhoaovgw25l373ee18nsazydo')
+      return generateDS('4a8knnbk5pbjqsrudp3dq484m9axoc5g')
   }
 }
 

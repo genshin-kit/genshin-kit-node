@@ -15,17 +15,17 @@ App.getAllCharacters(uid).then((data) => {
   )
 
   // 用角色名称查询详情
-  const diluke = Filter.name('迪卢克')
+  const diluke = Filter.name('宵宫')
   if (diluke) {
     console.log(
       'byName',
-      `玩家 ${uid} 的迪卢克`,
+      `玩家 ${uid} 的宵宫`,
       `${diluke.level}级 好感${diluke.fetter} 命座${activedConstellations(
         diluke
       )}`
     )
   } else {
-    console.log(`玩家 ${uid} 没有迪卢克`)
+    console.log(`玩家 ${uid} 没有宵宫`)
   }
 
   // 也可以用角色 id 查询
