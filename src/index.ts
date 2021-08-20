@@ -105,7 +105,7 @@ export class GenshinKit {
    * @method setServerLanguage
    * @param locale Server locale: Language in which character names, weapons, etc. will be displayed.
    */ 
-  setServerLocale(locale: 'zh-cn' | 'zh-tw' | 'de-de' | 'en-us' | 'es-es' | 'fr-fr' | 'id-id' | 'ja-jp' | 'ko-kr' | 'pt-pt' | 'ru-ru' | 'th-th' | 'vi-vn') {
+  setServerLocale(locale: 'zh-cn' | 'zh-tw' | 'de-de' | 'en-us' | 'es-es' | 'fr-fr' | 'id-id' | 'ja-jp' | 'ko-kr' | 'pt-pt' | 'ru-ru' | 'th-th' | 'vi-vn'): this {
     this.serverLocale = locale
     return this
   }
