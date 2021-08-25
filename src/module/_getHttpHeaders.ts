@@ -12,6 +12,7 @@ export function _getHttpHeaders(this: any): any {
         Accept: 'application/json, text/plain, */*',
         'Accept-Encoding': 'gzip, deflate',
         'Accept-Language': 'zh-CN,en-US;q=0.8',
+        'x-rpc-language': this.serverLocale,
         'x-rpc-app_version': this._hoyolabVersion(),
         'x-rpc-client_type': '5',
         'User-Agent':

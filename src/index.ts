@@ -34,6 +34,7 @@ export class GenshinKit {
   _cache!: AppCache
   cookie!: string
   serverType!: 'cn' | 'os'
+  serverLocale!: 'zh-cn' | 'zh-tw' | 'de-de' | 'en-us' | 'es-es' | 'fr-fr' | 'id-id' | 'ja-jp' | 'ko-kr' | 'pt-pt' | 'ru-ru' | 'th-th' | 'vi-vn'
   _getApiEndpoint: typeof _getApiEndpoint
   _hoyolabVersion!: typeof _hoyolabVersion
   _getHttpHeaders!: typeof _getHttpHeaders
@@ -60,6 +61,7 @@ export class GenshinKit {
     this._hoyolabVersion = _hoyolabVersion
     this.request = request
     this.serverType = 'cn'
+    this.serverLocale = 'zh-cn'
 
     // Alias
     this.getCharacters = this.getAllCharacters
@@ -96,6 +98,15 @@ export class GenshinKit {
     if (!['cn', 'os'].includes(type))
       throw { code: -1, message: 'No such server type' }
     this.serverType = type
+    return this
+  }
+
+  /**
+   * @method setServerLanguage
+   * @param locale Server locale: Language in which character names, weapons, etc. will be displayed.
+   */ 
+  setServerLocale(locale: 'zh-cn' | 'zh-tw' | 'de-de' | 'en-us' | 'es-es' | 'fr-fr' | 'id-id' | 'ja-jp' | 'ko-kr' | 'pt-pt' | 'ru-ru' | 'th-th' | 'vi-vn'): this {
+    this.serverLocale = locale
     return this
   }
 

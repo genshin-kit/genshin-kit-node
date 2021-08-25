@@ -4,6 +4,6 @@ export function _hoyolabVersion(this: any): string {
       return '1.5.0'
     case 'cn':
     default:
-      return '2.9.0'
+      return '2.10.1'
   }
 }

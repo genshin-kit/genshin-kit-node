@@ -1,6 +1,6 @@
 {
   "name": "genshin-kit",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "An API wrapper for fetching player data of Genshin Impact from any servers.",
   "main": "lib/index.js",
   "files": [
@@ -13,7 +13,7 @@
   "scripts": {
     "build": "yarn clear && tsc",
     "dev": "tsc --watch",
-    "clear": "wsl rm -rf ./lib ./dist ./src/**/dist",
+    "clear": "wsl rm -rf ./lib ./dist",
     "bump": "yarn lint && yarn build && bump",
     "lint": "eslint ./src",
     "pretty": "eslint --fix ./src"
