@@ -20,21 +20,20 @@ export * as util from './util'
 import { URLSearchParams } from 'url'
 
 // Types
-import { Abyss, Character, UserInfo } from './types'
-export type AppCache = {
-  [K in number]: {
-    abyss?: { 1?: Abyss; 2?: Abyss }
-    avatars?: Character[]
-    info?: UserInfo
-    roles?: Character[]
-  }
-}
+import {
+  Abyss,
+  AppCache,
+  Character,
+  AppServerLocale,
+  AppServerType,
+  UserInfo,
+} from './types'
 
 export class GenshinKit {
   _cache!: AppCache
   cookie!: string
-  serverType!: 'cn' | 'os'
-  serverLocale!: 'zh-cn' | 'zh-tw' | 'de-de' | 'en-us' | 'es-es' | 'fr-fr' | 'id-id' | 'ja-jp' | 'ko-kr' | 'pt-pt' | 'ru-ru' | 'th-th' | 'vi-vn'
+  serverType!: AppServerType
+  serverLocale!: AppServerLocale
   _getApiEndpoint: typeof _getApiEndpoint
   _hoyolabVersion!: typeof _hoyolabVersion
   _getHttpHeaders!: typeof _getHttpHeaders
@@ -94,7 +93,7 @@ export class GenshinKit {
    * @method setServerType
    * @param type Server type: cn => China server, os => Oversea server
    */
-  setServerType(type: 'cn' | 'os'): this {
+  setServerType(type: AppServerType): this {
     if (!['cn', 'os'].includes(type))
       throw { code: -1, message: 'No such server type' }
     this.serverType = type
@@ -104,8 +103,8 @@ export class GenshinKit {
   /**
    * @method setServerLanguage
    * @param locale Server locale: Language in which character names, weapons, etc. will be displayed.
-   */ 
-  setServerLocale(locale: 'zh-cn' | 'zh-tw' | 'de-de' | 'en-us' | 'es-es' | 'fr-fr' | 'id-id' | 'ja-jp' | 'ko-kr' | 'pt-pt' | 'ru-ru' | 'th-th' | 'vi-vn'): this {
+   */
+  setServerLocale(locale: AppServerLocale): this {
     this.serverLocale = locale
     return this
   }
@@ -125,17 +124,17 @@ export class GenshinKit {
 
     const data = await this.request('get', 'index', {
       server,
-      role_id: uid
+      role_id: uid,
     })
     if (data.retcode !== 0 || !data.data) {
       throw {
         code: data.retcode,
-        message: data.message
+        message: data.message,
       }
     }
     this._cache[uid] = {
       ...this._cache[uid],
-      info: data.data
+      info: data.data,
     }
     return data.data
   }
@@ -160,17 +159,17 @@ export class GenshinKit {
     const data = await this.request('post', 'character', {
       server,
       role_id: uid,
-      character_ids
+      character_ids,
     })
     if (data.retcode !== 0 || !data.data) {
       throw {
         code: data.retcode,
-        message: data.message
+        message: data.message,
       }
     } else {
       this._cache[uid] = {
         ...this._cache[uid],
-        roles: data?.data?.avatars
+        roles: data?.data?.avatars,
       }
       return data?.data?.avatars || []
     }
@@ -183,7 +182,7 @@ export class GenshinKit {
     )}#/ys/role?${new URLSearchParams({
       role_id: uid.toString(),
       server: server,
-      id: id.toString()
+      id: id.toString(),
     })}`
   }
 
@@ -212,7 +211,7 @@ export class GenshinKit {
     const data = await this.request('get', 'spiralAbyss', {
       server,
       role_id: uid,
-      schedule_type: type
+      schedule_type: type,
     })
     if (data.retcode !== 0 || !data.data) {
       throw { code: data.retcode, message: data.message }
@@ -220,7 +219,7 @@ export class GenshinKit {
       this._cache[uid] = this._cache[uid] || {}
       this._cache[uid].abyss = {
         ...this._cache[uid].abyss,
-        [type]: data.data
+        [type]: data.data,
       }
       return data.data
     }
