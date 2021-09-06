@@ -22,6 +22,7 @@ import { URLSearchParams } from 'url'
 // Types
 import {
   Abyss,
+  Activities,
   AppCache,
   Character,
   AppServerLocale,
@@ -176,6 +177,11 @@ export class GenshinKit {
   }
 
   getCharacterDetailsUrl(uid: number, id: number): string {
+    console.warn(
+      '[genshin-kit]',
+      'WARN',
+      '`getCharacterDetailsUrl` has been deprecated'
+    )
     const server = this._getServer(uid)
     return `https://webstatic.mihoyo.com/app/community-game-records/index.html?${new URLSearchParams(
       { bbs_presentation_style: 'fullscreen' }
@@ -228,7 +234,7 @@ export class GenshinKit {
   /**
    * @method getActivities 获取限时活动信息
    */
-  async getActivities(uid: number) {
+  async getActivities(uid: number): Promise<Activities> {
     const server = this._getServer(uid)
     const data = await this.request('get', 'activities', {
       role_id: uid,

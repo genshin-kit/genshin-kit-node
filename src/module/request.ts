@@ -16,7 +16,7 @@ export async function request(
   return (
     await axios({
       method,
-      url: `${this._getApiEndpoint()}${path}`,
+      url: path.startsWith('http') ? path : `${this._getApiEndpoint()}${path}`,
       headers: this._getHttpHeaders({ query, body }),
       data: body,
       params: query,
