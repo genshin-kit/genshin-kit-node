@@ -226,6 +226,22 @@ export class GenshinKit {
   }
 
   /**
+   * @method getActivities 获取限时活动信息
+   */
+  async getActivities(uid: number) {
+    const server = this._getServer(uid)
+    const data = await this.request('get', 'activities', {
+      role_id: uid,
+      server,
+    })
+    if (data.retcode !== 0 || !data.data) {
+      throw { code: data.retcode, message: data.message }
+    } else {
+      return data.data
+    }
+  }
+
+  /**
    * @function getCurrentAbyss
    */
   async getCurrentAbyss(uid: number, noCache?: boolean): Promise<Abyss> {
