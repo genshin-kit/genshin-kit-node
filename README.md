@@ -100,6 +100,12 @@ App.getUserInfo(100000001).then(console.log)
 
 快速查询の糖：`App.getCurrentAbyss(<uid:number>): Promise<Abyss>` `App.getPreviousAbyss(<uid:number>): Promise<Abyss>`
 
+## `App.getActivities(uid: number): Promise<Activities>`
+
+通过 UID 获取玩家的“风来人”等限时 raid 战绩。
+
+返回：[Activitis](./src/types/Activities.ts)
+
 ---
 
 **辅助工具**
@@ -133,31 +139,51 @@ App.getAllCharacters(100000001).then((data) => {
 
 </details>
 
-### `Filter.all(): Character[]`
+### `all(): Character[]`
 
 获取特定玩家的全部角色列表。
 
-### `Filter.id(id: number): Character | null`
+### `id(id: number): Character | null`
 
 获取特定玩家的指定 id 的角色信息。
 
-### `Filter.name(name: string): Character | null`
+### `name(name: string): Character | null`
 
 获取特定玩家的指定名称的角色信息。
 
-`name`：角色名称，必须是“简体中文”语言中的标准名称。
+`name`：角色名称，建议使用“简体中文”语言中的标准名称。但是同时支持使用别称搜索，详见`CharacterNickname`。
 
-### `Filter.element(element: string): Character[]`
+### `element(element: string): Character[]`
 
 获取特定玩家的指定元素的角色信息。
 
 `element`：可以是中文或者英文，例如`火`和`pyro`都是可以接受的名称。
 
-### `Filter.rarity(rarity: number | number[]): Character[]`
+### `rarity(rarity: number | number[]): Character[]`
 
 获取特定玩家的指定稀有度的角色信息。
 
 `rarity`：必须是数字或者数字组成的数组，例如`4`、`5`以及`[4, 5]`。
+
+### `nicknameFilter: CharacterNickname`
+
+暴露过滤器使用的`CharacterNickname`实例。
+
+## `util.CharacterNickname` {class} 角色昵称工具
+
+返回：`Nickname` 类
+
+### `setNicknames(id: number, nicknames: string[]): this`
+
+通过角色 ID 添加一批昵称。
+
+### `getIdByNickname(keyword: string): number | undefined`
+
+通过昵称获取角色 ID，可能不存在。
+
+### `getNicknamesById(id: number): string[] | undefined`
+
+通过角色 ID 获取可能的昵称列表，可能不存在。
 
 ## `util.isValidCnUid(uid: any): boolean` 国服 uid 验证工具
 

@@ -2,39 +2,32 @@
  * @method CharactersFilter
  * @param {Object} avatars UserRoles.data.avatars
  */
+import { CharacterNickname } from '.'
 import { Character } from '../types/Character'
 
 export class CharactersFilter {
-  allCharacters: Character[] = []
-  id: (filter: number | string) => Character | null
+  _list: Character[] = []
+  nicknameFilter: CharacterNickname
 
   constructor(avatars: Character[]) {
-    this.allCharacters = avatars
-    this.id = this.name
+    this._list = avatars
+    this.nicknameFilter = new CharacterNickname()
   }
 
   /**
-   * @function id/name 通过名称或id获取玩家指定角色的信息
-   * @param {Number} uid
-   * @param {String|Number} filter 角色名称或 id
-   * @return {Object|null} 角色信息或null
+   * @function name 通过名称或id获取玩家指定角色的信息
    */
-  name(filter: number | string): Character | null {
-    // 解析查询的方式
-    let type: 'id' | 'name'
-    if (typeof filter === 'number' || /^[0-9]$/g.test(filter)) {
-      type = 'id'
-      filter = Number(filter)
-    } else if (typeof filter === 'string') {
-      type = 'name'
-    } else {
-      return null
+  name(nameFind: string): Character | undefined {
+    const id = this.nicknameFilter.getIdByNickname(nameFind)
+    if (id) {
+      return this.id(id)
     }
 
-    const res = this.allCharacters.filter((i) => i[type] === filter)
+    return this._list.find(({ name }) => name === nameFind)
+  }
 
-    if (res.length > 0) return res[0]
-    return null
+  id(idFind: number) {
+    return this._list.find(({ id }) => id === idFind)
   }
 
   /**
@@ -58,15 +51,11 @@ export class CharactersFilter {
       岩: 'geo',
       rock: 'geo',
       草: 'dendro',
-      grass: 'dendro'
+      grass: 'dendro',
     }
     el = elAlias[el] || el
 
-    const list = []
-    for (const item of this.allCharacters) {
-      if (item.element.toLocaleLowerCase() === el) list.push(item)
-    }
-    return list
+    return this._list.filter(({ element }) => element.toLowerCase() === el)
   }
 
   /**
@@ -76,25 +65,19 @@ export class CharactersFilter {
   rarity(rarity: number | number[]): Character[] {
     // 缓存
     let queryRarity: number[] = []
-    const list: Character[] = []
-
     if (typeof rarity === 'number') {
       queryRarity = [rarity]
     } else if (rarity.constructor !== Array) {
       return []
     }
 
-    this.allCharacters.forEach((item) => {
-      if (queryRarity.includes(item.rarity)) list.push(item)
-    })
-
-    return list
+    return this._list.filter(({ rarity }) => queryRarity.includes(rarity))
   }
 
   /**
    * @function all
    */
   all(): Character[] {
-    return this.allCharacters
+    return this._list
   }
 }

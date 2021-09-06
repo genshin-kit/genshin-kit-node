@@ -17,23 +17,24 @@ import { _getServer } from './module/_getServer'
 import { _hoyolabVersion } from './module/_hoyolabVersion'
 import { request } from './module/request'
 export * as util from './util'
-import { stringify } from 'querystring'
+import { URLSearchParams } from 'url'
 
 // Types
-import { Abyss, Character, UserInfo } from './types'
-export type AppCache = {
-  [K in number]: {
-    abyss?: { 1?: Abyss; 2?: Abyss }
-    avatars?: Character[]
-    info?: UserInfo
-    roles?: Character[]
-  }
-}
+import {
+  Abyss,
+  Activities,
+  AppCache,
+  Character,
+  AppServerLocale,
+  AppServerType,
+  UserInfo,
+} from './types'
 
 export class GenshinKit {
   _cache!: AppCache
   cookie!: string
-  serverType!: 'cn' | 'os'
+  serverType!: AppServerType
+  serverLocale!: AppServerLocale
   _getApiEndpoint: typeof _getApiEndpoint
   _hoyolabVersion!: typeof _hoyolabVersion
   _getHttpHeaders!: typeof _getHttpHeaders
@@ -60,6 +61,7 @@ export class GenshinKit {
     this._hoyolabVersion = _hoyolabVersion
     this.request = request
     this.serverType = 'cn'
+    this.serverLocale = 'zh-cn'
 
     // Alias
     this.getCharacters = this.getAllCharacters
@@ -92,10 +94,19 @@ export class GenshinKit {
    * @method setServerType
    * @param type Server type: cn => China server, os => Oversea server
    */
-  setServerType(type: 'cn' | 'os'): this {
+  setServerType(type: AppServerType): this {
     if (!['cn', 'os'].includes(type))
       throw { code: -1, message: 'No such server type' }
     this.serverType = type
+    return this
+  }
+
+  /**
+   * @method setServerLanguage
+   * @param locale Server locale: Language in which character names, weapons, etc. will be displayed.
+   */
+  setServerLocale(locale: AppServerLocale): this {
+    this.serverLocale = locale
     return this
   }
 
@@ -113,18 +124,18 @@ export class GenshinKit {
     const server = this._getServer(uid)
 
     const data = await this.request('get', 'index', {
+      role_id: uid,
       server,
-      role_id: uid
     })
     if (data.retcode !== 0 || !data.data) {
       throw {
         code: data.retcode,
-        message: data.message
+        message: data.message,
       }
     }
     this._cache[uid] = {
       ...this._cache[uid],
-      info: data.data
+      info: data.data,
     }
     return data.data
   }
@@ -147,32 +158,37 @@ export class GenshinKit {
     })
 
     const data = await this.request('post', 'character', {
-      server,
+      character_ids,
       role_id: uid,
-      character_ids
+      server,
     })
     if (data.retcode !== 0 || !data.data) {
       throw {
         code: data.retcode,
-        message: data.message
+        message: data.message,
       }
     } else {
       this._cache[uid] = {
         ...this._cache[uid],
-        roles: data?.data?.avatars
+        roles: data?.data?.avatars,
       }
       return data?.data?.avatars || []
     }
   }
 
   getCharacterDetailsUrl(uid: number, id: number): string {
+    console.warn(
+      '[genshin-kit]',
+      'WARN',
+      '`getCharacterDetailsUrl` has been deprecated'
+    )
     const server = this._getServer(uid)
-    return `https://webstatic.mihoyo.com/app/community-game-records/index.html?${stringify(
+    return `https://webstatic.mihoyo.com/app/community-game-records/index.html?${new URLSearchParams(
       { bbs_presentation_style: 'fullscreen' }
-    )}#/ys/role?${stringify({
-      role_id: uid,
+    )}#/ys/role?${new URLSearchParams({
+      role_id: uid.toString(),
       server: server,
-      id: id
+      id: id.toString(),
     })}`
   }
 
@@ -199,9 +215,9 @@ export class GenshinKit {
     const server = this._getServer(uid)
 
     const data = await this.request('get', 'spiralAbyss', {
-      server,
       role_id: uid,
-      schedule_type: type
+      schedule_type: type,
+      server,
     })
     if (data.retcode !== 0 || !data.data) {
       throw { code: data.retcode, message: data.message }
@@ -209,8 +225,24 @@ export class GenshinKit {
       this._cache[uid] = this._cache[uid] || {}
       this._cache[uid].abyss = {
         ...this._cache[uid].abyss,
-        [type]: data.data
+        [type]: data.data,
       }
+      return data.data
+    }
+  }
+
+  /**
+   * @method getActivities 获取限时活动信息
+   */
+  async getActivities(uid: number): Promise<Activities> {
+    const server = this._getServer(uid)
+    const data = await this.request('get', 'activities', {
+      role_id: uid,
+      server,
+    })
+    if (data.retcode !== 0 || !data.data) {
+      throw { code: data.retcode, message: data.message }
+    } else {
       return data.data
     }
   }

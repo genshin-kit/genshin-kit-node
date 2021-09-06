@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2020",
+    "target": "es2019",
     "module": "commonjs",
     "strict": true,
     "importHelpers": true,
@@ -14,7 +14,7 @@
     "types": ["node"],
     "paths": {},
     "outDir": "lib",
-    "lib": ["es2020"],
+    "lib": ["es2019"],
     "typeRoots": ["./node_modules/@types", "./src/types"],
     "declaration": true
     // "noImplicitThis": false

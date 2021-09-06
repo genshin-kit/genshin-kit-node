@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { AppServerLocale } from '../types'
 
 interface GachaInfoI18nData {
   item_id: string
@@ -7,10 +8,8 @@ interface GachaInfoI18nData {
   rank_type: '3' | '4' | '5'
 }
 
-type GachaInfoI18nLang = 'zh-cn' | 'zh-tw' | 'ja-jp' | 'kr-ko' | 'en-us'
-
 export async function getAllIds(
-  lang: GachaInfoI18nLang = 'zh-cn'
+  lang: AppServerLocale = 'zh-cn'
 ): Promise<GachaInfoI18nData[]> {
   return (
     await axios.get(
@@ -33,7 +32,7 @@ function filter(data: GachaInfoI18nData[], names: string[]) {
 }
 
 export async function getCharacterIds(
-  lang?: GachaInfoI18nLang
+  lang?: AppServerLocale
 ): Promise<GachaInfoI18nData[]> {
   const data = await getAllIds(lang)
   const characters = filter(data, ['角色'])
