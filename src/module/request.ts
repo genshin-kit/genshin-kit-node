@@ -1,5 +1,8 @@
 import axios, { Method } from 'axios'
 
+/**
+ * @param path The function will use `${apiEndpoint}/${path}` as the request url, unless `path` starts with `http`
+ */
 export async function request(
   this: any,
   method: Method,
