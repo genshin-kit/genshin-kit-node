@@ -6,12 +6,20 @@ export async function request(
   path: string,
   data?: any
 ) {
+  let query, body
+  if (method.toLowerCase() === 'get') {
+    query = data
+  } else {
+    body = data
+  }
+
   return (
     await axios({
       method,
       url: `${this._getApiEndpoint()}${path}`,
-      headers: this._getHttpHeaders(),
-      data
+      headers: this._getHttpHeaders({ query, body }),
+      data: body,
+      params: query,
     })
   ).data
 }

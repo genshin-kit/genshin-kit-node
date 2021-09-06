@@ -123,8 +123,8 @@ export class GenshinKit {
     const server = this._getServer(uid)
 
     const data = await this.request('get', 'index', {
-      server,
       role_id: uid,
+      server,
     })
     if (data.retcode !== 0 || !data.data) {
       throw {
@@ -157,9 +157,9 @@ export class GenshinKit {
     })
 
     const data = await this.request('post', 'character', {
-      server,
-      role_id: uid,
       character_ids,
+      role_id: uid,
+      server,
     })
     if (data.retcode !== 0 || !data.data) {
       throw {
@@ -209,9 +209,9 @@ export class GenshinKit {
     const server = this._getServer(uid)
 
     const data = await this.request('get', 'spiralAbyss', {
-      server,
       role_id: uid,
       schedule_type: type,
+      server,
     })
     if (data.retcode !== 0 || !data.data) {
       throw { code: data.retcode, message: data.message }

@@ -1,15 +1,16 @@
 import crypto from 'crypto'
+import { stringify } from 'querystring'
 
 /**
- * @function _getDS
+ * @function _getDS get DynamicSecret
  */
-export function _getDS(this: any): string {
+export function _getDS(this: any, { query, body }: any): string {
   switch (this.serverType) {
     case 'os':
-      return generateDS('6s25p5ox5y14umn1p61aqyyvbvvl3lrt')
+      return getOsDS('6s25p5ox5y14umn1p61aqyyvbvvl3lrt')
     case 'cn':
     default:
-      return generateDS('4a8knnbk5pbjqsrudp3dq484m9axoc5g')
+      return getCnDS({ query, body })
   }
 }
 
@@ -23,7 +24,17 @@ function randomString(e: number) {
   return res.join('')
 }
 
-function generateDS(salt: string) {
+// 按首字母排序 object
+function sortKeys(obj: Record<string, any>) {
+  const copy = {} as Record<string, any>
+  const allKeys = Object.keys(obj).sort()
+  allKeys.forEach((key) => {
+    copy[key] = obj[key]
+  })
+  return copy
+}
+
+function getOsDS(salt: string) {
   const time = Math.floor(Date.now() / 1000)
   const random = randomString(6)
 
@@ -32,4 +43,29 @@ function generateDS(salt: string) {
     .update(`salt=${salt}&t=${time}&r=${random}`)
     .digest('hex')
   return `${time},${random},${c}`
+}
+
+function getCnDS({
+  query,
+  body,
+}: {
+  query: Record<string, any>
+  body: Record<string, any>
+}) {
+  const salt = 'xV8v4Qu54lUKrEYFZkJhB8cuOh9Asafs'
+  const time = Math.floor(Date.now() / 1000)
+  // Integer between 10000 - 200000
+  const random = Math.floor(Math.random() * (200000 - 100000 + 1) + 100000)
+
+  const b = body ? JSON.stringify(sortKeys(body)) : ''
+  const q = query ? stringify(sortKeys(query)) : ''
+
+  const check = crypto
+    .createHash('md5')
+    .update(`salt=${salt}&t=${time}&r=${random}&b=${b}&q=${q}`)
+    .digest('hex')
+
+  const dynamic = `${time},${random},${check}`
+
+  return dynamic
 }
