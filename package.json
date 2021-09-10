@@ -13,12 +13,13 @@
   "scripts": {
     "build": "yarn clear && tsc",
     "dev": "tsc --watch",
-    "clear": "wsl rm -rf ./lib ./dist",
+    "clear": "rimraf ./lib ./dist",
     "bump": "yarn lint && yarn build && bump",
     "lint": "eslint ./src",
     "pretty": "eslint --fix ./src"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "tslib": "^2.3.0"
   },
   "devDependencies": {
@@ -29,8 +30,8 @@
     "@typescript-eslint/parser": "^4.22.0",
     "axios": "^0.21.1",
     "eslint": "^7.24.0",
-    "querystring": "^0.2.1",
-    "typescript": "^4.3.0"
+    "rimraf": "^3.0.2",
+    "typescript": "^4.4.0"
   },
   "keywords": [
     "api",

@@ -6,7 +6,7 @@ export function _getHttpHeaders(this: any, { query, body }: any): any {
   switch (this.serverType) {
     case 'os':
       return {
-        DS: this._getDS(),
+        DS: this._getDS({ query, body }),
         Origin: 'https://webstatic-sea.hoyolab.com',
         Referer: 'https://webstatic-sea.hoyolab.com/',
         Accept: 'application/json, text/plain, */*',
