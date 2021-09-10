@@ -17,12 +17,12 @@ export async function request(
   }
 
   return (
-    await axios({
+    await axios(Object.assign({
       method,
       url: path.startsWith('http') ? path : `${this._getApiEndpoint()}${path}`,
       headers: this._getHttpHeaders({ query, body }),
       data: body,
       params: query,
-    })
+    }, this.serverType === 'cn' ? {} : { withCredentials: true }))
   ).data
 }
