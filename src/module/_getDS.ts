@@ -1,5 +1,5 @@
 import crypto from 'crypto'
-import { stringify } from 'querystring'
+import { URLSearchParams } from 'url'
 
 /**
  * @function _getDS get DynamicSecret
@@ -58,7 +58,7 @@ function getCnDS({
   const random = Math.floor(Math.random() * (200000 - 100000 + 1) + 100000)
 
   const b = body ? JSON.stringify(sortKeys(body)) : ''
-  const q = query ? stringify(sortKeys(query)) : ''
+  const q = query ? new URLSearchParams(sortKeys(query)) : ''
 
   const check = crypto
     .createHash('md5')
