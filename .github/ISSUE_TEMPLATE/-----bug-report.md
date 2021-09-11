@@ -1,10 +1,9 @@
 ---
 name: 故障反馈/Bug report
 about: 如果你遇到了程序错误，请选此项/Create a report about bugs
-title: "[BUG?] 关于xxx的故障/The bug is about xxx"
+title: '[BUG?] 关于xxx的故障/The bug is about xxx'
 labels: ''
 assignees: ''
-
 ---
 
 ## 简述此故障/Describe the bug

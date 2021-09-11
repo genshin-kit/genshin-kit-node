@@ -108,7 +108,7 @@ const { util } = require('genshin-kit')
 
 ## `util.getTheActivedConstellationsNumberOfSpecifiedGenshinImpactCharacter(character: Character): number` get activated constellation number
 
-Nah, just use `util.activedConstellations` should be fine; this f**king long name originated when the author was discussing with his friends how to name this method.
+Nah, just use `util.activedConstellations` should be fine; this f\*\*king long name originated when the author was discussing with his friends how to name this method.
 
 Returns the activated constellation number of specified Genshin Impact character. (Sorry for copy paste this name again :)
 
@@ -157,7 +157,7 @@ Get character information with specified rarity for a specified player.
 
 `rarity`: should be a number or a number array, e.g. `4`, `5` or `[4, 5]`.
 
-## `util.isValidOsUid(uid: any): boolean`  uid validation tool
+## `util.isValidOsUid(uid: any): boolean` uid validation tool
 
 Check whether input is a valid uid.
 

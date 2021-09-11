@@ -23,7 +23,7 @@ export async function request(
       headers: this._getHttpHeaders({ query, body }),
       data: body,
       params: query,
-      ...(this.serverType === 'os' ? { withCredentials: true } : {})
+      ...(this.serverType === 'os' ? { withCredentials: true } : {}),
     })
   ).data
 }
