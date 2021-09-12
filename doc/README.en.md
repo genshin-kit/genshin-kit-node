@@ -131,35 +131,55 @@ App.getAllCharacters(100000001).then((data) => {
 
 </details>
 
-### `Filter.all(): Character[]`
+### `all(): Character[]`
 
 Get all characters for a specified player.
 
-### `Filter.id(id: number): Character | null`
+### `id(id: number): Character | null`
 
 Get character information with specified id for a specified player.
 
-### `Filter.name(name: string): Character | null`
+### `name(name: string): Character | null`
 
 Get character information with specified name for a specified player.
 
-`name`: character name, currently only support name in Simplified Chinese.
+`name`: character name, suggest in Simplified Chinese; also support aliases, see `CharacterNickname`.
 
-### `Filter.element(element: string): Character[]`
+### `element(element: string): Character[]`
 
 Get character information with specified element for a specified player.
 
 `element`: can be in English or Simplified Chinese, e.g. `pyro` or `火`.
 
-### `Filter.rarity(rarity: number | number[]): Character[]`
+### `rarity(rarity: number | number[]): Character[]`
 
 Get character information with specified rarity for a specified player.
 
 `rarity`: should be a number or a number array, e.g. `4`, `5` or `[4, 5]`.
 
+### `nicknnameFilter: characterNickname`
+
+Expose the `CharacterNickname` instance which the filter is using.
+
+## `util.CharacterNickname` {class} tool for character nickname
+
+Returns: `Nickname` class.
+
+### `setNicknames(id: number, nicknames: string[]): this`
+
+Add some nicknames to a character by its ID.
+
+### `getIdByNickname(keyword: string): number | undefined`
+
+Get a character's ID by its nickname, maybe absent.
+
+### `getNicknamesById(id: number): string[] | undefined`
+
+Get a character's nicknames by its ID, maybe absent.
+
 ## `util.isValidOsUid(uid: any): boolean` uid validation tool
 
-Check whether input is a valid uid.
+Check whether input is a valid os uid.
 
 ---
 
