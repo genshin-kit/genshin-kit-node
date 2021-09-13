@@ -34,13 +34,7 @@ interface NicknameList {
 const defaultList: NicknameList[] = [
   {
     id: 10000002,
-    nicknames: [
-      '神里绫华',
-      'kamisatoayaka',
-      'shenlilinghua',
-      '绫华',
-      'ayaka',
-    ],
+    nicknames: ['神里绫华', 'kamisatoayaka', 'shenlilinghua', '绫华', 'ayaka'],
   },
   {
     id: 10000003,
@@ -230,13 +224,7 @@ const defaultList: NicknameList[] = [
   },
   {
     id: 10000052,
-    nicknames: [
-      '雷电将军',
-      'raidenshogun',
-      'leidianjiangjun',
-      '芽衣',
-      '雷军',
-    ],
+    nicknames: ['雷电将军', 'raidenshogun', 'leidianjiangjun', '芽衣', '雷军'],
   },
   {
     id: 10000053,
