@@ -98,6 +98,12 @@ Returns: [Abyss](./../src/types/Abyss.ts)
 
 Quick query: `App.getCurrentAbyss(<uid:number>): Promise<Abyss>` `App.getPreviousAbyss(<uid:number>): Promise<Abyss>`
 
+## `App.getActivities(uid: number): Promise<Activities>`
+
+Get current activities score by uid.
+
+Returns: [Activities](./../src/types/Activities.ts)
+
 ---
 
 **Auxiliary utilities**
@@ -157,7 +163,7 @@ Get character information with specified rarity for a specified player.
 
 `rarity`: should be a number or a number array, e.g. `4`, `5` or `[4, 5]`.
 
-### `nicknnameFilter: characterNickname`
+### `nicknameFilter: characterNickname`
 
 Expose the `CharacterNickname` instance which the filter is using.
 
