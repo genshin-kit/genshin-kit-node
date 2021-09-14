@@ -18,6 +18,7 @@ import { _hoyolabVersion } from './module/_hoyolabVersion'
 import { request } from './module/request'
 export * as util from './util'
 import { URLSearchParams } from 'url'
+import { deprecate } from 'util'
 
 // Types
 import {
@@ -95,8 +96,6 @@ export class GenshinKit {
    * @param type Server type: cn => China server, os => Oversea server
    */
   setServerType(type: AppServerType): this {
-    if (!['cn', 'os'].includes(type))
-      throw { code: -1, message: 'No such server type' }
     this.serverType = type
     return this
   }
@@ -177,19 +176,16 @@ export class GenshinKit {
   }
 
   getCharacterDetailsUrl(uid: number, id: number): string {
-    console.warn(
-      '[genshin-kit]',
-      'WARN',
-      '`getCharacterDetailsUrl` has been deprecated'
-    )
-    const server = this._getServer(uid)
-    return `https://webstatic.mihoyo.com/app/community-game-records/index.html?${new URLSearchParams(
-      { bbs_presentation_style: 'fullscreen' }
-    )}#/ys/role?${new URLSearchParams({
-      role_id: uid.toString(),
-      server: server,
-      id: id.toString(),
-    })}`
+    return deprecate(() => {
+      const server = this._getServer(uid)
+      return `https://webstatic.mihoyo.com/app/community-game-records/index.html?${new URLSearchParams(
+        { bbs_presentation_style: 'fullscreen' }
+      )}#/ys/role?${new URLSearchParams({
+        role_id: uid.toString(),
+        server: server,
+        id: id.toString(),
+      })}`
+    }, '`getCharacterDetailsUrl()` has been deprecated.')()
   }
 
   /**

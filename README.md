@@ -104,7 +104,7 @@ App.getUserInfo(100000001).then(console.log)
 
 通过 UID 获取玩家的“风来人”等限时 raid 战绩。
 
-返回：[Activitis](./src/types/Activities.ts)
+返回：[Activities](./src/types/Activities.ts)
 
 ---
 

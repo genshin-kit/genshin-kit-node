@@ -6,6 +6,7 @@
 export function _getServer(uid: number): string {
   switch (String(uid)[0]) {
     case '1':
+    case '2':
       return 'cn_gf01'
     case '5':
       return 'cn_qd01'
