@@ -6,11 +6,11 @@ import { CharacterNickname } from '.'
 import { Character } from '../types/Character'
 
 export class CharactersFilter {
-  _list: Character[] = []
+  #list: Character[] = []
   nicknameFilter: CharacterNickname
 
   constructor(avatars: Character[]) {
-    this._list = avatars
+    this.#list = avatars
     this.nicknameFilter = new CharacterNickname()
   }
 
@@ -23,11 +23,11 @@ export class CharactersFilter {
       return this.id(id)
     }
 
-    return this._list.find(({ name }) => name === nameFind)
+    return this.#list.find(({ name }) => name === nameFind)
   }
 
   id(idFind: number) {
-    return this._list.find(({ id }) => id === idFind)
+    return this.#list.find(({ id }) => id === idFind)
   }
 
   /**
@@ -55,7 +55,7 @@ export class CharactersFilter {
     }
     el = elAlias[el] || el
 
-    return this._list.filter(({ element }) => element.toLowerCase() === el)
+    return this.#list.filter(({ element }) => element.toLowerCase() === el)
   }
 
   /**
@@ -71,13 +71,13 @@ export class CharactersFilter {
       return []
     }
 
-    return this._list.filter(({ rarity }) => queryRarity.includes(rarity))
+    return this.#list.filter(({ rarity }) => queryRarity.includes(rarity))
   }
 
   /**
    * @function all
    */
   all(): Character[] {
-    return this._list
+    return this.#list
   }
 }

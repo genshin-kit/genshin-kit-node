@@ -1,28 +1,28 @@
 export class CharacterNickname {
-  _nicknameList: NicknameList[]
+  #nicknameList: NicknameList[]
 
   constructor() {
-    this._nicknameList = defaultList
+    this.#nicknameList = defaultList
   }
 
   addNicknames(id: number, nicknames: string[]) {
-    if (!this._nicknameList.find(({ id: id1 }) => id1 === id)) {
-      this._nicknameList.push({ id, nicknames: [] })
+    if (!this.#nicknameList.find(({ id: id1 }) => id1 === id)) {
+      this.#nicknameList.push({ id, nicknames: [] })
     }
-    const index = this._nicknameList.findIndex(({ id: id1 }) => id1 === id)
-    this._nicknameList[index].nicknames.push(...nicknames)
+    const index = this.#nicknameList.findIndex(({ id: id1 }) => id1 === id)
+    this.#nicknameList[index].nicknames.push(...nicknames)
     return this
   }
 
   getIdByNickname(keyword: string) {
     keyword = keyword.toLowerCase().replace(/\s+/g, '')
-    return this._nicknameList.find(({ nicknames }) =>
+    return this.#nicknameList.find(({ nicknames }) =>
       nicknames.includes(keyword)
     )?.id
   }
 
   getNicknamesById(id: number) {
-    return this._nicknameList.find(({ id: id1 }) => id1 === id)?.nicknames
+    return this.#nicknameList.find(({ id: id1 }) => id1 === id)?.nicknames
   }
 }
 
