@@ -34,8 +34,8 @@ jobs:
       env:
         COOKIE: ${{ secrets.COOKIE }}
       run: |
-        npm install
+        yarn
         cd packages/core
-        npm install
+        yarn
         cd ../../
-        npx mocha packages/core/test/**/**.ts  --cookie "$COOKIE"
+        node_modules/.bin/_mocha packages/core/test/**/**.ts  --cookie "$COOKIE"
