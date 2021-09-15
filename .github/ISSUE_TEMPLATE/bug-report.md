@@ -34,7 +34,7 @@ assignees: ''
 
 ## 环境信息/Your environment
 
-- genshin-kit: <!-- latest/xx.x.x/xx.x.x-beta.x/... -->
+- 包版本/pkg version: <!-- xx.x.x/xx.x.x-beta.x/... -->
 - Node.js: <!-- 16.x.x/14.x.x/... -->
 - 系统/OS: <!-- Windows/Linux/macOS... -->
 
