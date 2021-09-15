@@ -111,7 +111,7 @@ export class GenshinKit {
   }
 
   set serverLocale(locale: AppServerLocale) {
-    this.serverLocale = locale
+    this.#serverLocale = locale
   }
 
   /**
