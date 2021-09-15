@@ -13,9 +13,9 @@
     // "baseUrl": ".",
     "types": ["node"],
     "paths": {},
+    "outDir": "lib",
     "lib": ["es2019"],
-    "declaration": true,
-    "typeRoots": ["node_modules/@types"]
+    "declaration": true
+    // "noImplicitThis": false
   },
-  "exclude": ["node_modules", "dist", "**/dist"]
 }
