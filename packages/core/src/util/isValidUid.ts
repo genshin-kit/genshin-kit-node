@@ -1,6 +1,6 @@
 export function isValidCnUid(uid: any): boolean {
   const uidNum: number = parseInt(uid)
-  return isValidUid(uidNum) && ['1', '5'].includes(uidNum.toString()[0])
+  return isValidUid(uidNum) && ['1', '2', '5'].includes(uidNum.toString()[0])
 }
 
 export function isValidOsUid(uid: any): boolean {

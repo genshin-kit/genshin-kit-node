@@ -251,6 +251,10 @@ const defaultList: NicknameList[] = [
     nicknames: ['胡桃', 'hutao', '往生堂堂主'],
   },
   {
+    id: 10000047,
+    nicknames: ['枫原万叶', 'kaedeharakazuha', 'fengyuanwanye', 'kazuha'],
+  },
+  {
     id: 10000048,
     nicknames: ['烟绯', 'yanfei', '罗翔', '璃月罗翔'],
   },
