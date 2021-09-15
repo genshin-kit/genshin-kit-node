@@ -2,6 +2,10 @@ version: 2
 updates:
 # npm
 - package-ecosystem: npm
+  schedule:
+    interval: weekly
+  target-branch: dev
+- package-ecosystem: npm
   directory: packages/core
   schedule:
     interval: weekly
