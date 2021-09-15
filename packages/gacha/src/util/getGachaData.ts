@@ -3,7 +3,7 @@ import axios from 'axios'
 import {
   OfficialGachaIndex,
   OfficialGachaPool,
-  OfficialGachaType
+  OfficialGachaType,
 } from '../types'
 
 const API_ENDPOINT = 'https://webstatic.mihoyo.com/hk4e/gacha_info/cn_gf01'

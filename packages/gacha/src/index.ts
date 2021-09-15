@@ -11,7 +11,7 @@ import {
   SpecialRoll,
   AppWishResult,
   OfficialGachaType,
-  AppGachaItem
+  AppGachaItem,
 } from './types'
 import { getOfficialGachaPool, poolStructureConverter } from './util'
 export * from './types'
@@ -46,14 +46,14 @@ export class GenshinGachaKit {
       upSSR: [],
       upSR: [],
       ssr: [],
-      sr: []
+      sr: [],
     })
 
     // Init result
     this.setResult({
       ssr: [],
       sr: [],
-      r: []
+      r: [],
     })
   }
 
@@ -85,7 +85,7 @@ export class GenshinGachaKit {
     } else if (typeof name === 'object') {
       this._counter = {
         ...this._counter,
-        ...name
+        ...name,
       }
     }
     return this
@@ -112,7 +112,7 @@ export class GenshinGachaKit {
       upSSR: [],
       upSR: [],
       ssr: [],
-      sr: []
+      sr: [],
     })
     return this
   }
@@ -164,7 +164,7 @@ export class GenshinGachaKit {
     this.setResult({
       ssr: [],
       sr: [],
-      r: []
+      r: [],
     })
     return this
   }
@@ -189,7 +189,7 @@ export class GenshinGachaKit {
     upChance,
     softEnsure,
     turningPoint,
-    hardEnsure
+    hardEnsure,
   }: SpecialRoll): 0 | 1 | 2 {
     let chance = 0
     const more = (1 - baseChance) / (softEnsure - turningPoint)
@@ -220,7 +220,7 @@ export class GenshinGachaKit {
       upChance: 0.5,
       softEnsure: 90,
       turningPoint: 72,
-      hardEnsure: ensure
+      hardEnsure: ensure,
     })
     if (result === 1) {
       this.setCounter('ensureSSR', 1)
@@ -247,7 +247,7 @@ export class GenshinGachaKit {
       upChance: 0.5,
       softEnsure: 10,
       hardEnsure: false,
-      turningPoint: 7
+      turningPoint: 7,
     })
     if (result === 2) {
       this.increaseCounter('upSR', this.getCounter('lastUpSR') as number)
