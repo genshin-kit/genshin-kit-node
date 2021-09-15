@@ -32,10 +32,10 @@ jobs:
 
     - name: test core
       env:
-        COOKIE: ${{ secrets.COOKIE }}
+        COOKIE: ${{ secrets.HOYOLAB_COOKIE }}
       run: |
         yarn
         cd packages/core
         yarn
         cd ../../
-        node_modules/.bin/_mocha packages/core/test/**/**.ts  --cookie "$COOKIE"
+        node_modules/.bin/_mocha packages/core/test/**/**.ts   

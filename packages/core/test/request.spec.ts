@@ -1,13 +1,14 @@
 import { describe, it } from 'mocha'
 import { expect } from 'chai'
-import { argv } from 'process'
 import { GenshinKit } from '../src/index'
- 
+import {env} from 'process'
+
 describe('Test request in request.ts', () => {
   it('should be able to get retcode 0' , async () => {
     const genshinKit = new GenshinKit()
-    genshinKit.loginWithCookie(argv[4])
-    let res =await  genshinKit.request(
+
+    genshinKit.loginWithCookie((env.HOYOLAB_COOKIE as string))
+    let res = await  genshinKit.request(
       'get',
       'https://api-takumi.mihoyo.com/binding/api/getUserGameRolesByCookie'
     )
