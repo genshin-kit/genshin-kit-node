@@ -30,7 +30,7 @@ export class GenshinGachaKit {
   _gachaPool!: AppGachaPool
   _result!: AppWishResult
 
-  constructor(gachaPool: AppGachaPool) {
+  constructor(gachaPool?: AppGachaPool) {
     // Init gacha pool
     if (gachaPool) {
       this.setGachaPool(gachaPool)
