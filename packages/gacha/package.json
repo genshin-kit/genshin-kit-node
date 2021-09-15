@@ -20,7 +20,7 @@
     "pretty": "prettier --write ./src ./sample"
   },
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "tslib": "^2.2.0"
   },
   "devDependencies": {
