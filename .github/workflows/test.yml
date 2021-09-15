@@ -23,20 +23,13 @@ jobs:
       
     - name: Set Node Version
       uses: actions/setup-node@v1
-    
-    # Runs a single command using the runners shell
-    - name: Switch path to core
-      run: 
-        cd packages/core/
+
     - name: test core
       env:
         COOKIE: ${{ secrets.COOKIE }}
-      run: 
-        npm run test --cookie "$COOKIE"
-    # - name: Switch path to core
-    #   run: 
-    #     cd ../gacha/
-    # - name: test gacha
-    #   run: 
-    #     npm run test 
-      
+      run: |
+        npm install
+        cd packages/core
+        npm install
+        cd ../../
+        npx mocha packages/core/test/**/**.ts  --cookie "$COOKIE"
