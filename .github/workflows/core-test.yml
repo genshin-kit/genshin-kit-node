@@ -1,20 +1,20 @@
 # This is a basic workflow that is manually triggered
 
-name: Test
+name: coreTest
 
 # Controls when the action will run. Workflow runs when manually triggered using the UI
 # or API.
 on:
   push:
-    branches: [master,dev]
+    branches: [master,dev,trigger]
     paths: 
       - '.github/workflows/**'
-      - 'packages/core**'
+      - 'packages/core/**'
   pull_request:
-    branches: [master,dev]
+    branches: [master,dev,trigger]
     paths: 
       - '.github/workflows/**'
-      - 'packages/core**'
+      - 'packages/core/**'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
