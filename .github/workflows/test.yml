@@ -28,7 +28,11 @@ jobs:
     - name: test core
       env:
         COOKIE: ${{ secrets.COOKIE }}
-      run: |
+      run: 
         cd packages/core/
         npm run test --cookie "$COOKIE"
+    # - name: test gacha
+    #   run: 
+    #     cd ../gacha/
+    #     npm run test 
       
