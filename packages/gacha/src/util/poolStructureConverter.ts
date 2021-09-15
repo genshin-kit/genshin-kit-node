@@ -4,12 +4,12 @@ const gachaType: Record<string, AppGachaPool['type']> = {
   '200': 'permanent',
   '100': 'novice',
   '301': 'character',
-  '302': 'weapon'
+  '302': 'weapon',
 }
 
 const itemType: Record<string, AppGachaItem['type']> = {
   武器: 'weapon',
-  角色: 'character'
+  角色: 'character',
 }
 
 export function poolStructureConverter(data: OfficialGachaPool): AppGachaPool {
@@ -22,7 +22,7 @@ export function poolStructureConverter(data: OfficialGachaPool): AppGachaPool {
     upSR: [],
     ssr: [],
     sr: [],
-    r: []
+    r: [],
   }
 
   pool.name = data.title.replace(/<\/?.+?>/g, '')
