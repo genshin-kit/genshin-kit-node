@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "es2019",
+    "module": "commonjs",
+    "strict": true,
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    // "baseUrl": ".",
+    "types": ["node"],
+    "paths": {},
+    "outDir": "lib",
+    "lib": ["es2019"],
+    "declaration": true
+    // "noImplicitThis": false
+  },
+}
