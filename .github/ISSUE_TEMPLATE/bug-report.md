@@ -6,6 +6,11 @@ labels: ''
 assignees: ''
 ---
 
+**选择您要汇报的包/Choose the package you want to report.**
+
+- [ ] @genshin-kit/core
+- [ ] @genshin-kit/gacha
+
 ## 简述此故障/Describe the bug
 
 <!-- A clear and concise description of what the bug is. Or just write "RT" (read title). -->
@@ -29,7 +34,7 @@ assignees: ''
 
 ## 环境信息/Your environment
 
-- genshin-kit: <!-- latest/xx.x.x/xx.x.x-beta.x/... -->
+- 包版本/pkg version: <!-- xx.x.x/xx.x.x-beta.x/... -->
 - Node.js: <!-- 16.x.x/14.x.x/... -->
 - 系统/OS: <!-- Windows/Linux/macOS... -->
 
