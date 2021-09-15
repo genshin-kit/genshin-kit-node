@@ -25,14 +25,17 @@ jobs:
       uses: actions/setup-node@v1
     
     # Runs a single command using the runners shell
+    - name: Switch path to core
+      run: 
+        cd packages/core/
     - name: test core
       env:
         COOKIE: ${{ secrets.COOKIE }}
-      run: 
-        cd packages/core/
         npm run test --cookie "$COOKIE"
-    # - name: test gacha
+    # - name: Switch path to core
     #   run: 
     #     cd ../gacha/
+    # - name: test gacha
+    #   run: 
     #     npm run test 
       
