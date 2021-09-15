@@ -31,6 +31,7 @@ jobs:
     - name: test core
       env:
         COOKIE: ${{ secrets.COOKIE }}
+      run: 
         npm run test --cookie "$COOKIE"
     # - name: Switch path to core
     #   run: 
