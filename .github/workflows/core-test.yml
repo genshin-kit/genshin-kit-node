@@ -32,7 +32,7 @@ jobs:
 
     - name: test core
       env:
-        COOKIE: ${{ secrets.HOYOLAB_COOKIE }}
+        HOYOLAB_COOKIE: ${{ secrets.HOYOLAB_COOKIE }}
       run: |
         yarn
         cd packages/core
