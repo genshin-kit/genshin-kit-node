@@ -35,7 +35,4 @@ jobs:
         HOYOLAB_COOKIE: ${{ secrets.HOYOLAB_COOKIE }}
       run: |
         yarn
-        cd packages/core
-        yarn
-        cd ../../
-        node_modules/.bin/_mocha packages/core/test/**/**.ts   
+        yarn workspace @genshin-kit/core run test 
