@@ -16,7 +16,7 @@
     "clear": "rimraf ./lib ./dist",
     "bump": "yarn lint && yarn pretty && yarn build && bump",
     "lint": "eslint ./src",
-    "test": "mocha test/**/**.ts --$cookie",
+    "test": "mocha test/**/**.ts",
     "pretty": "prettier --write ./src ./sample"
   },
   "dependencies": {
@@ -26,12 +26,14 @@
   "devDependencies": {
     "@dragon-fish/bump": "^0.0.15",
     "@microsoft/api-extractor": "^7.18.0",
+    "@types/node": "^16.7.12",
     "@typescript-eslint/eslint-plugin": "^4.31.0",
     "@typescript-eslint/parser": "^4.31.0",
     "eslint": "^7.24.0",
     "eslint-config-prettier": "^8.3.0",
     "prettier": "^2.4.0",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "typescript": "^4.4.3"
   },
   "keywords": [
     "api",
