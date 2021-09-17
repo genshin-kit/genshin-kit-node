@@ -7,7 +7,10 @@
     "lib"
   ],
   "typings": "lib/index.d.ts",
-  "repository": "https://github.com/genshin-kit/genshin-kit.git",
+  "repository": {
+    "url": "https://github.com/genshin-kit/genshin-kit.git",
+    "directory": "packages/core"
+  },
   "author": "Dragon-Fish <824399619@qq.com>",
   "license": "Apache-2.0",
   "scripts": {

@@ -7,7 +7,10 @@
     "lib"
   ],
   "typings": "lib/index.d.ts",
-  "repository": "https://github.com/Dragon-Fish/genshin-gacha-kit.git",
+  "repository": {
+    "url": "https://github.com/Dragon-Fish/genshin-kit.git",
+    "directory": "packages/gacha"
+  },
   "author": "Dragon-Fish <dragon-fish@qq.com>",
   "license": "Apache-2.0",
   "scripts": {
