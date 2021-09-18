@@ -108,3 +108,4 @@ secret/
 secret*.*
 dev/
 !*.sample.*
+.vscode/
