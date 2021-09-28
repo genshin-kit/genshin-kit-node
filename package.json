@@ -8,7 +8,7 @@
   ],
   "devDependencies": {
     "@dragon-fish/bump": "^0.0.15",
-    "@types/chai": "^4.2.21",
+    "@types/chai": "^4.2.22",
     "@types/chai-as-promised": "^7.1.4",
     "@types/mocha": "^9.0.0",
     "@typescript-eslint/eslint-plugin": "^4.32.0",
