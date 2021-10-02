@@ -11,8 +11,5 @@ export function isValidOsUid(uid: any): boolean {
 }
 
 export function isValidUid(uid: number): boolean {
-  return (
-    !isNaN(uid) &&
-    uid.toString().length === 9
-  )
+  return !isNaN(uid) && uid.toString().length === 9
 }

@@ -279,7 +279,19 @@ const defaultList: NicknameList[] = [
     nicknames: ['早柚', 'sayu', 'zaoyou', '忍里之貉'],
   },
   {
+    id: 10000054,
+    nicknames: [
+      '珊瑚宫心海',
+      'sangonomiyakokomi',
+      'shanhugongxinhai',
+      '心海',
+      'kokomi',
+      '军师',
+      '现人神巫女',
+    ],
+  },
+  {
     id: 10000056,
-    nicknames: ['九条裟罗', 'kujousara', 'jiutiaoshaluo', '天狗'],
+    nicknames: ['九条裟罗', 'kujousara', 'jiutiaoshaluo', '鸦天狗'],
   },
 ]
