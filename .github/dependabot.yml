@@ -6,13 +6,3 @@ updates:
   schedule:
     interval: weekly
   target-branch: dev
-- package-ecosystem: npm
-  directory: packages/core
-  schedule:
-    interval: weekly
-  target-branch: dev
-- package-ecosystem: npm
-  directory: packages/gacha
-  schedule:
-    interval: weekly
-  target-branch: dev
