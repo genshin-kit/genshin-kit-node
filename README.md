@@ -19,8 +19,11 @@ A series of development kits for obtaining resources related to the Genshin Impa
 
 安装/installation
 
-```sh
-yarn install @genshin-kit/core
+```bash
+# Via yarn
+yarn add @genshin-kit/core
+# Or via npm
+npm install @genshin-kit/core
 ```
 
 使用/usage
