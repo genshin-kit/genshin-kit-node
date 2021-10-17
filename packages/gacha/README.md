@@ -18,10 +18,10 @@ Use automatically synchronized official gacha pool data or custom gacha pool dat
 ## 安装方法
 
 ```shell
-# Using yarn
-yarn add genshin-gacha-kit
+# Via yarn
+yarn add @genshin-kit/gacha
 # Or via npm
-npm install genshin-gacha-kit
+npm install @genshin-kit/gacha
 ```
 
 ---

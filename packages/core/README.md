@@ -14,9 +14,9 @@
 
 ```bash
 # Via yarn
-yarn add genshin-kit
+yarn add @genshin-kit/core
 # Or via npm
-npm install genshin-kit
+npm install @genshin-kit/core
 ```
 
 ## 使用
