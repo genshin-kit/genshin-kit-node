@@ -1,18 +1,8 @@
 version: 2
 updates:
-# npm
-- package-ecosystem: npm
-  directory: /
-  schedule:
-    interval: weekly
-  target-branch: dev
-- package-ecosystem: npm
-  directory: packages/core
-  schedule:
-    interval: weekly
-  target-branch: dev
-- package-ecosystem: npm
-  directory: packages/gacha
-  schedule:
-    interval: weekly
-  target-branch: dev
+  # npm
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    target-branch: dev
