@@ -270,11 +270,7 @@ const defaultList: NicknameList[] = [
   },
   {
     id: 10000051,
-    nicknames: [
-      '优菈',
-      'eula',
-      'Youla'
-    ],
+    nicknames: ['优菈', 'eula', 'youla'],
   },
   {
     id: 10000052,
