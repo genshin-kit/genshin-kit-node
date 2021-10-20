@@ -1,8 +1,8 @@
 version: 2
 updates:
-# npm
-- package-ecosystem: npm
-  directory: /
-  schedule:
-    interval: weekly
-  target-branch: dev
+  # npm
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    target-branch: dev
