@@ -49,7 +49,7 @@ Use cookies of hoyolab site to login to the instance.
 
 > **⚠️ Caution ⚠️**：Please keep your cookies safe.<br>NEVER SHARE YOUR COOKIES WITH ANYONE ELSE!
 
-**How to obtain**: login to hoyolab <https://www.hoyolab.com/genshin/>, then input `document.cookie` in the browser console, it returns the cookies you need. Usually the cookies you obtained can be used for some time; if it fails, try to obtain another one.
+**How to obtain**: login to hoyolab Battle Chronicle <https://webstatic-sea.mihoyo.com/app/community-game-records-sea/#/ys>, then input `document.cookie` in the browser console, it returns the cookies you need. Usually the cookies you obtained can be used for some time; if it fails, try to obtain another one.
 
 <details>
 <summary>Usage Example</summary>
