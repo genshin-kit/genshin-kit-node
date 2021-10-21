@@ -25,5 +25,5 @@ export async function request(
       params: query,
       ...(this.serverType === 'os' ? { withCredentials: true } : {}),
     })
-  ).data
+  ).data as any
 }
