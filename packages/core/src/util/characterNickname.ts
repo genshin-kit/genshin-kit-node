@@ -269,6 +269,10 @@ const defaultList: NicknameList[] = [
     nicknames: ['宵宫', 'yoimiya', 'xiaogong'],
   },
   {
+    id: 10000050,
+    nicknames: ['托马', 'thoma', 'tuoma'],
+  },
+  {
     id: 10000051,
     nicknames: ['优菈', 'eula', 'youla'],
   },
