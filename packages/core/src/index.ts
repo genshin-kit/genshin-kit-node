@@ -29,6 +29,7 @@ import {
   AppServerLocale,
   AppServerType,
   UserInfo,
+  DailyNote,
 } from './types'
 
 export class GenshinKit {
@@ -255,5 +256,35 @@ export class GenshinKit {
    */
   async getPreviousAbyss(uid: number, noCache?: boolean): Promise<Abyss> {
     return this.getSpiralAbyss(uid, 2, noCache)
+  }
+
+  /**
+   * @function getDailyNote
+   * @param {Number} uid
+   * @returns {Promise<DailyNote>}
+   */
+  async getDailyNote(uid: number, noCache = false): Promise<DailyNote> {
+    const temp = this._cache?.[uid]?.info
+    if (temp && !noCache) {
+      return temp
+    }
+
+    const server = this._getServer(uid)
+
+    const data = await this.request('get', 'dailyNote', {
+      role_id: uid,
+      server,
+    })
+    if (data.retcode !== 0 || !data.data) {
+      throw {
+        code: data.retcode,
+        message: data.message,
+      }
+    }
+    this._cache[uid] = {
+      ...this._cache[uid],
+      info: data.data,
+    }
+    return data.data
   }
 }
