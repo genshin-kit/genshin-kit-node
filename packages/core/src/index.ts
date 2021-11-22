@@ -264,7 +264,7 @@ export class GenshinKit {
    * @returns {Promise<DailyNote>}
    */
   async getDailyNote(uid: number, noCache = false): Promise<DailyNote> {
-    const temp = this._cache?.[uid]?.info
+    const temp = this._cache?.[uid]?.dailyNote
     if (temp && !noCache) {
       return temp
     }
@@ -283,7 +283,7 @@ export class GenshinKit {
     }
     this._cache[uid] = {
       ...this._cache[uid],
-      info: data.data,
+      dailyNote: data.data,
     }
     return data.data
   }

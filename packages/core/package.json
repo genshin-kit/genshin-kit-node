@@ -1,5 +1,5 @@
 {
-  "name": "genshin-kit",
+  "name": "@genshin-kit/core",
   "version": "2.5.0",
   "description": "An API wrapper for fetching player data of Genshin Impact from any servers.",
   "main": "lib/index.js",
