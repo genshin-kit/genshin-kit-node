@@ -46,20 +46,20 @@ getUid(app).then((uid) => {
           .startsWith(`${year}-${month}`)
       ).to.eq(true)
     })
-  })
 
-  it('getActivities', async () => {
-    const res = await app.getActivities(uid)
-    expect(res).to.be.an('object')
-    expect(res.activities).to.be.an('array')
-  })
+    it('getActivities', async () => {
+      const res = await app.getActivities(uid)
+      expect(res).to.be.an('object')
+      expect(res.activities).to.be.an('array')
+    })
 
-  it('getDailyNote', async () => {
-    const res = await app.getDailyNote(uid)
-    expect(res).to.be.an('object')
-    // 原粹树脂应该介于 0 - 160
-    // 暂时不考虑月亮嗑多了的情况
-    expect(res.current_resin).to.lte(160)
-    expect(res.current_resin).to.gte(0)
+    it('getDailyNote', async () => {
+      const res = await app.getDailyNote(uid)
+      expect(res).to.be.an('object')
+      // 原粹树脂应该介于 0 - 160
+      // 暂时不考虑月亮嗑多了的情况
+      expect(res.current_resin).to.lte(160)
+      expect(res.current_resin).to.gte(0)
+    })
   })
 })

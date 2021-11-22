@@ -1,9 +1,4 @@
-# This is a basic workflow that is manually triggered
-
-name: coreTest
-
-# Controls when the action will run. Workflow runs when manually triggered using the UI
-# or API.
+name: Unit test for @genshin-kit/core
 on:
   push:
     branches: [master,dev,actions]
@@ -30,7 +25,7 @@ jobs:
     - name: Set Node Version
       uses: actions/setup-node@v2
 
-    - name: test core
+    - name: Run test
       env:
         HOYOLAB_COOKIE: ${{ secrets.HOYOLAB_COOKIE }}
       run: |
