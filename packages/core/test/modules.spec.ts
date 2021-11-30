@@ -15,25 +15,25 @@ async function getUid(app: GenshinKit): Promise<number> {
 }
 
 const app = new GenshinKit()
-app.loginWithCookie(env.HOYOLAB_COOKIE as string)
+app.cookie = env.HOYOLAB_COOKIE as string
 
 getUid(app).then((uid) => {
   describe('GenshinKit modules', () => {
     it('getUserInfo', async () => {
-      const res = await app.getUserInfo(uid)
+      const res = await app.userInfo(uid)
       expect(res).to.be.an('object')
       expect(res.avatars).to.be.an('array')
     })
 
     it('getUserRoles', async () => {
-      const res = await app.getUserRoles(uid)
+      const res = await app.userRoles(uid)
       expect(res).to.be.an('array')
       expect(res[0].id).to.be.an('number')
       expect(res[0].name).to.be.an('string')
     })
 
     it('getAbyss', async () => {
-      const res = await app.getAbyss(uid, 1)
+      const res = await app.abyss(uid, 1)
 
       const now = new Date()
       const year = now.getFullYear()
@@ -48,13 +48,13 @@ getUid(app).then((uid) => {
     })
 
     it('getActivities', async () => {
-      const res = await app.getActivities(uid)
+      const res = await app.activities(uid)
       expect(res).to.be.an('object')
       expect(res.activities).to.be.an('array')
     })
 
     it('getDailyNote', async () => {
-      const res = await app.getDailyNote(uid)
+      const res = await app.dailyNote(uid)
       expect(res).to.be.an('object')
       // 原粹树脂应该介于 0 - 160
       // 暂时不考虑月亮嗑多了的情况

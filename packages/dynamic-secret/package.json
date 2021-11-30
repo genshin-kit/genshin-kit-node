@@ -1,0 +1,37 @@
+{
+  "name": "@genshin-kit/dynamic-secret",
+  "version": "2.11.1",
+  "description": "DS generator for Genshin Kit",
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "typings": "lib/index.d.ts",
+  "repository": {
+    "url": "https://github.com/genshin-kit/genshin-kit.git",
+    "directory": "packages/core"
+  },
+  "author": "Dragon-Fish <824399619@qq.com>",
+  "license": "Apache-2.0",
+  "scripts": {
+    "build": "yarn clear && tsc",
+    "dev": "tsc --watch",
+    "clear": "rimraf ./lib ./dist",
+    "bump": "yarn lint && yarn test && yarn pretty && yarn build && bump",
+    "lint": "eslint ./src",
+    "test": "mocha test/**/*.ts",
+    "pretty": "prettier --write ./src ./sample"
+  },
+  "dependencies": {
+    "tslib": "^2.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.7"
+  },
+  "keywords": [
+    "api",
+    "genshin-impact",
+    "hoyolab",
+    "player-data"
+  ]
+}

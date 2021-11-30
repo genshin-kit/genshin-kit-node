@@ -10,15 +10,14 @@
 export const name = 'genshin-kit'
 
 // Modules
-import { _getApiEndpoint } from './module/_getApiEndpoint'
-import { _getDS } from './module/_getDS'
-import { _getHttpHeaders } from './module/_getHttpHeaders'
-import { _getServer } from './module/_getServer'
-import { _hoyolabVersion } from './module/_hoyolabVersion'
-import { request } from './module/request'
-export * as util from './util'
-import { URLSearchParams } from 'url'
-import { deprecate } from 'util'
+import { _getApiEndpoint } from './modules/_getApiEndpoint'
+import { _getDS } from './modules/_getDS'
+import { _getHttpHeaders } from './modules/_getHttpHeaders'
+import { _getServer } from './modules/_getServer'
+import { _hoyolabVersion } from './modules/_hoyolabVersion'
+import { request } from './modules/request'
+import { cookieToObj } from './modules/cookieToObj'
+export * as util from './utils'
 
 // Types
 import {
@@ -30,32 +29,32 @@ import {
   AppServerType,
   UserInfo,
   DailyNote,
+  BindingGameRoles,
 } from './types'
 
 export class GenshinKit {
-  _cache!: AppCache
-  cookie!: string
-  serverType!: AppServerType
-  serverLocale!: AppServerLocale
+  #cache: AppCache
+  #cookie: string
+  serverType: AppServerType
+  serverLocale: AppServerLocale
   _getApiEndpoint: typeof _getApiEndpoint
   _hoyolabVersion!: typeof _hoyolabVersion
   _getHttpHeaders!: typeof _getHttpHeaders
-  _getDS!: typeof _getDS
-  _getServer!: typeof _getServer
-  request!: typeof request
-  getCharacters: (uid: number, noCache?: boolean) => Promise<Character[]>
-  getUserRoles: (uid: number, noCache?: boolean) => Promise<Character[]>
-  getAbyss: (uid: number, type?: 1 | 2, noCache?: boolean) => Promise<Abyss>
-  getCurAbyss: (uid: number, noCache?: boolean) => Promise<Abyss>
-  getPrevAbyss: (uid: number, noCache?: boolean) => Promise<Abyss>
-  setCookie: (cookie: string) => this
+  _getDS: typeof _getDS
+  _getServer: typeof _getServer
+  request: typeof request
+  characters: (uid: number, noCache?: boolean) => Promise<Character[]>
+  userRoles: (uid: number, noCache?: boolean) => Promise<Character[]>
+  abyss: (uid: number, type?: 1 | 2, noCache?: boolean) => Promise<Abyss>
+  curAbyss: (uid: number, noCache?: boolean) => Promise<Abyss>
+  prevAbyss: (uid: number, noCache?: boolean) => Promise<Abyss>
 
   constructor() {
     // Cache
-    this._cache = {}
+    this.#cache = {}
 
-    // Variables
-    this.cookie = ''
+    // Init variables
+    this.#cookie = ''
     this._getApiEndpoint = _getApiEndpoint
     this._getDS = _getDS
     this._getHttpHeaders = _getHttpHeaders
@@ -65,58 +64,42 @@ export class GenshinKit {
     this.serverType = 'cn'
     this.serverLocale = 'zh-cn'
 
-    // Alias
-    this.getCharacters = this.getAllCharacters
-    this.getUserRoles = this.getAllCharacters
-    this.getAbyss = this.getSpiralAbyss
-    this.getCurAbyss = this.getCurrentAbyss
-    this.getPrevAbyss = this.getPreviousAbyss
-    this.setCookie = this.loginWithCookie
+    // Set alias
+    this.characters = this.allCharacters
+    this.userRoles = this.allCharacters
+    this.abyss = this.spiralAbyss
+    this.curAbyss = this.currentAbyss
+    this.prevAbyss = this.previousAbyss
   }
 
-  /**
-   * @method loginWithCookie
-   * @param {String} cookie
-   */
-  loginWithCookie(cookie: string): this {
-    this.clearCache()
-    this.cookie = cookie
-    return this
+  // Cookie validator
+  set cookie(val: string) {
+    const o = cookieToObj(val)
+    if (!o.ltoken && !o.ltuid) throw { code: -1, message: 'Invalid cookie' }
+    this.#cookie = val
+  }
+  get cookie() {
+    const o = cookieToObj(this.#cookie)
+    return `ltoken=${o.ltoken}; ltuid=${o.ltuid}`
   }
 
-  /**
-   * @method clearCache
-   */
+  async selfBindingRoles(): Promise<BindingGameRoles[]> {
+    const res = await this.request(
+      'get',
+      'https://api-takumi.mihoyo.com/binding/api/getUserGameRolesByCookie'
+    )
+    return res.data.list.find((item: any) =>
+      ['hk4e_cn', 'hk4e_global'].includes(item.game_biz)
+    )
+  }
+
   clearCache(): this {
-    this._cache = {}
+    this.#cache = {}
     return this
   }
 
-  /**
-   * @method setServerType
-   * @param type Server type: cn => China server, os => Oversea server
-   */
-  setServerType(type: AppServerType): this {
-    this.serverType = type
-    return this
-  }
-
-  /**
-   * @method setServerLanguage
-   * @param locale Server locale: Language in which character names, weapons, etc. will be displayed.
-   */
-  setServerLocale(locale: AppServerLocale): this {
-    this.serverLocale = locale
-    return this
-  }
-
-  /**
-   * @function getUserInfo
-   * @param {Number} uid
-   * @returns {Promise<UserInfo>}
-   */
-  async getUserInfo(uid: number, noCache = false): Promise<UserInfo> {
-    const temp = this._cache?.[uid]?.info
+  async userInfo(uid: number, noCache = false): Promise<UserInfo> {
+    const temp = this.#cache?.[uid]?.info
     if (temp && !noCache) {
       return temp
     }
@@ -133,26 +116,21 @@ export class GenshinKit {
         message: data.message,
       }
     }
-    this._cache[uid] = {
-      ...this._cache[uid],
+    this.#cache[uid] = {
+      ...this.#cache[uid],
       info: data.data,
     }
     return data.data
   }
 
-  /**
-   * @function getAllCharacters
-   * @param {Number} uid
-   * @returns {Promise<Character[]>}
-   */
-  async getAllCharacters(uid: number, noCache = false): Promise<Character[]> {
-    const temp = this._cache?.[uid]?.roles
+  async allCharacters(uid: number, noCache = false): Promise<Character[]> {
+    const temp = this.#cache?.[uid]?.roles
     if (temp && !noCache) {
       return temp
     }
 
     const server = this._getServer(uid)
-    const userInfo = await this.getUserInfo(uid)
+    const userInfo = await this.userInfo(uid)
     const character_ids = userInfo.avatars.map((item) => {
       return item.id
     })
@@ -168,34 +146,18 @@ export class GenshinKit {
         message: data.message,
       }
     } else {
-      this._cache[uid] = {
-        ...this._cache[uid],
+      this.#cache[uid] = {
+        ...this.#cache[uid],
         roles: data?.data?.avatars,
       }
       return data?.data?.avatars || []
     }
   }
 
-  getCharacterDetailsUrl(uid: number, id: number): string {
-    return deprecate(() => {
-      const server = this._getServer(uid)
-      return `https://webstatic.mihoyo.com/app/community-game-records/index.html?${new URLSearchParams(
-        { bbs_presentation_style: 'fullscreen' }
-      )}#/ys/role?${new URLSearchParams({
-        role_id: uid.toString(),
-        server: server,
-        id: id.toString(),
-      })}`
-    }, '`getCharacterDetailsUrl()` has been deprecated.')()
-  }
-
   /**
-   * @function getSpiralAbyss
-   * @param {Number} uid
    * @param {1|2} type 1 cur, 2 prev
-   * @returns {Promise<Abyss>}
    */
-  async getSpiralAbyss(
+  async spiralAbyss(
     uid: number,
     type: 1 | 2 = 1,
     noCache = false
@@ -204,7 +166,7 @@ export class GenshinKit {
       throw { code: -1, message: 'Invalid abyss type' }
     }
 
-    const temp = this._cache?.[uid]?.abyss?.[type]
+    const temp = this.#cache?.[uid]?.abyss?.[type]
     if (temp && !noCache) {
       return temp
     }
@@ -219,19 +181,24 @@ export class GenshinKit {
     if (data.retcode !== 0 || !data.data) {
       throw { code: data.retcode, message: data.message }
     } else {
-      this._cache[uid] = this._cache[uid] || {}
-      this._cache[uid].abyss = {
-        ...this._cache[uid].abyss,
+      this.#cache[uid] = this.#cache[uid] || {}
+      this.#cache[uid].abyss = {
+        ...this.#cache[uid].abyss,
         [type]: data.data,
       }
       return data.data
     }
   }
 
-  /**
-   * @method getActivities 获取限时活动信息
-   */
-  async getActivities(uid: number): Promise<Activities> {
+  async currentAbyss(uid: number, noCache?: boolean): Promise<Abyss> {
+    return this.spiralAbyss(uid, 1, noCache)
+  }
+
+  async previousAbyss(uid: number, noCache?: boolean): Promise<Abyss> {
+    return this.spiralAbyss(uid, 2, noCache)
+  }
+
+  async activities(uid: number): Promise<Activities> {
     const server = this._getServer(uid)
     const data = await this.request('get', 'activities', {
       role_id: uid,
@@ -244,27 +211,8 @@ export class GenshinKit {
     }
   }
 
-  /**
-   * @function getCurrentAbyss
-   */
-  async getCurrentAbyss(uid: number, noCache?: boolean): Promise<Abyss> {
-    return this.getSpiralAbyss(uid, 1, noCache)
-  }
-
-  /**
-   * @function getPreviousAbyss
-   */
-  async getPreviousAbyss(uid: number, noCache?: boolean): Promise<Abyss> {
-    return this.getSpiralAbyss(uid, 2, noCache)
-  }
-
-  /**
-   * @function getDailyNote
-   * @param {Number} uid
-   * @returns {Promise<DailyNote>}
-   */
-  async getDailyNote(uid: number, noCache = false): Promise<DailyNote> {
-    const temp = this._cache?.[uid]?.dailyNote
+  async dailyNote(uid: number, noCache = false): Promise<DailyNote> {
+    const temp = this.#cache?.[uid]?.dailyNote
     if (temp && !noCache) {
       return temp
     }
@@ -281,8 +229,8 @@ export class GenshinKit {
         message: data.message,
       }
     }
-    this._cache[uid] = {
-      ...this._cache[uid],
+    this.#cache[uid] = {
+      ...this.#cache[uid],
       dailyNote: data.data,
     }
     return data.data

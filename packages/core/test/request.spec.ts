@@ -5,7 +5,7 @@ import { env } from 'process'
 
 describe('request.ts', () => {
   const app = new GenshinKit()
-  app.loginWithCookie(env.HOYOLAB_COOKIE as string)
+  app.cookie = env.HOYOLAB_COOKIE as string
 
   it('Get user game role by cookie', async () => {
     let res = await app.request(
