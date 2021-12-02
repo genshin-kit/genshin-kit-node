@@ -17,7 +17,7 @@
     "build": "yarn clear && tsc",
     "dev": "tsc --watch",
     "clear": "rimraf ./lib ./dist",
-    "bump": "yarn lint && yarn test && yarn pretty && yarn build && bump",
+    "bump": "pnpm lint && pnpm test && pnpm pretty && pnpm build && bump",
     "lint": "eslint ./src",
     "test": "mocha test/**/*.ts",
     "pretty": "prettier --write ./src ./sample"

@@ -2,7 +2,7 @@ const { App, uid } = require('.')
 const { CharactersFilter, activedConstellations } = require('..').util
 
 // 使用角色过滤器
-App.getAllCharacters(uid).then((data) => {
+App.allCharacters(uid).then((data) => {
   const Filter = new CharactersFilter(data)
   console.log(`玩家 ${uid} 的角色信息：`)
 

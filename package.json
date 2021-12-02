@@ -6,6 +6,7 @@
   "workspaces": [
     "packages/*"
   ],
+  "packageManager": "(pnpm)@\d+\.\d+\.\d+(-.+)?",
   "devDependencies": {
     "@dragon-fish/bump": "^0.0.15",
     "@types/chai": "^4.2.22",

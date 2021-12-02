@@ -1,3 +1,3 @@
 const { App, uid } = require('.')
 
-App.getActivities(uid).then(console.log, console.error)
+App.activities(uid).then(console.log, console.error)
