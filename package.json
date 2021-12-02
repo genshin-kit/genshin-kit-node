@@ -6,7 +6,9 @@
   "workspaces": [
     "packages/*"
   ],
-  "packageManager": "(pnpm)@\d+\.\d+\.\d+(-.+)?",
+  "scripts": {
+    "preinstall": "npx only-allow pnpm"
+  },
   "devDependencies": {
     "@dragon-fish/bump": "^0.0.15",
     "@types/chai": "^4.2.22",

@@ -1,13 +1,13 @@
 name: Unit test for @genshin-kit/core
 on:
   push:
-    branches: [master,dev,actions]
-    paths: 
+    branches: [master, dev, actions]
+    paths:
       - '.github/workflows/**'
       - 'packages/core/**'
   pull_request:
-    branches: [master,dev,actions]
-    paths: 
+    branches: [master, dev, actions]
+    paths:
       - '.github/workflows/**'
       - 'packages/core/**'
 
@@ -19,15 +19,15 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    - name: Checkout 
-      uses: actions/checkout@v2
-      
-    - name: Set Node Version
-      uses: actions/setup-node@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-    - name: Run test
-      env:
-        HOYOLAB_COOKIE: ${{ secrets.HOYOLAB_COOKIE }}
-      run: |
-        yarn
-        yarn workspace @genshin-kit/core run test 
+      - name: Set Node Version
+        uses: actions/setup-node@v2
+
+      - name: Run test
+        env:
+          HOYOLAB_COOKIE: ${{ secrets.HOYOLAB_COOKIE }}
+        run: |
+          pnpm
+          pnpm --filter @genshin-kit/core run test
