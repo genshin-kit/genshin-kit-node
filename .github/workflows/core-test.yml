@@ -28,10 +28,11 @@ jobs:
       - name: Setup pnpm
         run: |
           npm i -g pnpm
+          pnpm -v
 
       - name: Run test
         env:
           HOYOLAB_COOKIE: ${{ secrets.HOYOLAB_COOKIE }}
         run: |
-          pnpm
+          pnpm i
           pnpm --filter @genshin-kit/core run test
