@@ -19,41 +19,50 @@ app.cookie = env.HOYOLAB_COOKIE as string
 
 getUid(app).then((uid) => {
   describe('GenshinKit modules', () => {
-    it('getUserInfo', async () => {
+    it('selfBindingRoles', async () => {
+      const res = await app.selfBindingRoles()
+      expect(res).to.be.an('array')
+      expect(['hk4e_cn', 'hk4e_global']).to.be.includes(res[0].game_biz)
+    })
+
+    it('userInfo', async () => {
       const res = await app.userInfo(uid)
       expect(res).to.be.an('object')
       expect(res.avatars).to.be.an('array')
     })
 
-    it('getUserRoles', async () => {
+    it('userRoles', async () => {
       const res = await app.userRoles(uid)
       expect(res).to.be.an('array')
       expect(res[0].id).to.be.an('number')
       expect(res[0].name).to.be.an('string')
     })
 
-    it('getAbyss', async () => {
+    it('abyss', async () => {
       const res = await app.abyss(uid, 1)
+      const cur = await app.currentAbyss(uid)
 
       const now = new Date()
       const year = now.getFullYear()
       const month = now.getMonth() + 1
 
       expect(res).to.be.an('object')
+      expect(res.start_time).to.eq(cur.start_time)
       expect(
-        new Date(Number(res.start_time) * 1000)
+        // 北京时间
+        new Date(Number(res.start_time) * 1000 + 8 * 60 * 60 * 1000)
           .toISOString()
           .startsWith(`${year}-${month}`)
       ).to.eq(true)
     })
 
-    it('getActivities', async () => {
+    it('activities', async () => {
       const res = await app.activities(uid)
       expect(res).to.be.an('object')
       expect(res.activities).to.be.an('array')
     })
 
-    it('getDailyNote', async () => {
+    it('dailyNote', async () => {
       const res = await app.dailyNote(uid)
       expect(res).to.be.an('object')
       // 原粹树脂应该介于 0 - 160
