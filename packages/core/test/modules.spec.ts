@@ -3,6 +3,9 @@ import { expect } from 'chai'
 import { GenshinKit } from '../src/index'
 import { env } from 'process'
 
+const app = new GenshinKit()
+app.cookie = env.HOYOLAB_COOKIE as string
+
 async function getUid(app: GenshinKit): Promise<number> {
   const res = await app.request(
     'get',
@@ -13,9 +16,6 @@ async function getUid(app: GenshinKit): Promise<number> {
     ['hk4e_cn', 'hk4e_global'].includes(item.game_biz)
   )?.game_uid
 }
-
-const app = new GenshinKit()
-app.cookie = env.HOYOLAB_COOKIE as string
 
 getUid(app).then((uid) => {
   describe('GenshinKit modules', () => {

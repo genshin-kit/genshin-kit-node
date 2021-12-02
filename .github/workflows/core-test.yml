@@ -25,6 +25,10 @@ jobs:
       - name: Set Node Version
         uses: actions/setup-node@v2
 
+      - name: Setup pnpm
+        run: |
+          npm i -g pnpm
+
       - name: Run test
         env:
           HOYOLAB_COOKIE: ${{ secrets.HOYOLAB_COOKIE }}
