@@ -88,7 +88,7 @@ export class GenshinKit {
       'get',
       'https://api-takumi.mihoyo.com/binding/api/getUserGameRolesByCookie'
     )
-    return (res.data.list as BindingGameRoles[]).filter((item: any) =>
+    return (res.data.list as BindingGameRoles[]).filter((item) =>
       ['hk4e_cn', 'hk4e_global'].includes(item.game_biz)
     )
   }
