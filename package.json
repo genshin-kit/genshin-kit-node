@@ -6,19 +6,22 @@
   "workspaces": [
     "packages/*"
   ],
+  "scripts": {
+    "preinstall": "npx only-allow pnpm"
+  },
   "devDependencies": {
     "@dragon-fish/bump": "^0.0.15",
     "@types/chai": "^4.2.22",
     "@types/chai-as-promised": "^7.1.4",
     "@types/mocha": "^9.0.0",
-    "@typescript-eslint/eslint-plugin": "^4.33.0",
-    "@typescript-eslint/parser": "^4.33.0",
+    "@typescript-eslint/eslint-plugin": "^5.7.0",
+    "@typescript-eslint/parser": "^5.7.0",
     "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
-    "eslint": "^7.32.0",
+    "eslint": "^8.4.0",
     "eslint-config-prettier": "^8.3.0",
     "mocha": "^9.1.3",
-    "prettier": "^2.4.0",
-    "typescript": "^4.4.4"
+    "prettier": "^2.5.0",
+    "typescript": "^4.5.2"
   }
 }

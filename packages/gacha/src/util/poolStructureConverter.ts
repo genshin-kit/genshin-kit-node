@@ -25,7 +25,7 @@ export function poolStructureConverter(data: OfficialGachaPool): AppGachaPool {
     r: [],
   }
 
-  pool.name = data.title.replace(/<\/?.+?>/g, '')
+  pool.name = data.title.replace(/<\/?.+?>/g, '').replace('<', '&lt;')
   pool.type = gachaType[data.gacha_type]
   pool.begin = data.begin_time
   pool.end = data.end_time

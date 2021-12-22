@@ -1,4 +1,3 @@
-
 export interface DailyNote {
   current_resin: number
   max_resin: number

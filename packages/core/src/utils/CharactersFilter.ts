@@ -6,16 +6,17 @@ import { CharacterNickname } from '.'
 import { Character } from '../types/Character'
 
 export class CharactersFilter {
-  _list: Character[] = []
+  #list: Character[] = []
   nicknameFilter: CharacterNickname
 
   constructor(avatars: Character[]) {
-    this._list = avatars
+    this.#list = avatars
     this.nicknameFilter = new CharacterNickname()
   }
 
   /**
-   * @function name 通过名称或id获取玩家指定角色的信息
+   * 通过名字获取玩家指定角色的信息
+   * 支持部分昵称，可以通过实例上的 `nicknameFilter` 方法配置昵称过滤器
    */
   name(nameFind: string): Character | undefined {
     const id = this.nicknameFilter.getIdByNickname(nameFind)
@@ -23,15 +24,16 @@ export class CharactersFilter {
       return this.id(id)
     }
 
-    return this._list.find(({ name }) => name === nameFind)
+    return this.#list.find(({ name }) => name === nameFind)
   }
 
   id(idFind: number) {
-    return this._list.find(({ id }) => id === idFind)
+    return this.#list.find(({ id }) => id === idFind)
   }
 
   /**
-   * @function element 通过指定元素筛选玩家的角色
+   * 通过指定元素筛选玩家的角色
+   * 可以使用中文名例如 `火`
    */
   element(el: string): Character[] {
     el = el.toLocaleLowerCase()
@@ -55,12 +57,11 @@ export class CharactersFilter {
     }
     el = elAlias[el] || el
 
-    return this._list.filter(({ element }) => element.toLowerCase() === el)
+    return this.#list.filter(({ element }) => element.toLowerCase() === el)
   }
 
   /**
-   * @function rarity
-   * @param {Array|Number} 4 或 5 或 [4, 5]
+   * @param rarity 4 或 5 或 [4, 5]
    */
   rarity(rarity: number | number[]): Character[] {
     // 缓存
@@ -71,13 +72,10 @@ export class CharactersFilter {
       return []
     }
 
-    return this._list.filter(({ rarity }) => queryRarity.includes(rarity))
+    return this.#list.filter(({ rarity }) => queryRarity.includes(rarity))
   }
 
-  /**
-   * @function all
-   */
   all(): Character[] {
-    return this._list
+    return this.#list
   }
 }

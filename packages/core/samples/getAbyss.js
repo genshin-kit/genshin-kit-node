@@ -21,7 +21,7 @@ function formatter({
   ].join('\n')
 }
 
-Promise.all([App.getCurrentAbyss(uid), App.getPreviousAbyss(uid)]).then(
+Promise.all([App.currentAbyss(uid), App.previousAbyss(uid)]).then(
   ([cur, prev]) => {
     // console.log(JSON.stringify(cur))
     console.log('当期：', formatter(cur))

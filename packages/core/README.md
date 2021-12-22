@@ -40,36 +40,46 @@ npm install @genshin-kit/core
 
 ```js
 const { GenshinKit } = require('genshin-kit')
-const App = new GenshinKit()
+const app = new GenshinKit()
 ```
 
 </details>
 
-## `App.loginWithCookie(cookie: string): this`
+### `cookie: string`
 
-使用米游社网站的 cookie 登录实例。
+修改此项来配置米游社网站的 cookie。它形如 `foo=bar; baz=qux`。
 
 > **⚠️ 注意 ⚠️**：请妥善保存您的 cookies。<br>绝对不要把你的 cookies 交给任何人！<br>绝对绝对不要把你的 cookies 交给任何人！！<br>绝对绝对绝对不要把你的 cookies 交给任何人！！！
 
-**国服获取方法**：使用网页版米游社登录 <https://bbs.mihoyo.com/ys/>，然后前往 <https://bbs.mihoyo.com/>，在控制台输入 `document.cookie`，返回的结果就是 cookie，一般来说一个 cookie 可以使用一段时间，如果失效了就再次获取一遍。
+**国服获取方法**：使用网页版米游社登录 <https://bbs.mihoyo.com/ys/>，在控制台输入 `document.cookie`，返回的结果就是 cookie，一般来说只要不修改账号密码等敏感信息 cookie 就不会过期，如果过期了就再获取一遍。
 
 <details>
 <summary>使用示例</summary>
 
 ```js
-App.loginWithCookie(process.env.MHY_COOKIE)
+App.cookie = process.env.HOYOLAB_COOKIE
 ```
 
 </details>
 
-## `App.setServerType(type: 'cn' | 'os'): this`
+### `serverType: 'cn' | 'os'`
 
-设置要查询的 UID 所在的服务器分区。若不设置，预设查询`cn`（国服）数据。
+设置被查询的 UID 所在的服务器分区。若不设置，预设查询`cn`（国服）数据。
 
-- `cn` 中国服（官服、B 服）
+- `cn` 中国服（天空岛、世界树）
 - `os` 国际服
 
-## `App.getUserInfo(uid: number, noCache?: boolean): Promise<UserInfo>`
+### `serverLocale: string`
+
+**仅限国际服**
+
+设置返回结果的语言。若不设置，预设查询`zh-CN`（简体中文）数据。支持的语言见 `AppServerLocale`。
+
+### `selfBindingRoles(): Promise<BindingGameRoles>`
+
+获取当前配置的账号的游戏角色信息。
+
+### `userInfo(uid: number, noCache?: boolean): Promise<UserInfo>`
 
 使用 UID 查询玩家的游戏基础信息。
 
@@ -79,18 +89,18 @@ App.loginWithCookie(process.env.MHY_COOKIE)
 <summary>请求示例</summary>
 
 ```js
-App.getUserInfo(100000001).then(console.log)
+App.userInfo(100000001).then(console.log)
 ```
 
 </details>
 
-## `App.getAllCharacters(uid: number, noCache?: boolean): Promise<Character[]>`
+### `allCharacters(uid: number, noCache?: boolean): Promise<Character[]>`
 
 通过 UID 获取玩家详细的角色信息。包括角色的装备情况。
 
 返回：[Character[]](./src/types/Character.ts)
 
-## `App.getSpiralAbyss(uid: number, type?: 1 | 2, noCache?: boolean): Promise<Abyss>`
+### `spiralAbyss(uid: number, type?: 1 | 2, noCache?: boolean): Promise<Abyss>`
 
 根据 UID 获取“深境螺旋”信息。
 
@@ -98,9 +108,9 @@ App.getUserInfo(100000001).then(console.log)
 
 返回：[Abyss](./src/types/Abyss.ts)
 
-快速查询の糖：`App.getCurrentAbyss(<uid:number>): Promise<Abyss>` `App.getPreviousAbyss(<uid:number>): Promise<Abyss>`
+快速查询の糖：`App.currentAbyss(<uid:number>): Promise<Abyss>` `App.previousAbyss(<uid:number>): Promise<Abyss>`
 
-## `App.getActivities(uid: number): Promise<Activities>`
+### `activities(uid: number): Promise<Activities>`
 
 通过 UID 获取玩家的“风来人”等限时 raid 战绩。
 
@@ -124,7 +134,7 @@ const { util } = require('genshin-kit')
 
 一个角色筛选工具类。封装了一系列过滤角色信息的方法。
 
-返回：`Filter`类
+返回：`CharactersFilter`实例
 
 <details>
 <summary>使用示例</summary>
@@ -151,7 +161,7 @@ App.getAllCharacters(100000001).then((data) => {
 
 获取特定玩家的指定名称的角色信息。
 
-`name`：角色名称，建议使用“简体中文”语言中的标准名称。但是同时支持使用别称搜索，详见`CharacterNickname`。
+`name`：角色名称，建议使用`serverLocale`语言中的标准名称。但是支持部分别称，详见`CharacterNickname`。
 
 ### `element(element: string): Character[]`
 
@@ -171,7 +181,7 @@ App.getAllCharacters(100000001).then((data) => {
 
 ## `util.CharacterNickname` {class} 角色昵称工具
 
-返回：`Nickname` 类
+返回：`CharacterNickname`实例
 
 ### `setNicknames(id: number, nicknames: string[]): this`
 
