@@ -6,21 +6,32 @@ export const HOYOLAB_VERSION = {
   os: '1.5.0',
 }
 
+export function getDS(serverType: 'os' | null): string
 export function getDS(
   serverType: 'cn' | 'os' | null,
-  { query, body }: any
+  {
+    query,
+    body,
+  }: {
+    query?: Record<string, string | string[]>
+    body?: Record<string, unknown>
+  } | null = null
 ): string {
   switch (serverType) {
     case 'os':
       return getOsDS('6s25p5ox5y14umn1p61aqyyvbvvl3lrt')
     case 'cn':
     default:
-      return getCnDS({ query, body })
+      if (query && body) {
+        return getCnDS({ query, body })
+      } else {
+        throw new Error('query and body must be provided')
+      }
   }
 }
 
 // 生成随机字符串
-function randomString(e: number) {
+function randomString(e: number): string {
   const s = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
   const res = []
   for (let i = 0; i < e; ++i) {
@@ -30,7 +41,7 @@ function randomString(e: number) {
 }
 
 // 按首字母排序 object
-function sortKeys<T>(obj: T): T {
+function sortKeys<T extends object>(obj: T): T {
   const copy = {} as T
   const allKeys = Object.keys(obj).sort()
   allKeys.forEach((key) => {
@@ -39,7 +50,7 @@ function sortKeys<T>(obj: T): T {
   return copy
 }
 
-export function getOsDS(salt: string) {
+export function getOsDS(salt: string): string {
   const time = Math.floor(Date.now() / 1000)
   const random = randomString(6)
 
@@ -54,9 +65,9 @@ export function getCnDS({
   query,
   body,
 }: {
-  query: Record<string, any>
-  body: Record<string, any>
-}) {
+  query: Record<string, string | string[]>
+  body: Record<string, unknown>
+}): string {
   const salt = 'xV8v4Qu54lUKrEYFZkJhB8cuOh9Asafs'
   const time = Math.floor(Date.now() / 1000)
   // Integer between 100000 - 200000
@@ -70,7 +81,5 @@ export function getCnDS({
     .update(`salt=${salt}&t=${time}&r=${random}&b=${b}&q=${q}`)
     .digest('hex')
 
-  const dynamic = `${time},${random},${check}`
-
-  return dynamic
+  return `${time},${random},${check}`
 }
