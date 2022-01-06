@@ -2,31 +2,36 @@
   "name": "@genshin-kit/dynamic-secret",
   "version": "2.11.1",
   "description": "DS generator for Genshin Kit",
-  "main": "lib/index.js",
+  "main": "./src/index.ts",
   "files": [
     "lib"
   ],
-  "typings": "lib/index.d.ts",
+  "publishConfig": {
+    "main": "./lib/index.js",
+    "exports": "./lib/index.js",
+    "types": "./lib/index.d.ts"
+  },
   "repository": {
     "url": "https://github.com/genshin-kit/genshin-kit.git",
-    "directory": "packages/core"
+    "directory": "packages/dynameic-secret"
   },
-  "author": "Dragon-Fish <824399619@qq.com>",
+  "author": "Genshin Kit Members",
   "license": "Apache-2.0",
   "scripts": {
-    "build": "yarn clear && tsc",
+    "build": "pnpm clear && tsc",
     "dev": "tsc --watch",
     "clear": "rimraf ./lib ./dist",
-    "bump": "yarn lint && yarn test && yarn pretty && yarn build && bump",
+    "bump": "pnpm lint && pnpm test && pnpm pretty && pnpm build && bump",
     "lint": "eslint ./src",
     "test": "mocha test/**/*.ts",
-    "pretty": "prettier --write ./src ./sample"
+    "pretty": "prettier --write ./src"
   },
   "dependencies": {
     "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "@types/node": "^17.0.1"
+    "@types/node": "^17.0.8",
+    "rimraf": "^3.0.2"
   },
   "keywords": [
     "api",
