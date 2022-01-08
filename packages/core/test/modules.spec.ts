@@ -6,8 +6,8 @@ import { env } from 'process'
 
 const app = new GenshinKit()
 const query = new CNQuerier()
-app.cookie = env.HOYOLAB_COOKIE
-query.cookie = env.HOYOLAB_COOKIE
+app.cookie = env.HOYOLAB_COOKIE as string
+query.cookie = env.HOYOLAB_COOKIE as string
 
 async function getUid(): Promise<number> {
   const res = await query.send(
