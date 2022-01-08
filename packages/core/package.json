@@ -23,6 +23,7 @@
     "pretty": "prettier --write ./src ./sample"
   },
   "dependencies": {
+    "@genshin-kit/dynamic-secret": "workspace:^",
     "axios": "^0.24.0",
     "tslib": "^2.3.1"
   },

@@ -1,10 +1,7 @@
-/**
- * @method getServer
- * @param {Number} uid
- * @returns {String} genshin cn_server code
- */
-export function _getServer(uid: number): string {
-  switch (String(uid)[0]) {
+import { ServerArea } from '../types'
+
+export function serverArea(uid: string | number): ServerArea {
+  switch (String(+uid)[0]) {
     case '1':
     case '2':
       return 'cn_gf01'
