@@ -5,7 +5,7 @@ import { env } from 'process'
 
 describe('request.ts', () => {
   const query = new CNQuerier()
-  query.cookie = env.HOYOLAB_COOKIE
+  query.cookie = env.HOYOLAB_COOKIE as string
 
   it('Get user game role by cookie', async () => {
     let res = await query.send(
