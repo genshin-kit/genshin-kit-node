@@ -18,8 +18,8 @@ import {
 export class GenshinKit {
   #cache: AppCache = {}
   #cookie = ''
-  #querier: CNQuerier | OSQuerier
-  serverType: AppServerType
+  #querier: CNQuerier | OSQuerier = new CNQuerier()
+  #serverType: AppServerType = 'cn'
   serverLocale: AppServerLocale
   characters: (uid: number, noCache?: boolean) => Promise<Character[]>
   userRoles: (uid: number, noCache?: boolean) => Promise<Character[]>
@@ -36,7 +36,6 @@ export class GenshinKit {
   }: { serverType?: AppServerType; serverLocale?: AppServerLocale } = {}) {
     this.serverLocale = serverLocale || 'zh-cn'
     this.serverType = serverType || 'cn'
-    this.#querier = this.serverType === 'cn' ? new CNQuerier() : new OSQuerier()
     // Set aliases
     this.characters = this.allCharacters
     this.userRoles = this.allCharacters
@@ -55,6 +54,17 @@ export class GenshinKit {
     if (!o.ltoken && !o.ltuid) throw { code: -1, message: 'Invalid cookie' }
     this.#cookie = value
     this.#querier.cookie = value
+  }
+
+  get serverType() {
+    return this.#serverType
+  }
+
+  set serverType(value: AppServerType) {
+    this.#serverType = value
+    this.#querier =
+      this.#serverType === 'cn' ? new CNQuerier() : new OSQuerier()
+    this.#cookie = ''
   }
 
   clearCookie(): void {
