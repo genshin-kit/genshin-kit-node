@@ -1,14 +1,17 @@
 import { describe, it } from 'mocha'
 import { expect } from 'chai'
 import { GenshinKit } from '../src/index'
+import { CNQuerier } from '../src/Querier'
 import { env } from 'process'
 
 const app = new GenshinKit()
-app.cookie = env.HOYOLAB_COOKIE as string
+const query = new CNQuerier()
+app.cookie = env.HOYOLAB_COOKIE
+query.cookie = env.HOYOLAB_COOKIE
 
-async function getUid(app: GenshinKit): Promise<number> {
-  const res = await app.request(
-    'get',
+async function getUid(): Promise<number> {
+  const res = await query.send(
+    'GET',
     'https://api-takumi.mihoyo.com/binding/api/getUserGameRolesByCookie'
   )
   // 保证获取到的是原神游戏 uid
@@ -17,7 +20,7 @@ async function getUid(app: GenshinKit): Promise<number> {
   )?.game_uid
 }
 
-getUid(app).then((uid) => {
+getUid().then((uid) => {
   describe('GenshinKit modules', () => {
     it('selfBindingRoles', async () => {
       const res = await app.selfBindingRoles()
