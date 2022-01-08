@@ -68,15 +68,16 @@ export function getCnDS({
   query,
   body,
 }: {
-  query: Record<string, string | string[]>
-  body: Record<string, unknown>
-}): string {
+  query?: URLSearchParams | Record<string, string | string[]>
+  body?: Record<string, unknown>
+} = {}): string {
   const time = Math.floor(Date.now() / 1000)
   // Integer between 100000 - 200000
   const random = Math.floor(Math.random() * (200000 - 100000 + 1)) + 100000
 
   const b = body ? JSON.stringify(sortKeys(body)) : ''
-  const q = query ? new URLSearchParams(sortKeys(query)) : ''
+  const q = new URLSearchParams(query)
+  q.sort()
 
   const check = crypto
     .createHash('md5')
