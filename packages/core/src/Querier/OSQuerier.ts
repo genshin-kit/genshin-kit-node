@@ -23,6 +23,9 @@ export class OSQuerier {
       locale?: AppServerLocale
     } = {}
   ): Promise<any> {
+    if (this.#cookie.length === 0) {
+      throw new Error('No cookie specified')
+    }
     return (
       await axios({
         method,
