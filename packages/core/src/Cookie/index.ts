@@ -1,5 +1,5 @@
-export const cookieToObj = (str: string) => {
-  const obj = {} as Record<string, string>
+export function cookieToObj(str: string): Record<string, string> {
+  const obj: Record<string, string> = {}
   str
     .split(';')
     .map((i) => {
