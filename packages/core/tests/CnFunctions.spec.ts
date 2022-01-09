@@ -1,13 +1,13 @@
 import { describe, it } from 'mocha'
 import { expect } from 'chai'
 import { GenshinKit } from '../src/index'
-import { CNQuerier } from '../src/Querier'
+import { CnQuerier } from '../src/Querier'
 import { env } from 'process'
 
 const app = new GenshinKit()
-const query = new CNQuerier()
-app.cookie = env.HOYOLAB_COOKIE as string
-query.cookie = env.HOYOLAB_COOKIE as string
+const query = new CnQuerier()
+app.cookie = env.HOYOLAB_COOKIE || ''
+query.cookie = env.HOYOLAB_COOKIE || ''
 
 async function getUid(): Promise<number> {
   const res = await query.send(
@@ -21,7 +21,7 @@ async function getUid(): Promise<number> {
 }
 
 getUid().then((uid) => {
-  describe('GenshinKit modules', () => {
+  describe('GenshinKit functions', () => {
     it('selfBindingRoles', async () => {
       const res = await app.selfBindingRoles()
       expect(res).to.be.an('array')

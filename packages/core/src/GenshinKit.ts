@@ -1,6 +1,6 @@
 import { serverArea } from './ServerArea'
 import { cookieToObj } from './Cookie'
-import { CNQuerier, OSQuerier } from './Querier'
+import { CnQuerier, OsQuerier } from './Querier'
 
 // Types
 import {
@@ -18,7 +18,7 @@ import {
 export class GenshinKit {
   #cache: AppCache = {}
   #cookie = ''
-  #querier: CNQuerier | OSQuerier = new CNQuerier()
+  #querier: CnQuerier | OsQuerier = new CnQuerier()
   #serverType: AppServerType = 'cn'
   serverLocale: AppServerLocale
   characters: (uid: number, noCache?: boolean) => Promise<Character[]>
@@ -63,7 +63,7 @@ export class GenshinKit {
   set serverType(value: AppServerType) {
     this.#serverType = value
     this.#querier =
-      this.#serverType === 'cn' ? new CNQuerier() : new OSQuerier()
+      this.#serverType === 'cn' ? new CnQuerier() : new OsQuerier()
     this.#cookie = ''
   }
 
@@ -83,7 +83,7 @@ export class GenshinKit {
     }
 
     const server = serverArea(uid)
-    const data = await this.#querier.send('GET', '/index', {
+    const data = await this.#querier.send('GET', 'index', {
       params: {
         role_id: String(uid),
         server,
@@ -125,7 +125,7 @@ export class GenshinKit {
       return item.id
     })
 
-    const data = await this.#querier.send('POST', '/character', {
+    const data = await this.#querier.send('POST', 'character', {
       data: {
         character_ids,
         role_id: uid,
@@ -165,7 +165,7 @@ export class GenshinKit {
     }
 
     const server = serverArea(uid)
-    const data = await this.#querier.send('GET', '/spiralAbyss', {
+    const data = await this.#querier.send('GET', 'spiralAbyss', {
       params: {
         role_id: String(uid),
         schedule_type: String(type),
@@ -195,7 +195,7 @@ export class GenshinKit {
 
   async activities(uid: number): Promise<Activities> {
     const server = serverArea(uid)
-    const data = await this.#querier.send('GET', '/activities', {
+    const data = await this.#querier.send('GET', 'activities', {
       params: {
         role_id: String(uid),
         server,
@@ -215,7 +215,7 @@ export class GenshinKit {
     }
 
     const server = serverArea(uid)
-    const data = await this.#querier.send('GET', '/dailyNote', {
+    const data = await this.#querier.send('GET', 'dailyNote', {
       params: {
         role_id: String(uid),
         server,

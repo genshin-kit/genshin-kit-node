@@ -1,11 +1,11 @@
 import { describe, it } from 'mocha'
 import { expect } from 'chai'
-import { CNQuerier } from '../src/Querier'
 import { env } from 'process'
+import { CnQuerier } from '../src/Querier'
 
-describe('request.ts', () => {
-  const query = new CNQuerier()
-  query.cookie = env.HOYOLAB_COOKIE as string
+describe('cn query', () => {
+  const query = new CnQuerier()
+  query.cookie = env.HOYOLAB_COOKIE || ''
 
   it('Get user game role by cookie', async () => {
     let res = await query.send(
@@ -15,12 +15,13 @@ describe('request.ts', () => {
     const user = res.data.list.find((item: any) =>
       ['hk4e_cn', 'hk4e_global'].includes(item.game_biz)
     )
-    res = await query.send('GET', '/index', {
+    res = await query.send('GET', 'index', {
       params: {
         role_id: user.game_uid,
         server: user.region,
       },
     })
+    console.log(res)
     expect(res.retcode).to.equal(0)
   })
 })

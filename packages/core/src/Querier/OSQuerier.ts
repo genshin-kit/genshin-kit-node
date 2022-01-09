@@ -3,7 +3,7 @@ import axios, { Method } from 'axios'
 import { URL, URLSearchParams } from 'url'
 import { AppServerLocale } from '../types'
 
-export class OSQuerier {
+export class OsQuerier {
   #cookie = ''
 
   set cookie(value: string) {
@@ -31,7 +31,7 @@ export class OSQuerier {
         method,
         url: `${new URL(
           path,
-          'https://bbs-api-os.mihoyo.com/game_record/genshin/api'
+          'https://bbs-api-os.mihoyo.com/game_record/genshin/api/'
         )}`,
         headers: {
           Accept: 'application/json, text/plain, */*',

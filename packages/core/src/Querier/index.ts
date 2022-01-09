@@ -1,2 +1,2 @@
-export { CNQuerier } from './CNQuerier'
-export { OSQuerier } from './OSQuerier'
+export { CnQuerier } from './CnQuerier'
+export { OsQuerier } from './OsQuerier'

@@ -3,7 +3,7 @@ import axios, { Method } from 'axios'
 import { URL, URLSearchParams } from 'url'
 import { AppServerLocale } from '../types'
 
-export class CNQuerier {
+export class CnQuerier {
   #cookie = ''
 
   set cookie(value: string) {
@@ -31,7 +31,7 @@ export class CNQuerier {
         method,
         url: `${new URL(
           path,
-          'https://api-takumi-record.mihoyo.com/game_record/genshin/api'
+          'https://api-takumi-record.mihoyo.com/game_record/genshin/api/'
         )}`,
         headers: {
           Accept: 'application/json, text/plain, */*',
