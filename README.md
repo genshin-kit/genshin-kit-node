@@ -56,7 +56,9 @@ const genshin = new GenshinKit()
 
 ## 加入我们/Join us!
 
-<https://github.com/genshin-kit/genshin-kit/issues/28>
+<https://github.com/genshin-kit/genshin-kit-node/issues/28>
+
+[![Analytics data](https://repobeats.axiom.co/api/embed/7085624cbb77038f7a5ed3f8ef376fc9b6eea714.svg "Repobeats analytics image")](https://github.com/genshin-kit/genshin-kit-node/issues/28)
 
 ---
 
