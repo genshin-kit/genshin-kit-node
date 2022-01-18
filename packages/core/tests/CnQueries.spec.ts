@@ -20,7 +20,6 @@ describe('cn query', () => {
         server: user.region,
       },
     })
-    console.log(res)
     expect(res.retcode).to.equal(0)
   })
 })
