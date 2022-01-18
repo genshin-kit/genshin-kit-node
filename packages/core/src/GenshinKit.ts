@@ -82,10 +82,7 @@ export class GenshinKit {
     message: string
   }): void {
     if (data.retcode !== 0 || !data.data) {
-      throw {
-        code: data.retcode,
-        message: data.message,
-      }
+      throw new Error(data.message)
     }
   }
 

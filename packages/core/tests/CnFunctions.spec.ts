@@ -20,7 +20,7 @@ async function getUid(): Promise<number> {
 }
 
 getUid().then((uid) => {
-  describe('GenshinKit functions', () => {
+  describe('GenshinKit CN server functions', () => {
     it('selfBindingRoles', async () => {
       const res = await app.selfBindingRoles()
       expect(res).to.be.an('array')
