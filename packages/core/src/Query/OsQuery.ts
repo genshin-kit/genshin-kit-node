@@ -31,7 +31,12 @@ export class OsQuery extends BaseQuery {
           path,
           'https://bbs-api-os.mihoyo.com/game_record/genshin/api/'
         )}`,
-        headers: osHeader({ cookie: this.#cookie, locale: this.locale }),
+        headers: osHeader({
+          cookie: this.#cookie,
+          query: params,
+          body: data,
+          locale: this.locale,
+        }),
         params,
         data,
         withCredentials: true,
