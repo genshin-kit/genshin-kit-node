@@ -1,5 +1,5 @@
 import { URLSearchParams } from 'url'
-import { getCnDS } from '@genshin-kit/dynamic-secret'
+import { getCnDS, HOYOLAB_VERSION } from '@genshin-kit/dynamic-secret'
 
 export function cnHeader({
   cookie,
@@ -23,7 +23,7 @@ export function cnHeader({
       'https://webstatic.mihoyo.com/app/community-game-records/index.html?v=6',
     'User-Agent':
       'Mozilla/5.0 (Linux; Android 9; Unspecified Device) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/39.0.0.0 Mobile Safari/537.36 miHoYoBBS/2.11.1',
-    'x-rpc-app_version': '2.11.1',
+    'x-rpc-app_version': HOYOLAB_VERSION.cn,
     'x-rpc-client_type': '5',
     'x-rpc-language': locale ?? 'zh-cn',
     'X-Requested-With': 'com.mihoyo.hyperion',
