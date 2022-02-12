@@ -6,7 +6,7 @@ import { CharacterNickname } from '.'
 import { Character } from '../types/Character'
 
 export class CharactersFilter {
-  #list: Character[] = []
+  #list: Character[]
   nicknameFilter: CharacterNickname
 
   constructor(avatars: Character[]) {
@@ -55,7 +55,7 @@ export class CharactersFilter {
       草: 'dendro',
       grass: 'dendro',
     }
-    el = elAlias[el] || el
+    el = elAlias[el] ?? el
 
     return this.#list.filter(({ element }) => element.toLowerCase() === el)
   }
@@ -68,7 +68,7 @@ export class CharactersFilter {
     let queryRarity: number[] = []
     if (typeof rarity === 'number') {
       queryRarity = [rarity]
-    } else if (rarity.constructor !== Array) {
+    } else if (!Array.isArray(rarity)) {
       return []
     }
 

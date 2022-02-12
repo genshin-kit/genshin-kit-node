@@ -3,7 +3,7 @@ import { expect } from 'chai'
 import { env } from 'process'
 import { CnQuery } from '../src/Query'
 
-describe('cn query', () => {
+describe('GenshinKit CN queries', () => {
   const query = new CnQuery()
   query.cookie = env.HOYOLAB_COOKIE ?? ''
 

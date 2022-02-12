@@ -2,19 +2,25 @@
   "name": "@genshin-kit/core",
   "version": "2.6.0",
   "description": "An API wrapper for fetching player data of Genshin Impact from any servers.",
-  "main": "lib/index.js",
+  "main": "./src/index.ts",
   "files": [
     "lib"
   ],
-  "typings": "lib/index.d.ts",
+  "publishConfig": {
+    "main": "./lib/index.js",
+    "exports": "./lib/index.js",
+    "types": "./lib/index.d.ts"
+  },
   "repository": {
     "url": "https://github.com/genshin-kit/genshin-kit.git",
     "directory": "packages/core"
   },
-  "author": "Dragon-Fish <824399619@qq.com>",
+  "contributors": [
+    "Dragon-Fish <824399619@qq.com>"
+  ],
   "license": "Apache-2.0",
   "scripts": {
-    "build": "yarn clear && tsc",
+    "build": "pnpm clear && tsc",
     "dev": "tsc --watch",
     "clear": "rimraf ./lib ./dist",
     "bump": "pnpm lint && pnpm test && pnpm pretty && pnpm build && bump",

@@ -1,4 +1,3 @@
-import { serverArea } from './ServerArea'
 import { cookieToObj } from './Cookie'
 import { CnQuery, OsQuery } from './Query'
 
@@ -73,7 +72,8 @@ export class GenshinKit {
     this.#serverType = value
     this.#query = this.#serverType === 'cn' ? new CnQuery() : new OsQuery()
     this.#query.locale = this.serverLocale
-    this.#cookie = ''
+    this.clearCookie()
+    this.clearCache()
   }
 
   static #throwIfError(data: {
@@ -95,7 +95,7 @@ export class GenshinKit {
     this.#cache = {}
   }
 
-  #updateCache(uid: number, data: any): void {
+  #updateCache(uid: number, data: Record<string, any>): void {
     if (!this.#cache[uid]) {
       this.#cache[uid] = {}
     }
@@ -210,13 +210,7 @@ export class GenshinKit {
   }
 
   async activities(uid: number): Promise<Activities> {
-    const server = serverArea(uid)
-    const data = await this.#query.get('activities', {
-      params: {
-        role_id: String(uid),
-        server,
-      },
-    })
+    const data = await this.#query.getWithUid('activities', uid)
     GenshinKit.#throwIfError(data)
     return data.data
   }

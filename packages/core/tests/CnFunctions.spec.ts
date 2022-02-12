@@ -8,8 +8,7 @@ const app = new GenshinKit()
 const query = new CnQuery()
 app.cookie = env.HOYOLAB_COOKIE ?? ''
 query.cookie = env.HOYOLAB_COOKIE ?? ''
-
-async function getUid(): Promise<number> {
+;(async function getUid(): Promise<number> {
   const res = await query.get(
     'https://api-takumi.mihoyo.com/binding/api/getUserGameRolesByCookie'
   )
@@ -17,14 +16,12 @@ async function getUid(): Promise<number> {
   return res.data.list.find((item: any) =>
     ['hk4e_cn', 'hk4e_global'].includes(item.game_biz)
   )?.game_uid
-}
-
-getUid().then((uid) => {
-  describe('GenshinKit CN server functions', () => {
+})().then((uid) => {
+  describe('GenshinKit CN functions', () => {
     it('selfBindingRoles', async () => {
       const res = await app.selfBindingRoles()
       expect(res).to.be.an('array')
-      expect(['hk4e_cn', 'hk4e_global']).to.be.includes(res[0].game_biz)
+      expect(['hk4e_cn', 'hk4e_global']).to.includes(res[0].game_biz)
     })
 
     it('userInfo', async () => {
