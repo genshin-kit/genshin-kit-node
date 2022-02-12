@@ -180,7 +180,7 @@ export class GenshinKit {
 
     const data = await this.#query.getWithUid('spiralAbyss', uid, {
       params: {
-        schedule_type: String(type),
+        schedule_type: type.toString(),
       },
     })
     GenshinKit.#throwIfError(data)

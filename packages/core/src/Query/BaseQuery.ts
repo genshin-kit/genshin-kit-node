@@ -6,7 +6,7 @@ import { AppServerLocale, ServerArea } from '../types'
 
 export class BaseQuery {
   locale: AppServerLocale = 'zh-cn'
-  defaultParams(uid: number): { role_id: string; server: ServerArea } {
+  static defaultParams(uid: number): { role_id: string; server: ServerArea } {
     return {
       role_id: uid.toString(),
       server: serverArea(uid),
@@ -33,7 +33,7 @@ export class BaseQuery {
       params?: URLSearchParams | Record<string, string | string[]>
     } = {}
   ): Promise<any> {
-    const defaultParams = this.defaultParams(uid)
+    const defaultParams = BaseQuery.defaultParams(uid)
     return this.get(path, { params: { ...defaultParams, ...params } })
   }
 
@@ -61,7 +61,7 @@ export class BaseQuery {
       data?: any
     } = {}
   ): Promise<any> {
-    const defaultParams = this.defaultParams(uid)
+    const defaultParams = BaseQuery.defaultParams(uid)
     return this.send('POST', path, { params, data: { ...defaultParams, data } })
   }
 
