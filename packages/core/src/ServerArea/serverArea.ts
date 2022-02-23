@@ -1,7 +1,7 @@
 import { ServerArea } from '../types'
 
 export function serverArea(uid: string | number): ServerArea {
-  switch (String(+uid)[0]) {
+  switch (uid.toString()[0]) {
     case '1':
     case '2':
       return 'cn_gf01'
@@ -16,6 +16,6 @@ export function serverArea(uid: string | number): ServerArea {
     case '9':
       return 'os_cht'
     default:
-      throw { code: -1, message: 'Invalid uid' }
+      throw new Error('Invalid uid')
   }
 }

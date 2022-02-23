@@ -23,7 +23,7 @@ function filter(data: GachaInfoI18nData[], names: string[]) {
     .filter((i) => names.includes(i.item_type))
     .map(({ item_id, item_type, name, rank_type }) => {
       return {
-        item_id: String(Number(item_id) - 1000 + 10000000),
+        item_id: (+item_id - 1000 + 10000000).toString(),
         name,
         item_type,
         rank_type,

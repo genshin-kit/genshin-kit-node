@@ -50,7 +50,7 @@ export class GenshinKit {
 
   set cookie(value: string) {
     const o = cookieToObj(value)
-    if (!o.ltoken && !o.ltuid) throw { code: -1, message: 'Invalid cookie' }
+    if (!o.ltoken && !o.ltuid) throw new Error('Invalid cookie')
     this.#cookie = value
     this.#query.cookie = value
   }
@@ -175,7 +175,7 @@ export class GenshinKit {
    */
   async spiralAbyssNoCache(uid: number, type: 1 | 2 = 1): Promise<Abyss> {
     if (type !== 1 && type !== 2) {
-      throw { code: -1, message: 'Invalid abyss type' }
+      throw new Error('Invalid abyss type')
     }
 
     const data = await this.#query.getWithUid('spiralAbyss', uid, {
