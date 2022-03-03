@@ -8,7 +8,7 @@ const app = new GenshinKit()
 const query = new CnQuery()
 app.cookie = env.HOYOLAB_COOKIE ?? ''
 query.cookie = env.HOYOLAB_COOKIE ?? ''
-;(async function getUid(): Promise<number> {
+;(async (): Promise<number> => {
   const res = await query.get(
     'https://api-takumi.mihoyo.com/binding/api/getUserGameRolesByCookie'
   )
