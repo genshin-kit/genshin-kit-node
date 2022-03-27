@@ -9,7 +9,7 @@ describe('GenshinKit CN queries', () => {
 
   it('Get user game role by cookie', async () => {
     let res = await query.get(
-      'https://api-takumi.mihoyo.com/binding/api/getUserGameRolesByCookie'
+      'https://api-takumi-record.mihoyo.com/binding/api/getUserGameRolesByCookie'
     )
     const user = res.data.list.find((item: any) =>
       ['hk4e_cn', 'hk4e_global'].includes(item.game_biz)

@@ -10,7 +10,7 @@ app.cookie = env.HOYOLAB_COOKIE ?? ''
 query.cookie = env.HOYOLAB_COOKIE ?? ''
 ;(async (): Promise<number> => {
   const res = await query.get(
-    'https://api-takumi.mihoyo.com/binding/api/getUserGameRolesByCookie'
+    'https://api-takumi-record.mihoyo.com/binding/api/getUserGameRolesByCookie'
   )
   // 保证获取到的是原神游戏 uid
   return res.data.list.find((item: any) =>
