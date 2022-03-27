@@ -16,7 +16,7 @@ export function getDS(
 ): string {
   const time = Math.floor(Date.now() / 1000)
   // Integer between 100000 - 200000
-  const random = Math.floor(Math.random() * (200000 - 100000 + 1)) + 100000
+  const random = crypto.randomInt(100000, 200000)
 
   const b = body ? JSON.stringify(sortKeys(body)) : ''
   const q = new URLSearchParams(query)

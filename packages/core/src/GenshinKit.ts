@@ -1,4 +1,4 @@
-import { cookieToObj } from './Cookie'
+import cookie from 'cookie'
 import { CnQuery, OsQuery } from './Query'
 
 // Types
@@ -16,7 +16,6 @@ import {
 
 export class GenshinKit {
   #cache: AppCache = {}
-  #cookie = ''
   #query: CnQuery | OsQuery = new CnQuery()
   #serverLocale: AppServerLocale = 'zh-cn'
   #serverType: AppServerType = 'cn'
@@ -44,14 +43,12 @@ export class GenshinKit {
   }
 
   get cookie() {
-    const o = cookieToObj(this.#cookie)
-    return `ltoken=${o.ltoken}; ltuid=${o.ltuid}`
+    return this.#query.cookie
   }
 
   set cookie(value: string) {
-    const o = cookieToObj(value)
+    const o = cookie.parse(value)
     if (!o.ltoken && !o.ltuid) throw new Error('Invalid cookie')
-    this.#cookie = value
     this.#query.cookie = value
   }
 
@@ -87,7 +84,6 @@ export class GenshinKit {
   }
 
   clearCookie(): void {
-    this.#cookie = ''
     this.#query.cookie = ''
   }
 

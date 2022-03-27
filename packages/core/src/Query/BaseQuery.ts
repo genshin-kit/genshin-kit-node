@@ -70,6 +70,6 @@ export class BaseQuery {
     _path: string,
     _config: Record<string, any>
   ): Promise<any> {
-    throw new Error('Not implemented')
+    throw new Error('Child class must implement this method')
   }
 }
