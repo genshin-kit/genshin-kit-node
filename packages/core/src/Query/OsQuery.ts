@@ -29,7 +29,7 @@ export class OsQuery extends BaseQuery {
         method,
         url: `${new URL(
           path,
-          'https://bbs-api-os.mihoyo.com/game_record/genshin/api/'
+          'https://bbs-api-os.hoyolab.com/game_record/genshin/api/'
         )}`,
         headers: osHeader({
           cookie: this.#cookie,
