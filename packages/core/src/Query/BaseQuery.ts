@@ -62,7 +62,10 @@ export class BaseQuery {
     } = {}
   ): Promise<any> {
     const defaultParams = BaseQuery.defaultParams(uid)
-    return this.send('POST', path, { params, data: { ...defaultParams, data } })
+    return this.send('POST', path, {
+      params,
+      data: { ...defaultParams, ...data },
+    })
   }
 
   async send(

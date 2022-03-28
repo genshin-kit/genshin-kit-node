@@ -10,7 +10,7 @@ app.cookie = env.HOYOLAB_COOKIE ?? ''
 query.cookie = env.HOYOLAB_COOKIE ?? ''
 ;(async (): Promise<number> => {
   const res = await query.get(
-    'https://api-takumi-record.mihoyo.com/binding/api/getUserGameRolesByCookie'
+    'https://api-takumi.mihoyo.com/binding/api/getUserGameRolesByCookie'
   )
   // 保证获取到的是原神游戏 uid
   return res.data.list.find((item: any) =>
@@ -30,8 +30,8 @@ query.cookie = env.HOYOLAB_COOKIE ?? ''
       expect(res.avatars).to.be.an('array')
     })
 
-    it('userRoles', async () => {
-      const res = await app.userRoles(uid)
+    it('characters', async () => {
+      const res = await app.characters(uid)
       expect(res).to.be.an('array')
       expect(res[0].id).to.be.an('number')
       expect(res[0].name).to.be.an('string')
@@ -41,18 +41,14 @@ query.cookie = env.HOYOLAB_COOKIE ?? ''
       const res = await app.abyss(uid, 1)
       const cur = await app.currentAbyss(uid)
 
-      const now = new Date()
-      const year = now.getFullYear()
-      const month = now.getMonth() + 1
-
       expect(res).to.be.an('object')
       expect(res.start_time).to.eq(cur.start_time)
       expect(
         // 北京时间
         new Date(Number(res.start_time) * 1000 + 8 * 60 * 60 * 1000)
           .toISOString()
-          .startsWith(`${year}-${month}`)
-      ).to.eq(true)
+          .slice(0, 7)
+      ).to.eq(new Date().toISOString().slice(0, 7))
     })
 
     it('activities', async () => {

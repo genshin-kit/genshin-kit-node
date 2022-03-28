@@ -29,7 +29,7 @@ export class CnQuery extends BaseQuery {
         method,
         url: `${new URL(
           path,
-          'https://api-takumi-record.mihoyo.com/game_record/genshin/api/'
+          'https://api-takumi-record.mihoyo.com/game_record/app/genshin/api/'
         )}`,
         headers: cnHeader({
           cookie: this.#cookie,

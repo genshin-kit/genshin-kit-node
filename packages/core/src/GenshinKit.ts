@@ -136,17 +136,7 @@ export class GenshinKit {
   }
 
   async allCharactersNoCache(uid: number): Promise<Character[]> {
-    const userInfo = await this.userInfo(uid)
-    const character_ids = userInfo.avatars.map((item) => {
-      return item.id
-    })
-
-    const data = await this.#query.postWithUid('character', uid, {
-      data: {
-        character_ids,
-      },
-    })
-
+    const data = await this.#query.postWithUid('character', uid)
     GenshinKit.#throwIfError(data)
 
     const result = data?.data?.avatars ?? []
