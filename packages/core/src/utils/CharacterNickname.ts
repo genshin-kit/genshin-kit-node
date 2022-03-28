@@ -1,6 +1,6 @@
-import * as defaultNames from './defaultNames.json'
+import names from './defaultNames.json'
 export class CharacterNickname {
-  #nicknameList: NicknameList[] = defaultNames.nicknames
+  #nicknameList: NicknameList[] = names
 
   addNicknames(id: number, nicknames: string | string[]): this {
     if (!this.#nicknameList.find(({ id: id1 }) => id1 === id)) {
